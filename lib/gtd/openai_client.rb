@@ -4,10 +4,7 @@ require_relative 'config'
 module GTD
   class OpenAIClient
     def initialize
-      OpenAI.configure do |config|
-        config.access_token = Config.openai_api_key
-      end
-      @client = OpenAI::Client.new
+      @client = OpenAI::Client.new(access_token: Config.openai_api_key)
     end
 
     # Process a task and reword it as a "next action" using GPT
@@ -17,14 +14,14 @@ module GTD
           model: Config.openai_model,
           messages: [
             { role: "system", content: system_prompt },
-            { role: "user", content: "Reword this task as a specific next action: #{task_description}" }
+            { role: "user", content: "Judge if this task is an effective next action. If it is, say: 'N/A'. If it can be done in less than 2 minutes, say: 'DO IT NOW'. Otherwise, reword this task as a specific next action: #{task_description}" }
           ],
           temperature: 0.7
         }
       )
 
-      if response['error']
-        STDERR.puts "Error from OpenAI API: #{response['error']['message']}"
+      if response.dig('error')
+        STDERR.puts "Error from OpenAI API: #{response.dig('error', 'message')}"
         return task_description
       end
 
@@ -59,7 +56,7 @@ module GTD
         - Vague: "Research vacation options"
           Next action: "Create Google Doc with 3 potential destinations and estimated costs for July trip"
 
-        Make your rewording concise but specific.
+        Make your rewording concise, usually less than 140 characters, but specific.
       PROMPT
     end
   end

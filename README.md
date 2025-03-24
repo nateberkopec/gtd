@@ -6,6 +6,7 @@ A set of command-line utilities that integrate with Todoist and OpenAI to help i
 
 - `todo-get`: Retrieves and displays all your tasks from Todoist
 - `next-action`: Analyzes a task and rewrites it as a clear, actionable "next action" following GTD principles
+- `openai-models`: Lists available OpenAI models for use with the `next-action` command
 
 ## Installation
 
@@ -37,6 +38,7 @@ A set of command-line utilities that integrate with Todoist and OpenAI to help i
    # Option 2: Create symlinks in a directory already in your PATH
    ln -s /path/to/gtd/bin/todo-get /usr/local/bin/todo-get
    ln -s /path/to/gtd/bin/next-action /usr/local/bin/next-action
+   ln -s /path/to/gtd/bin/openai-models /usr/local/bin/openai-models
    ```
 
 ## Usage
@@ -81,6 +83,54 @@ Run with verbose output:
 
 ```
 echo "Prepare presentation" | next-action --verbose
+```
+
+### `openai-models`
+
+List all available OpenAI models for your account:
+
+```
+openai-models
+```
+
+Filter models by name (useful for finding specific model versions):
+
+```
+openai-models --filter gpt-4
+```
+
+The model used for the `next-action` command can be configured in your `.env` file by setting the `OPENAI_MODEL` variable.
+
+## Using Pipes
+
+These commands work well with standard Unix pipes. Here are some useful examples:
+
+### Limiting Output
+
+To limit the output to the first 10 lines:
+
+```
+todo-get | head -n 10
+```
+
+### Filtering and Processing
+
+Get only tasks containing "Project" and limit to first 5:
+
+```
+todo-get | grep "Project" | head -n 5
+```
+
+Process the first 3 tasks into next actions:
+
+```
+todo-get | head -n 3 | while read -r line; do echo "$line" | next-action; done
+```
+
+Fetch tasks from a specific project, limit to 10, and save to a file:
+
+```
+todo-get --project "Work" | head -n 10 > work_tasks.txt
 ```
 
 ## License

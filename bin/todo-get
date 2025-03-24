@@ -1,5 +1,9 @@
 #!/usr/bin/env ruby
 
+# Set up bundler to use the correct gems
+require 'rubygems'
+require 'bundler/setup'
+
 require 'optparse'
 require_relative '../lib/gtd'
 
