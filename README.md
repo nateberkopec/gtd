@@ -6,7 +6,7 @@ A set of command-line utilities that integrate with Todoist and OpenAI to help i
 
 - `todo-get`: Retrieves and displays all your tasks from Todoist
 - `next-action`: Analyzes a task and rewrites it as a clear, actionable "next action" following GTD principles
-- `openai-models`: Lists available OpenAI models for use with the `next-action` command/your .env
+- `openai-models`: Lists available OpenAI models for use with the `next-action` command
 
 ## Installation
 

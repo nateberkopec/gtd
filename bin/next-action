@@ -23,9 +23,6 @@ optparse = OptionParser.new do |opts|
   opts.on('-b', '--batch SIZE', Integer, 'Process multiple tasks in batches of SIZE (default: 10)') do |size|
     options[:batch_size] = size
   end
-  opts.on('-m', '--match-input', 'Match output format to input (one task per line)') do
-    options[:match_input] = true
-  end
 end
 
 begin
@@ -67,19 +64,11 @@ begin
   end
 
   # Output results
-  if options[:match_input]
-    # Simple output - one task per line
-    results.each do |result|
-      puts result
-    end
-  else
-    # Detailed output with original and new task
-    tasks.zip(results).each_with_index do |(original, next_action), index|
-      puts "Task #{index + 1}:" if tasks.size > 1
-      puts "Original: #{original}" if $VERBOSE || tasks.size > 1
-      puts "Next action: #{next_action}"
-      puts "" if tasks.size > 1 && index < tasks.size - 1
-    end
+  tasks.zip(results).each_with_index do |(original, next_action), index|
+    puts "Task #{index + 1}:" if tasks.size > 1
+    puts "Original: #{original}" if $VERBOSE || tasks.size > 1
+    puts "Next action: #{next_action}"
+    puts "" if tasks.size > 1 && index < tasks.size - 1
   end
 rescue => e
   STDERR.puts "Error: #{e.message}"
