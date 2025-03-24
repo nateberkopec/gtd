@@ -7,7 +7,10 @@ require 'bundler/setup'
 require 'optparse'
 require_relative '../lib/gtd'
 
-options = {}
+options = {
+  batch_size: 10 # Default batch size
+}
+
 optparse = OptionParser.new do |opts|
   opts.banner = "Usage: next-action [options]"
   opts.on('-h', '--help', 'Display this help message') do
@@ -16,6 +19,12 @@ optparse = OptionParser.new do |opts|
   end
   opts.on('-v', '--verbose', 'Run with verbose output') do
     $VERBOSE = true
+  end
+  opts.on('-b', '--batch SIZE', Integer, 'Process multiple tasks in batches of SIZE (default: 10)') do |size|
+    options[:batch_size] = size
+  end
+  opts.on('-m', '--match-input', 'Match output format to input (one task per line)') do
+    options[:match_input] = true
   end
 end
 
@@ -30,28 +39,50 @@ end
 begin
   # Check if there's input from stdin
   if STDIN.tty?
-    STDERR.puts "Error: Please pipe a task to this command"
+    STDERR.puts "Error: Please pipe tasks to this command"
     STDERR.puts "Example: echo 'Update the website' | next-action"
+    STDERR.puts "For multiple tasks: cat tasks.txt | next-action"
     exit 1
   end
 
-  # Read the task from stdin
-  task = STDIN.read.strip
+  # Read all tasks from stdin
+  tasks = STDIN.readlines.map(&:strip).reject(&:empty?)
 
-  if task.empty?
-    STDERR.puts "Error: Empty task received"
+  if tasks.empty?
+    STDERR.puts "Error: No tasks received"
     exit 1
   end
 
-  puts "Processing task: #{task}" if $VERBOSE
+  puts "Processing #{tasks.size} task(s) in batches of #{options[:batch_size]}" if $VERBOSE
 
-  # Create OpenAI client and process the task
+  # Create OpenAI client
   client = GTD::OpenAIClient.new
-  next_action = client.process_next_action(task)
 
-  puts "Original task: #{task}" if $VERBOSE
-  puts next_action
+  # Process tasks in batches
+  results = []
+  tasks.each_slice(options[:batch_size]) do |batch|
+    puts "Processing batch of #{batch.size} tasks..." if $VERBOSE
+    batch_results = client.process_next_actions(batch)
+    results.concat(batch_results)
+  end
+
+  # Output results
+  if options[:match_input]
+    # Simple output - one task per line
+    results.each do |result|
+      puts result
+    end
+  else
+    # Detailed output with original and new task
+    tasks.zip(results).each_with_index do |(original, next_action), index|
+      puts "Task #{index + 1}:" if tasks.size > 1
+      puts "Original: #{original}" if $VERBOSE || tasks.size > 1
+      puts "Next action: #{next_action}"
+      puts "" if tasks.size > 1 && index < tasks.size - 1
+    end
+  end
 rescue => e
   STDERR.puts "Error: #{e.message}"
+  STDERR.puts e.backtrace if $VERBOSE
   exit 1
 end

@@ -14,9 +14,6 @@ optparse = OptionParser.new do |opts|
     puts opts
     exit
   end
-  opts.on('-f', '--filter FILTER', 'Filter models by string (case insensitive)') do |filter|
-    options[:filter] = filter.downcase
-  end
 end
 
 begin
@@ -44,12 +41,6 @@ begin
 
   # Sort models by ID
   models.sort_by! { |model| model['id'] }
-
-  # Apply filter if provided
-  if options[:filter]
-    models.select! { |model| model['id'].downcase.include?(options[:filter]) }
-    puts "Showing models matching '#{options[:filter]}'"
-  end
 
   # Display the models
   puts "Available OpenAI Models:"
