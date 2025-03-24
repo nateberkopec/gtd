@@ -1,0 +1,84 @@
+#!/usr/bin/env ruby
+
+# Set up bundler to use the correct gems
+require 'rubygems'
+require 'bundler/setup'
+
+require 'optparse'
+require_relative '../lib/gtd'
+
+options = {
+  batch_size: 10, # Default batch size
+  only_delegatable: true # Whether to only show delegatable tasks
+}
+
+optparse = OptionParser.new do |opts|
+  opts.banner = "Usage: delegatable [options]"
+  opts.on('-h', '--help', 'Display this help message') do
+    puts opts
+    exit
+  end
+  opts.on('-v', '--verbose', 'Run with verbose output') do
+    $VERBOSE = true
+  end
+  opts.on('-b', '--batch SIZE', Integer, 'Process multiple tasks in batches of SIZE (default: 10)') do |size|
+    options[:batch_size] = size
+  end
+  opts.on('-d', '--only-delegatable', 'Only show tasks that can be delegated') do
+    options[:only_delegatable] = true
+  end
+end
+
+begin
+  optparse.parse!
+rescue OptionParser::InvalidOption => e
+  puts e.message
+  puts optparse
+  exit 1
+end
+
+begin
+  # Check if there's input from stdin
+  if STDIN.tty?
+    STDERR.puts "Error: Please pipe tasks to this command"
+    STDERR.puts "Example: echo 'Update the website' | delegatable"
+    STDERR.puts "For multiple tasks: cat tasks.txt | delegatable"
+    exit 1
+  end
+
+  # Read all tasks from stdin
+  tasks = STDIN.readlines.map(&:strip).reject(&:empty?)
+
+  if tasks.empty?
+    STDERR.puts "Error: No tasks received"
+    exit 1
+  end
+
+  puts "Processing #{tasks.size} task(s) in batches of #{options[:batch_size]}" if $VERBOSE
+
+  # Create OpenAI client
+  client = GTD::OpenAIClient.new
+
+  # Process tasks in batches
+  results = []
+  tasks.each_slice(options[:batch_size]) do |batch|
+    puts "Processing batch of #{batch.size} tasks..." if $VERBOSE
+    batch_results = client.process_delegatable_tasks(batch)
+    results.concat(batch_results)
+  end
+
+  # Output results
+  tasks.zip(results).each_with_index do |(original, analysis), index|
+    next if options[:only_delegatable] && analysis.start_with?('NOT DELEGATABLE:')
+
+    puts "Task #{index + 1}:" if tasks.size > 1
+    puts "Original: #{original}" if $VERBOSE || tasks.size > 1
+    puts "Analysis: #{analysis}"
+    puts "" if tasks.size > 1 && index < tasks.size - 1
+  end
+
+rescue => e
+  STDERR.puts "Error: #{e.message}"
+  STDERR.puts e.backtrace if $VERBOSE
+  exit 1
+end

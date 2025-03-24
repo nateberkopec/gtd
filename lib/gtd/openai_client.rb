@@ -45,6 +45,35 @@ module GTD
       parse_response(content, task_descriptions)
     end
 
+    # Process multiple tasks to determine if they can be delegated
+    def process_delegatable_tasks(task_descriptions)
+      return [] if task_descriptions.empty?
+
+      # Create a formatted message with all tasks
+      formatted_tasks = task_descriptions.map.with_index do |task, index|
+        "#{index + 1}. #{task}"
+      end.join("\n")
+
+      response = @client.chat(
+        parameters: {
+          model: Config.openai_model,
+          messages: [
+            { role: "system", content: system_prompt_delegatable },
+            { role: "user", content: "Analyze these tasks and determine if they could be delegated to an executive assistant or handled by AI. For each task, respond with either 'DELEGATE TO EA: <reason>' if it's suitable for an EA, 'AI TASK: <reason>' if it could be handled by AI, or 'NOT DELEGATABLE: <reason>' if it requires personal attention. The tasks are:\n#{formatted_tasks}" }
+          ],
+          temperature: 0.7
+        }
+      )
+
+      if response.dig('error')
+        STDERR.puts "Error from OpenAI API: #{response.dig('error', 'message')}"
+        return task_descriptions
+      end
+
+      content = response.dig('choices', 0, 'message', 'content').strip
+      parse_delegatable_response(content, task_descriptions)
+    end
+
     private
 
     def parse_response(content, original_tasks)
@@ -70,6 +99,31 @@ module GTD
 
       # Make sure we have the same number of results as inputs
       # If not, pad with original tasks
+      if results.size < original_tasks.size
+        results += original_tasks[results.size..-1]
+      elsif results.size > original_tasks.size
+        results = results[0...original_tasks.size]
+      end
+
+      results
+    end
+
+    def parse_delegatable_response(content, original_tasks)
+      lines = content.split("\n")
+      results = []
+      current_analysis = ""
+
+      lines.each do |line|
+        if line.match(/^\s*\d+[\.\)]\s+/)
+          results << current_analysis.strip unless current_analysis.empty?
+          current_analysis = line.sub(/^\s*\d+[\.\)]\s+/, '')
+        else
+          current_analysis += " " + line.strip unless line.strip.empty?
+        end
+      end
+
+      results << current_analysis.strip unless current_analysis.empty?
+
       if results.size < original_tasks.size
         results += original_tasks[results.size..-1]
       elsif results.size > original_tasks.size
@@ -113,6 +167,45 @@ module GTD
       <<~PROMPT
         For each numbered task I provide, reword it as a specific next action.
         Return your answers with the same numbering, ensuring each response is on a new line.
+      PROMPT
+    end
+
+    def system_prompt_delegatable
+      <<~PROMPT
+        You are an expert in task management and delegation.
+        Your role is to analyze tasks and determine if they could be effectively delegated to:
+        1. An Executive Assistant (EA)
+        2. Artificial Intelligence (AI)
+
+        Guidelines for delegation:
+
+        EA-Suitable Tasks:
+        - Administrative work (scheduling, travel arrangements, filing)
+        - Research that doesn't require domain expertise
+        - Email management and correspondence
+        - Data entry and organization
+        - Basic financial tasks (expense reports, invoicing)
+        - Meeting coordination
+        - Document preparation and formatting
+
+        AI-Suitable Tasks:
+        - Data analysis and processing
+        - Content generation or editing
+        - Translation work
+        - Basic research and summarization
+        - Image or media processing
+        - Code review or documentation
+        - Pattern recognition tasks
+
+        NOT Delegatable Tasks:
+        - Strategic decisions
+        - Personal relationships and networking
+        - Creative direction
+        - Core business strategy
+        - Personal commitments
+        - Tasks requiring a human's unique expertise or perspective
+
+        For each task, provide a brief explanation of why it fits the category you've chosen, and what the next action would be to get the EA or AI to complete the task. If the resulting next action would take less than 5 minutes, suggest doing it immediately.
       PROMPT
     end
   end
