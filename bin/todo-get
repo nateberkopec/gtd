@@ -1,0 +1,48 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+require_relative '../lib/gtd'
+
+options = {}
+optparse = OptionParser.new do |opts|
+  opts.banner = "Usage: todo-get [options]"
+  opts.on('-p', '--project PROJECT_NAME', 'Get tasks from a specific project') do |project|
+    options[:project] = project
+  end
+  opts.on('-h', '--help', 'Display this help message') do
+    puts opts
+    exit
+  end
+end
+
+begin
+  optparse.parse!
+rescue OptionParser::InvalidOption => e
+  puts e.message
+  puts optparse
+  exit 1
+end
+
+client = GTD::TodoistClient.new
+
+begin
+  tasks = if options[:project]
+            puts "Fetching tasks for project: #{options[:project]}" if $VERBOSE
+            client.get_tasks_by_project(options[:project])
+          else
+            puts "Fetching all tasks" if $VERBOSE
+            client.get_tasks
+          end
+
+  if tasks.empty?
+    puts "No tasks found#{options[:project] ? " for project #{options[:project]}" : ""}"
+    exit 0
+  end
+
+  tasks.each do |task|
+    puts task['content']
+  end
+rescue => e
+  STDERR.puts "Error: #{e.message}"
+  exit 1
+end

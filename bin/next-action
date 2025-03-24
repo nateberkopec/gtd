@@ -1,0 +1,53 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+require_relative '../lib/gtd'
+
+options = {}
+optparse = OptionParser.new do |opts|
+  opts.banner = "Usage: next-action [options]"
+  opts.on('-h', '--help', 'Display this help message') do
+    puts opts
+    exit
+  end
+  opts.on('-v', '--verbose', 'Run with verbose output') do
+    $VERBOSE = true
+  end
+end
+
+begin
+  optparse.parse!
+rescue OptionParser::InvalidOption => e
+  puts e.message
+  puts optparse
+  exit 1
+end
+
+begin
+  # Check if there's input from stdin
+  if STDIN.tty?
+    STDERR.puts "Error: Please pipe a task to this command"
+    STDERR.puts "Example: echo 'Update the website' | next-action"
+    exit 1
+  end
+
+  # Read the task from stdin
+  task = STDIN.read.strip
+
+  if task.empty?
+    STDERR.puts "Error: Empty task received"
+    exit 1
+  end
+
+  puts "Processing task: #{task}" if $VERBOSE
+
+  # Create OpenAI client and process the task
+  client = GTD::OpenAIClient.new
+  next_action = client.process_next_action(task)
+
+  puts "Original task: #{task}" if $VERBOSE
+  puts next_action
+rescue => e
+  STDERR.puts "Error: #{e.message}"
+  exit 1
+end
