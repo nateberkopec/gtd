@@ -1,2 +1,5 @@
 [tools]
 ruby = "latest"
+
+[env]
+_.file = '.env'

@@ -1,9 +1,5 @@
-require 'dotenv'
-
 module GTD
   module Config
-    # Load environment variables from .env file
-    Dotenv.load
 
     # Todoist API token
     def self.todoist_api_token
