@@ -9,35 +9,17 @@ GEM
       rexml
     csv (3.3.3)
     dotenv (3.1.7)
-    event_stream_parser (1.0.0)
-    faraday (2.12.2)
-      faraday-net_http (>= 2.0, < 3.5)
-      json
-      logger
-    faraday-multipart (1.1.0)
-      multipart-post (~> 2.0)
-    faraday-net_http (3.4.0)
-      net-http (>= 0.5.0)
     hashdiff (1.1.2)
     httparty (0.22.0)
       csv
       mini_mime (>= 1.0.0)
       multi_xml (>= 0.5.2)
     json (2.10.2)
-    logger (1.6.6)
     mini_mime (1.1.5)
     multi_xml (0.7.1)
       bigdecimal (~> 3.1)
-    multipart-post (2.4.1)
-    net-http (0.6.0)
-      uri
     public_suffix (6.0.1)
     rexml (3.4.1)
-    ruby-openai (8.0.0)
-      event_stream_parser (>= 0.3.0, < 2.0.0)
-      faraday (>= 1)
-      faraday-multipart (>= 1)
-    uri (1.0.3)
     webmock (3.25.1)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
@@ -51,7 +33,6 @@ DEPENDENCIES
   dotenv
   httparty
   json
-  ruby-openai
   webmock
 
 BUNDLED WITH

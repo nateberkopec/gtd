@@ -1,84 +1,199 @@
-#!/usr/bin/env ruby
+#!/bin/bash
 
-# Set up bundler to use the correct gems
-require 'rubygems'
-require 'bundler/setup'
+set -e
 
-require 'optparse'
-require_relative '../lib/gtd'
+BATCH_SIZE=10
+VERBOSE=false
+ONLY_DELEGATABLE=true
+MODEL=""
 
-options = {
-  batch_size: 10, # Default batch size
-  only_delegatable: true # Whether to only show delegatable tasks
+usage() {
+    echo "Usage: delegatable [options]"
+    echo ""
+    echo "Analyze tasks to determine if they can be delegated to an EA or AI."
+    echo ""
+    echo "Options:"
+    echo "  -h, --help              Display this help message"
+    echo "  -v, --verbose           Run with verbose output"
+    echo "  -b, --batch SIZE        Process tasks in batches of SIZE (default: 10)"
+    echo "  -a, --all               Show all tasks (including non-delegatable)"
+    echo "  -m, --model MODEL       Specify LLM model to use (default: llm default)"
+    echo ""
+    echo "Example:"
+    echo "  echo 'Schedule meeting with Bob' | delegatable"
+    echo "  cat tasks.txt | delegatable"
+    exit 0
 }
 
-optparse = OptionParser.new do |opts|
-  opts.banner = "Usage: delegatable [options]"
-  opts.on('-h', '--help', 'Display this help message') do
-    puts opts
-    exit
-  end
-  opts.on('-v', '--verbose', 'Run with verbose output') do
-    $VERBOSE = true
-  end
-  opts.on('-b', '--batch SIZE', Integer, 'Process multiple tasks in batches of SIZE (default: 10)') do |size|
-    options[:batch_size] = size
-  end
-  opts.on('-d', '--only-delegatable', 'Only show tasks that can be delegated') do
-    options[:only_delegatable] = true
-  end
-end
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        -h|--help)
+            usage
+            ;;
+        -v|--verbose)
+            VERBOSE=true
+            shift
+            ;;
+        -b|--batch)
+            BATCH_SIZE="$2"
+            shift 2
+            ;;
+        -a|--all)
+            ONLY_DELEGATABLE=false
+            shift
+            ;;
+        -m|--model)
+            MODEL="$2"
+            shift 2
+            ;;
+        *)
+            echo "Unknown option: $1" >&2
+            usage
+            ;;
+    esac
+done
 
-begin
-  optparse.parse!
-rescue OptionParser::InvalidOption => e
-  puts e.message
-  puts optparse
-  exit 1
-end
-
-begin
-  # Check if there's input from stdin
-  if STDIN.tty?
-    STDERR.puts "Error: Please pipe tasks to this command"
-    STDERR.puts "Example: echo 'Update the website' | delegatable"
-    STDERR.puts "For multiple tasks: cat tasks.txt | delegatable"
+# Check for stdin
+if [ -t 0 ]; then
+    echo "Error: Please pipe tasks to this command" >&2
+    echo "Example: echo 'Schedule meeting with Bob' | delegatable" >&2
+    echo "For multiple tasks: cat tasks.txt | delegatable" >&2
     exit 1
-  end
+fi
 
-  # Read all tasks from stdin
-  tasks = STDIN.readlines.map(&:strip).reject(&:empty?)
+# Read all tasks from stdin into an array (portable version)
+tasks=()
+while IFS= read -r line; do
+    [ -n "$line" ] && tasks+=("$line")
+done
 
-  if tasks.empty?
-    STDERR.puts "Error: No tasks received"
+if [ ${#tasks[@]} -eq 0 ]; then
+    echo "Error: No tasks received" >&2
     exit 1
-  end
+fi
 
-  puts "Processing #{tasks.size} task(s) in batches of #{options[:batch_size]}" if $VERBOSE
+$VERBOSE && echo "Processing ${#tasks[@]} task(s) in batches of $BATCH_SIZE" >&2
 
-  # Create OpenAI client
-  client = GTD::OpenAIClient.new
+SYSTEM_PROMPT='You are an expert in task management and delegation.
+Your role is to analyze tasks and determine if they could be effectively delegated to:
+1. An Executive Assistant (EA)
+2. Artificial Intelligence (AI)
 
-  # Process tasks in batches
-  results = []
-  tasks.each_slice(options[:batch_size]) do |batch|
-    puts "Processing batch of #{batch.size} tasks..." if $VERBOSE
-    batch_results = client.process_delegatable_tasks(batch)
-    results.concat(batch_results)
-  end
+Guidelines for delegation:
 
-  # Output results
-  tasks.zip(results).each_with_index do |(original, analysis), index|
-    next if options[:only_delegatable] && analysis.start_with?('NOT DELEGATABLE:')
+EA-Suitable Tasks:
+- Administrative work (scheduling, travel arrangements, filing)
+- Research that does not require domain expertise
+- Email management and correspondence
+- Data entry and organization
+- Basic financial tasks (expense reports, invoicing)
+- Meeting coordination
+- Document preparation and formatting
 
-    puts "Task #{index + 1}:" if tasks.size > 1
-    puts "Original: #{original}" if $VERBOSE || tasks.size > 1
-    puts "Analysis: #{analysis}"
-    puts "" if tasks.size > 1 && index < tasks.size - 1
-  end
+AI-Suitable Tasks:
+- Data analysis and processing
+- Content generation or editing
+- Translation work
+- Basic research and summarization
+- Image or media processing
+- Code review or documentation
+- Pattern recognition tasks
 
-rescue => e
-  STDERR.puts "Error: #{e.message}"
-  STDERR.puts e.backtrace if $VERBOSE
-  exit 1
-end
+NOT Delegatable Tasks:
+- Strategic decisions
+- Personal relationships and networking
+- Creative direction
+- Core business strategy
+- Personal commitments
+- Tasks requiring a human'\''s unique expertise or perspective
+
+For each task, respond with either:
+- "DELEGATE TO EA: <reason>" if suitable for an EA
+- "AI TASK: <reason>" if it could be handled by AI
+- "NOT DELEGATABLE: <reason>" if it requires personal attention
+
+Provide a brief explanation of why it fits the category you chose, and what the next action would be to get the EA or AI to complete the task. If the resulting next action would take less than 5 minutes, suggest doing it immediately.
+
+Return your answers with the same numbering as the input, ensuring each response is on a new line.'
+
+# Build model argument if specified
+MODEL_ARG=""
+if [ -n "$MODEL" ]; then
+    MODEL_ARG="-m $MODEL"
+fi
+
+# Process tasks in batches
+process_batch() {
+    local formatted=""
+    local i=1
+    local task
+
+    for task in "$@"; do
+        formatted+="$i. $task"$'\n'
+        i=$((i + 1))
+    done
+
+    $VERBOSE && echo "Processing batch of $# tasks..." >&2
+
+    # Call llm with the system prompt and formatted tasks
+    echo "$formatted" | llm $MODEL_ARG -s "$SYSTEM_PROMPT" --no-stream
+}
+
+# Process in batches and collect results
+all_results=""
+total=${#tasks[@]}
+i=0
+while [ $i -lt $total ]; do
+    # Build batch array
+    batch=()
+    j=0
+    while [ $j -lt $BATCH_SIZE ] && [ $((i + j)) -lt $total ]; do
+        batch+=("${tasks[$((i + j))]}")
+        j=$((j + 1))
+    done
+
+    result=$(process_batch "${batch[@]}")
+    all_results+="$result"$'\n'
+    i=$((i + BATCH_SIZE))
+done
+
+# Parse and display results
+task_index=0
+current_result=""
+
+output_result() {
+    # Skip non-delegatable if only_delegatable is true
+    if $ONLY_DELEGATABLE && echo "$current_result" | grep -q "^NOT DELEGATABLE"; then
+        return
+    fi
+
+    if [ ${#tasks[@]} -gt 1 ]; then
+        echo "Task $task_index:"
+        $VERBOSE && echo "Original: ${tasks[$((task_index-1))]}"
+        echo "Analysis: $current_result"
+        echo ""
+    else
+        echo "Analysis: $current_result"
+    fi
+}
+
+while IFS= read -r line; do
+    # Check if line starts with a number followed by . or )
+    if echo "$line" | grep -qE '^[[:space:]]*[0-9]+[.\)][[:space:]]+'; then
+        # Output previous result if we have one
+        if [ -n "$current_result" ] && [ $task_index -gt 0 ]; then
+            output_result
+        fi
+        task_index=$((task_index + 1))
+        # Extract the content after the number
+        current_result=$(echo "$line" | sed -E 's/^[[:space:]]*[0-9]+[.\)][[:space:]]+//')
+    elif [ -n "$line" ]; then
+        # Continue current result
+        current_result="$current_result $line"
+    fi
+done <<< "$all_results"
+
+# Output the last result
+if [ -n "$current_result" ] && [ $task_index -gt 0 ]; then
+    output_result
+fi

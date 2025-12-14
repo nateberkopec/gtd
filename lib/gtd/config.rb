@@ -14,15 +14,5 @@ module GTD
     def self.todoist_api_url
       'https://api.todoist.com/rest/v2'
     end
-
-    # OpenAI API token
-    def self.openai_api_key
-      ENV['OPENAI_API_KEY'] || raise("OPENAI_API_KEY not set in environment variables")
-    end
-
-    # OpenAI model to use
-    def self.openai_model
-      ENV['OPENAI_MODEL'] || 'gpt-4'
-    end
   end
 end

@@ -1,12 +1,17 @@
 # GTD Command Line Tools
 
-A set of command-line utilities that integrate with Todoist and OpenAI to help implement the Getting Things Done (GTD) methodology.
+A set of command-line utilities that integrate with Todoist and the `llm` CLI to help implement the Getting Things Done (GTD) methodology.
 
 ## Features
 
 - `todo-get`: Retrieves and displays all your tasks from Todoist
 - `next-action`: Analyzes a task and rewrites it as a clear, actionable "next action" following GTD principles
-- `openai-models`: Lists available OpenAI models for use with the `next-action` command
+- `delegatable`: Analyzes tasks to determine if they can be delegated to an EA or AI
+
+## Prerequisites
+
+- [llm](https://llm.datasette.io/) - Install with `pip install llm` or `brew install llm`
+- Ruby (for Todoist integration)
 
 ## Installation
 
@@ -16,20 +21,23 @@ A set of command-line utilities that integrate with Todoist and OpenAI to help i
    cd gtd
    ```
 
-2. Install dependencies:
+2. Install Ruby dependencies (for Todoist integration):
    ```
    bundle install
    ```
 
-3. Set up your environment variables:
+3. Configure the `llm` CLI with your API key:
+   ```
+   llm keys set openai
+   ```
+
+   Or configure another provider. See [llm documentation](https://llm.datasette.io/) for available models and providers.
+
+4. Set up your Todoist API token:
    ```
    cp .env.example .env
    ```
-
-4. Edit the `.env` file with your API keys:
-   - Get your Todoist API token from Todoist settings -> Integrations -> API token
-   - Get your OpenAI API key from [platform.openai.com](https://platform.openai.com)
-
+   Edit the `.env` file and add your Todoist API token from Todoist settings -> Integrations -> API token.
 
 ## Usage
 
@@ -75,15 +83,25 @@ Run with verbose output:
 echo "Prepare presentation" | next-action --verbose
 ```
 
-### `openai-models`
-
-List all available OpenAI models for your account:
+Specify a different model:
 
 ```
-openai-models
+echo "Plan vacation" | next-action -m gpt-4o
 ```
 
-The model used for the `next-action` command can be configured in your `.env` file by setting the `OPENAI_MODEL` variable.
+### `delegatable`
+
+Analyze tasks to see if they can be delegated:
+
+```
+echo "Schedule meeting with Bob" | delegatable
+```
+
+Show all tasks including non-delegatable:
+
+```
+cat tasks.txt | delegatable --all
+```
 
 ## Using Pipes
 
@@ -99,10 +117,32 @@ todo-get | head -n 10
 
 ### Filtering and Processing
 
-Process tasks in OpenAI network call batches of 20 (default 10):
+Process tasks in batches of 20 (default 10):
 
 ```
 todo-get | head -n 40 | next-action --batch 20
+```
+
+### Full Workflow
+
+Get tasks, find delegatable ones, and reword as next actions:
+
+```
+todo-get | delegatable --all | next-action
+```
+
+## Changing the Default Model
+
+The `llm` CLI allows you to set a default model:
+
+```
+llm models default gpt-4o
+```
+
+Or specify a model per-command with `-m`:
+
+```
+echo "My task" | next-action -m gpt-4o-mini
 ```
 
 ## License
