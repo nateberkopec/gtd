@@ -2,4 +2,5 @@
 ruby = "latest"
 
 [env]
+ _.path = ["./bin"]
 _.file = '.env'
