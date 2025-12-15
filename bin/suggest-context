@@ -5,4 +5,4 @@ require "rubygems"
 require "bundler/setup"
 require_relative "../lib/gtd"
 
-GTD::CLI::TodoGet.new.run
+GTD::CLI::SuggestContext.new.run

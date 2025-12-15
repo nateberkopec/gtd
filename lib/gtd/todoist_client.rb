@@ -40,13 +40,15 @@ module GTD
     private
 
     def handle_response(response)
-      if response.success?
-        JSON.parse(response.body)
-      else
-        STDERR.puts "Error: #{response.code} - #{response.message}"
-        STDERR.puts response.body if response.body
-        []
-      end
+      return JSON.parse(response.body) if response.success?
+
+      log_error(response)
+      []
+    end
+
+    def log_error(response)
+      STDERR.puts "Error: #{response.code} - #{response.message}"
+      STDERR.puts response.body if response.body
     end
 
     def find_project_by_name(name)
