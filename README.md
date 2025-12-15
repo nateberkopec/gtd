@@ -1,148 +1,203 @@
 # GTD Command Line Tools
 
-A set of command-line utilities that integrate with Todoist and the `llm` CLI to help implement the Getting Things Done (GTD) methodology.
+Tools that work with Todoist and the `llm` CLI. They help you get things done.
 
-## Features
+With these tools you can:
+- Turn vague tasks into clear next actions
+- Find tasks to give to others
+- Add context tags to tasks
+- See all your Todoist tasks
 
-- `todo-get`: Retrieves and displays all your tasks from Todoist
-- `next-action`: Analyzes a task and rewrites it as a clear, actionable "next action" following GTD principles
-- `delegatable`: Analyzes tasks to determine if they can be delegated to an EA or AI
+## What You Need
 
-## Prerequisites
-
+- [mise](https://mise.jdx.dev/) - Loads Ruby and reads your `.env` file
 - [llm](https://llm.datasette.io/) - Install with `pip install llm` or `brew install llm`
-- Ruby (for Todoist integration)
+- A Todoist account
 
-## Installation
+## Setup
 
-1. Clone this repository:
+1. Clone this repo:
    ```
    git clone <repository-url>
    cd gtd
    ```
 
-2. Install Ruby dependencies (for Todoist integration):
+2. Install Ruby gems:
    ```
    bundle install
    ```
 
-3. Configure the `llm` CLI with your API key:
+3. Set up your `llm` API key:
    ```
    llm keys set openai
    ```
+   See the [llm docs](https://llm.datasette.io/) for other models.
 
-   Or configure another provider. See [llm documentation](https://llm.datasette.io/) for available models and providers.
-
-4. Set up your Todoist API token:
+4. Add your Todoist API token to a `.env` file:
    ```
-   cp .env.example .env
+   echo "TODOIST_API_TOKEN=your_token_here" > .env
    ```
-   Edit the `.env` file and add your Todoist API token from Todoist settings -> Integrations -> API token.
+   Find your token in Todoist: Settings → Integrations → API token.
 
-## Usage
+5. Trust mise to load the `.env` file:
+   ```
+   mise trust
+   ```
+
+## Commands
 
 ### `todo-get`
 
-Display all your Todoist tasks:
+Shows all your Todoist tasks.
 
 ```
 todo-get
 ```
 
-Display tasks for a specific project:
+Show tasks from one project:
 
 ```
+todo-get -p "Work"
 todo-get --project "Work"
 ```
 
 ### `next-action`
 
-Rewrite a task as a GTD next action:
+Makes vague tasks clear. It tells you what to do next.
+
+Pipe a task to the command:
 
 ```
 echo "Plan vacation" | next-action
 ```
 
-This will output something like: "Create a list of 3 possible vacation destinations with available dates and budget estimates"
+You might see: "Make a list of 3 places with dates and costs"
 
-Process multiple tasks at once (more efficient):
+Process many tasks at once:
 
 ```
 cat tasks.txt | next-action
 ```
 
-You can combine these tools:
-
-```
-todo-get | grep "Project" | next-action
-```
-
-Run with verbose output:
-
-```
-echo "Prepare presentation" | next-action --verbose
-```
-
-Specify a different model:
-
-```
-echo "Plan vacation" | next-action -m gpt-4o
-```
+Options:
+- `-v, --verbose` - Show more detail
+- `-b, --batch SIZE` - Group size (default: 10)
+- `-m, --model MODEL` - Pick an LLM model
 
 ### `delegatable`
 
-Analyze tasks to see if they can be delegated:
+Finds tasks you can give to an assistant or AI.
 
 ```
 echo "Schedule meeting with Bob" | delegatable
 ```
 
-Show all tasks including non-delegatable:
+This only shows tasks you can hand off. To see all tasks:
 
 ```
+cat tasks.txt | delegatable -a
 cat tasks.txt | delegatable --all
 ```
 
-## Using Pipes
+Options:
+- `-a, --all` - Show all tasks
+- `-v, --verbose` - Show more detail
+- `-b, --batch SIZE` - Group size (default: 10)
+- `-m, --model MODEL` - Pick an LLM model
 
-These commands work well with standard Unix pipes. Here are some useful examples:
+### `suggest-context`
 
-### Limiting Output
+Adds tags to tasks. Tags tell you where or when you can do a task.
 
-To limit the output to the first 10 lines:
+```
+echo "Call mom about dinner" | suggest-context
+```
+
+Output:
+```
+Call mom about dinner
+  @calls @quick @anywhere
+```
+
+See all tags:
+
+```
+suggest-context -l
+suggest-context --list
+```
+
+Tags you can use:
+
+| Tag | What it means |
+|-----|---------------|
+| `@quick` | Under 2 minutes |
+| `@home` | Must be at home |
+| `@errand` | Must go out |
+| `@anywhere` | Any place works |
+| `@calls` | Need to call |
+| `@high_energy` | Need focus |
+| `@low_energy` | OK when tired |
+| `@va` | Give to assistant |
+| `@fun` | Fun to do |
+| `@ai` | LLM can help |
+| `@thinking` | Deep thought needed |
+
+Options:
+- `-l, --list` - Show all tags
+- `-v, --verbose` - Show more detail
+- `-b, --batch SIZE` - Group size (default: 10)
+- `-m, --model MODEL` - Pick an LLM model
+
+## Pipes and Workflows
+
+These tools work well with Unix pipes.
+
+Get the first 10 tasks:
 
 ```
 todo-get | head -n 10
 ```
 
-### Filtering and Processing
-
-Process tasks in batches of 20 (default 10):
+Use larger batches:
 
 ```
-todo-get | head -n 40 | next-action --batch 20
+todo-get | head -n 40 | next-action -b 20
 ```
 
-### Full Workflow
-
-Get tasks, find delegatable ones, and reword as next actions:
+Find tasks to hand off, then make them clear:
 
 ```
-todo-get | delegatable --all | next-action
+todo-get | delegatable | next-action
 ```
 
-## Changing the Default Model
+Add tags to your tasks:
 
-The `llm` CLI allows you to set a default model:
+```
+todo-get | suggest-context
+```
+
+## Pick a Model
+
+Set a default model for all `llm` calls:
 
 ```
 llm models default gpt-4o
 ```
 
-Or specify a model per-command with `-m`:
+Or pick one for a single call:
 
 ```
 echo "My task" | next-action -m gpt-4o-mini
+```
+
+## Files and Folders
+
+```
+bin/           - Commands you can run
+lib/gtd/       - Ruby code
+  cli/         - Code for each command
+  config.rb    - Settings
+  todoist_client.rb - Talks to Todoist
 ```
 
 ## License
