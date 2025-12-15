@@ -69,17 +69,17 @@ module TodoistMockHelper
       .to_return(
         status: 200,
         body: tasks.to_json,
-        headers: { "Content-Type" => "application/json" }
+        headers: {"Content-Type" => "application/json"}
       )
   end
 
   def stub_todoist_tasks_by_project(project_id, tasks)
     stub_request(:get, "#{TODOIST_API_BASE}/tasks")
-      .with(query: { project_id: project_id })
+      .with(query: {project_id: project_id})
       .to_return(
         status: 200,
         body: tasks.to_json,
-        headers: { "Content-Type" => "application/json" }
+        headers: {"Content-Type" => "application/json"}
       )
   end
 
@@ -88,7 +88,7 @@ module TodoistMockHelper
       .to_return(
         status: 200,
         body: projects.to_json,
-        headers: { "Content-Type" => "application/json" }
+        headers: {"Content-Type" => "application/json"}
       )
   end
 end

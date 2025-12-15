@@ -74,9 +74,9 @@ class DelegatableTest < Minitest::Test
     cli = GTD::CLI::Delegatable.new
 
     results = [
-      { index: 0, original: "Task 1", result: "DELEGATE TO EA: scheduling" },
-      { index: 1, original: "Task 2", result: "NOT DELEGATABLE: personal" },
-      { index: 2, original: "Task 3", result: "AI TASK: research" }
+      {index: 0, original: "Task 1", result: "DELEGATE TO EA: scheduling"},
+      {index: 1, original: "Task 2", result: "NOT DELEGATABLE: personal"},
+      {index: 2, original: "Task 3", result: "AI TASK: research"}
     ]
 
     filtered = cli.send(:filter_results, results)
@@ -90,9 +90,9 @@ class DelegatableTest < Minitest::Test
     cli.options[:only_delegatable] = false
 
     results = [
-      { index: 0, original: "Task 1", result: "DELEGATE TO EA: scheduling" },
-      { index: 1, original: "Task 2", result: "NOT DELEGATABLE: personal" },
-      { index: 2, original: "Task 3", result: "AI TASK: research" }
+      {index: 0, original: "Task 1", result: "DELEGATE TO EA: scheduling"},
+      {index: 1, original: "Task 2", result: "NOT DELEGATABLE: personal"},
+      {index: 2, original: "Task 3", result: "AI TASK: research"}
     ]
 
     filtered = cli.send(:filter_results, results)

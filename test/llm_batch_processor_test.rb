@@ -182,6 +182,6 @@ class LLMBatchProcessorTest < Minitest::Test
 
     result = processor.send(:build_result, 0, "original", "processed")
 
-    assert_equal({ index: 0, original: "original", result: "processed" }, result)
+    assert_equal({index: 0, original: "original", result: "processed"}, result)
   end
 end

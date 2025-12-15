@@ -22,7 +22,7 @@ module GTD
       private
 
       def default_options
-        { batch_size: 10, verbose: false, model: nil }
+        {batch_size: 10, verbose: false, model: nil}
       end
 
       def system_prompt
@@ -178,7 +178,7 @@ module GTD
       end
 
       def build_result(index, original, processed)
-        { index: index, original: original, result: processed }
+        {index: index, original: original, result: processed}
       end
 
       def filter_results(results)

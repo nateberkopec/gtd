@@ -5,8 +5,8 @@ require_relative "test_helper"
 class TodoGetTest < Minitest::Test
   def test_run_fetches_all_tasks
     stub_todoist_tasks([
-      { "content" => "Buy groceries", "labels" => [] },
-      { "content" => "Call mom", "labels" => ["calls"] }
+      {"content" => "Buy groceries", "labels" => []},
+      {"content" => "Call mom", "labels" => ["calls"]}
     ])
 
     stdout = run_cli(GTD::CLI::TodoGet.new)
@@ -18,11 +18,11 @@ class TodoGetTest < Minitest::Test
 
   def test_run_fetches_tasks_by_project
     stub_todoist_projects([
-      { "id" => "123", "name" => "Work" },
-      { "id" => "456", "name" => "Personal" }
+      {"id" => "123", "name" => "Work"},
+      {"id" => "456", "name" => "Personal"}
     ])
     stub_todoist_tasks_by_project("123", [
-      { "content" => "Finish report", "labels" => ["high_energy"] }
+      {"content" => "Finish report", "labels" => ["high_energy"]}
     ])
 
     stdout = run_cli(GTD::CLI::TodoGet.new, args: ["-p", "Work"])
@@ -40,7 +40,7 @@ class TodoGetTest < Minitest::Test
   end
 
   def test_run_handles_empty_project_tasks
-    stub_todoist_projects([{ "id" => "123", "name" => "Empty" }])
+    stub_todoist_projects([{"id" => "123", "name" => "Empty"}])
     stub_todoist_tasks_by_project("123", [])
 
     stdout = run_cli(GTD::CLI::TodoGet.new, args: ["-p", "Empty"])
@@ -50,7 +50,7 @@ class TodoGetTest < Minitest::Test
   end
 
   def test_run_handles_project_not_found
-    stub_todoist_projects([{ "id" => "123", "name" => "Work" }])
+    stub_todoist_projects([{"id" => "123", "name" => "Work"}])
 
     stdout = run_cli(GTD::CLI::TodoGet.new, args: ["-p", "NonExistent"])
 
@@ -60,7 +60,7 @@ class TodoGetTest < Minitest::Test
   def test_format_task_without_labels
     cli = GTD::CLI::TodoGet.new
 
-    task = { "content" => "Simple task", "labels" => [] }
+    task = {"content" => "Simple task", "labels" => []}
     output = cli.send(:format_task, task)
 
     assert_equal "Simple task", output
@@ -69,7 +69,7 @@ class TodoGetTest < Minitest::Test
   def test_format_task_with_single_label
     cli = GTD::CLI::TodoGet.new
 
-    task = { "content" => "Call dentist", "labels" => ["calls"] }
+    task = {"content" => "Call dentist", "labels" => ["calls"]}
     output = cli.send(:format_task, task)
 
     assert_equal "Call dentist @calls", output
@@ -78,7 +78,7 @@ class TodoGetTest < Minitest::Test
   def test_format_task_with_multiple_labels
     cli = GTD::CLI::TodoGet.new
 
-    task = { "content" => "Quick call", "labels" => ["calls", "quick"] }
+    task = {"content" => "Quick call", "labels" => ["calls", "quick"]}
     output = cli.send(:format_task, task)
 
     assert_equal "Quick call @calls @quick", output
@@ -87,7 +87,7 @@ class TodoGetTest < Minitest::Test
   def test_format_task_with_nil_labels
     cli = GTD::CLI::TodoGet.new
 
-    task = { "content" => "No labels key" }
+    task = {"content" => "No labels key"}
     output = cli.send(:format_task, task)
 
     assert_equal "No labels key", output
@@ -95,7 +95,7 @@ class TodoGetTest < Minitest::Test
 
   def test_run_displays_multiple_labels
     stub_todoist_tasks([
-      { "content" => "Important call", "labels" => ["calls", "high_energy", "quick"] }
+      {"content" => "Important call", "labels" => ["calls", "high_energy", "quick"]}
     ])
 
     stdout = run_cli(GTD::CLI::TodoGet.new)
@@ -107,8 +107,8 @@ class TodoGetTest < Minitest::Test
   end
 
   def test_run_case_insensitive_project_match
-    stub_todoist_projects([{ "id" => "123", "name" => "Work Projects" }])
-    stub_todoist_tasks_by_project("123", [{ "content" => "Task 1", "labels" => [] }])
+    stub_todoist_projects([{"id" => "123", "name" => "Work Projects"}])
+    stub_todoist_tasks_by_project("123", [{"content" => "Task 1", "labels" => []}])
 
     stdout = run_cli(GTD::CLI::TodoGet.new, args: ["-p", "work projects"])
 

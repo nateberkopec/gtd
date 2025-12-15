@@ -82,7 +82,7 @@ module GTD
       end
 
       def build_result(index, original, processed)
-        { index: index, original: original, result: validate_contexts(processed) }
+        {index: index, original: original, result: validate_contexts(processed)}
       end
 
       def validate_contexts(context_string)

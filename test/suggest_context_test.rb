@@ -63,7 +63,7 @@ class SuggestContextTest < Minitest::Test
   def test_format_result_joins_contexts
     cli = GTD::CLI::SuggestContext.new
 
-    result = { index: 0, original: "Call mom", result: ["@calls", "@quick"] }
+    result = {index: 0, original: "Call mom", result: ["@calls", "@quick"]}
     output = cli.send(:format_result, result, 1)
 
     assert_includes output, "Call mom"
