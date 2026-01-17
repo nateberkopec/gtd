@@ -34,7 +34,23 @@ switch "$cmd"
     case modify m
         todoist modify $rest
     case projects
-        todoist projects
+        # Display projects hierarchically with indentation
+        set token (string match -r --groups-only '"token"\s*:\s*"([^"]+)"' (cat "$HOME/.config/todoist/config.json"))
+        set tmpfile (mktemp)
+        curl --silent --show-error --fail -H "Authorization: Bearer $token" "https://api.todoist.com/rest/v2/projects" > $tmpfile
+        
+        function _print_project_tree --argument-names parent_id depth tmpfile
+            set projects (cat $tmpfile | jq -r ".[] | select((.parent_id // \"null\") == \"$parent_id\") | \"\\(.id) \\(.name)\"")
+            for proj in $projects
+                set id (string split " " $proj)[1]
+                set name (string sub -s (math (string length $id) + 2) -- $proj)
+                set indent (string repeat -n $depth "  ")
+                echo "$indent$id #$name"
+                _print_project_tree $id (math $depth + 1) $tmpfile
+            end
+        end
+        _print_project_tree null 0 $tmpfile
+        rm -f $tmpfile
     case project-add project-create
         set parent_id ""
         set name_parts
