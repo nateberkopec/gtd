@@ -1,0 +1,68 @@
+#!/usr/bin/env fish
+#
+# gtd-notes - Apple Notes CLI wrapper (macnotesapp)
+#
+# Commands:
+#   list [--folder FOLDER]  List notes
+#   cat NOTE                Read note content
+#   add TEXT                Create a new note
+#   add --edit              Create note in editor
+#   search QUERY            Search notes
+#   accounts                Show configured accounts
+#   someday                 List someday/maybe notes (#somedaymaybe)
+#   reference               List reference notes
+#   help                    Show this help
+
+set cmd $argv[1]
+set rest $argv[2..-1]
+
+# notes may be in ~/.local/bin
+set -x PATH $PATH ~/.local/bin
+
+switch "$cmd"
+    case list l
+        notes list $rest
+    case cat read
+        notes cat $rest
+    case add new
+        notes add $rest
+    case search s
+        notes list $rest
+    case accounts
+        notes accounts
+    case someday somedaymaybe
+        # Search for notes containing #somedaymaybe
+        notes list | while read line
+            set note_name (echo $line | string match -r '.*')
+            if test -n "$note_name"
+                set content (notes cat "$note_name" 2>/dev/null)
+                if string match -q '*#somedaymaybe*' "$content"
+                    echo $line
+                end
+            end
+        end
+    case reference ref
+        # List notes that are likely reference (no special tags)
+        notes list $rest
+    case help -h --help ''
+        echo "gtd-notes - Apple Notes CLI wrapper (macnotesapp)"
+        echo ""
+        echo "Commands:"
+        echo "  list [--folder FOLDER]  List notes"
+        echo "  cat NOTE                Read note content"
+        echo "  add TEXT                Create a new note"
+        echo "  add --edit              Create note in editor"
+        echo "  search QUERY            Search notes"
+        echo "  accounts                Show configured accounts"
+        echo "  someday                 List someday/maybe notes (#somedaymaybe)"
+        echo "  reference               List reference notes"
+        echo ""
+        echo "Conventions:"
+        echo "  Reference notes: Title + raw text only"
+        echo "  Someday/Maybe: Must contain #somedaymaybe in text"
+        exit 0
+    case '*'
+        echo "Unknown command: $cmd" >&2
+        echo "Run 'gtd-notes help' for usage" >&2
+        exit 1
+end

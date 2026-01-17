@@ -1,205 +1,109 @@
-# GTD Command Line Tools
+# gtd
 
-Tools that work with Todoist and the `llm` CLI. They help you get things done.
+[Agent-native](docs/AGENTNATIVE.md) GTD tools for real inboxes. This is Nate Berkopec's personal agent-native app. It is not a drop-in tool for others. It matches my stack: Todoist, Fastmail, and more. Use it to learn. The ideas can help other stacks.
 
-With these tools you can:
-- Turn vague tasks into clear next actions
-- Find tasks to give to others
-- Add context tags to tasks
-- See all your Todoist tasks
+> [!NOTE]
+> This repo is early. The tools wrap other CLIs.
 
-## What You Need
+## Why
 
-- [mise](https://mise.jdx.dev/) - Loads Ruby and reads your `.env` file
-- [llm](https://llm.datasette.io/) - Install with `pip install llm` or `brew install llm`
-- A Todoist account
+- I'm experimenting with agent-native applications.
+- I'd like to try talking to an agent for GTD.
+- The composability of agent-native workflows intrigues me.
 
-## Setup
+## GTD Workflows This App Supports
 
-1. Clone this repo:
-   ```
-   git clone <repository-url>
-   cd gtd
-   ```
+We support all the classic GTD loops:
 
-2. Install Ruby gems:
-   ```
-   bundle install
-   ```
+- Capture: collect items into inboxes.
+- Clarify: decide what each item means.
+- Organize: file items into lists and projects.
+- Reflect: do daily scans and weekly reviews.
+- Engage: pick work by context, time, and energy.
+- Renegotiate: defer, delegate, drop, or re-scope.
 
-3. Set up your `llm` API key:
-   ```
-   llm keys set openai
-   ```
-   See the [llm docs](https://llm.datasette.io/) for other models.
+## Tools
 
-4. Add your Todoist API token to a `.env` file:
-   ```
-   echo "TODOIST_API_TOKEN=your_token_here" > .env
-   ```
-   Find your token in Todoist: Settings → Integrations → API token.
+All tools use the `gtd-*` name. They live in `tools/`.
 
-5. Trust mise to load the `.env` file:
-   ```
-   mise trust
-   ```
+| Tool | Backend | Purpose |
+| --- | --- | --- |
+| `gtd-action` | `todoist` | Inbox, next actions, projects, waiting-for |
+| `gtd-calendar` | `khal` + `vdirsyncer` | Fastmail calendar CRUD |
+| `gtd-notes` | `macnotesapp` (`notes`) | Apple Notes reference + someday/maybe |
+| `gtd-email` | `himalaya` | Fastmail email triage |
+| `gtd-reminders` | `remindctl` | Reminders tickler file |
 
-## Commands
+### Example Commands
 
-### `todo-get`
+- `gtd-action inbox`
+- `gtd-action waiting`
+- `gtd-calendar list 14`
+- `gtd-notes someday`
+- `gtd-email list --folder INBOX`
+- `gtd-reminders due`
 
-Shows all your Todoist tasks.
+## Skills
 
-```
-todo-get
-```
+Skills follow the Agent Skills spec. Each skill is a folder with a `SKILL.md`.
 
-Show tasks from one project:
+Validate skills with `skills-ref validate`.
 
-```
-todo-get -p "Work"
-todo-get --project "Work"
-```
+## Storage Model
 
-### `next-action`
+> [!IMPORTANT]
+> Todoist is the source of truth for actions.
 
-Makes vague tasks clear. It tells you what to do next.
+### Todoist
 
-Pipe a task to the command:
+- Inbox: unprocessed captures.
+- Next Actions: tasks inside projects, tagged with contexts.
+- Projects: Todoist hierarchy.
+- Waiting For: priority `P4` (example: "Waiting: John to send report").
+- Priority: `P4` waiting/blocked, `P3` workable, `P1/P2` unused.
+- Contexts: Todoist labels (discover via `gtd-action labels`).
 
-```
-echo "Plan vacation" | next-action
-```
+### Fastmail Calendar
 
-You might see: "Make a list of 3 places with dates and costs"
+- Full CRUD via `gtd-calendar` (khal + vdirsyncer).
 
-Process many tasks at once:
+### Apple Notes
 
-```
-cat tasks.txt | next-action
-```
+- Reference: title + raw text only.
+- Someday/Maybe: note must include `#somedaymaybe`.
 
-Options:
-- `-v, --verbose` - Show more detail
-- `-b, --batch SIZE` - Group size (default: 10)
-- `-m, --model MODEL` - Pick an LLM model
+### Reminders
 
-### `delegatable`
+- Tickler file only (not an inbox).
 
-Finds tasks you can give to an assistant or AI.
+### Inboxes
 
-```
-echo "Schedule meeting with Bob" | delegatable
-```
+1. Todoist inbox (`gtd-action`).
+2. Email (`gtd-email`).
+3. Physical inbox (agent prompts you).
+4. `~/Documents/Inbox` (filesystem).
 
-This only shows tasks you can hand off. To see all tasks:
+## Install and Setup
 
-```
-cat tasks.txt | delegatable -a
-cat tasks.txt | delegatable --all
-```
+Run `bin/setup` to install dependencies and generate configs (prompts for secrets and previews each file before writing).
 
-Options:
-- `-a, --all` - Show all tasks
-- `-v, --verbose` - Show more detail
-- `-b, --batch SIZE` - Group size (default: 10)
-- `-m, --model MODEL` - Pick an LLM model
+## Repo Layout
 
-### `suggest-context`
+- `tools/`: fish wrappers for `gtd-*` tools.
+- `bin/`: setup and maintenance scripts.
+- `skills/`: Agent Skills spec directories.
+- `docs/*`: agent-native reference, gtd notes.
+- `SPEC.md`: product plan and decisions.
+- `TODO.md`: setup checklist.
+- `mise.toml`: adds `./tools` to `PATH` and loads `.env`.
 
-Adds tags to tasks. Tags tell you where or when you can do a task.
+## Contributing
 
-```
-echo "Call mom about dinner" | suggest-context
-```
+- Use `skills-ref validate` when you change skills.
+- The scripts in `bin/` and `tools/` are written in fish.
 
-Output:
-```
-Call mom about dinner
-  @calls @quick @anywhere
-```
+## Design Decisions
 
-See all tags:
-
-```
-suggest-context -l
-suggest-context --list
-```
-
-Tags you can use:
-
-| Tag | What it means |
-|-----|---------------|
-| `@quick` | Under 2 minutes |
-| `@home` | Must be at home |
-| `@errand` | Must go out |
-| `@anywhere` | Any place works |
-| `@calls` | Need to call |
-| `@high_energy` | Need focus |
-| `@low_energy` | OK when tired |
-| `@va` | Give to assistant |
-| `@fun` | Fun to do |
-| `@ai` | LLM can help |
-| `@thinking` | Deep thought needed |
-
-Options:
-- `-l, --list` - Show all tags
-- `-v, --verbose` - Show more detail
-- `-b, --batch SIZE` - Group size (default: 10)
-- `-m, --model MODEL` - Pick an LLM model
-
-## Pipes and Workflows
-
-These tools work well with Unix pipes.
-
-Get the first 10 tasks:
-
-```
-todo-get | head -n 10
-```
-
-Use larger batches:
-
-```
-todo-get | head -n 40 | next-action -b 20
-```
-
-Find tasks to hand off, then make them clear:
-
-```
-todo-get | delegatable | next-action
-```
-
-Add tags to your tasks:
-
-```
-todo-get | suggest-context
-```
-
-## Pick a Model
-
-Set a default model for all `llm` calls:
-
-```
-llm models default gpt-4o
-```
-
-Or pick one for a single call:
-
-```
-echo "My task" | next-action -m gpt-4o-mini
-```
-
-## Files and Folders
-
-```
-bin/           - Commands you can run
-lib/gtd/       - Ruby code
-  cli/         - Code for each command
-  config.rb    - Settings
-  todoist_client.rb - Talks to Todoist
-```
-
-## License
-
-MIT
+- Tools are small; workflows live in skills.
+- Tool output is plain text.
+- No local storage beyond temp parsing, source of truth is in the tools.

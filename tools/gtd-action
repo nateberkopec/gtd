@@ -1,0 +1,66 @@
+#!/usr/bin/env fish
+#
+# gtd-action - Todoist CLI wrapper for GTD actions/tasks
+#
+# Commands:
+#   list [--filter FILTER]  List tasks (Todoist filter syntax)
+#   add TEXT                Add a new task
+#   complete ID             Mark task complete
+#   delete ID               Delete a task
+#   modify ID [OPTIONS]     Modify a task
+#   projects                List all projects
+#   labels                  List all labels (contexts)
+#   sync                    Sync with Todoist server
+#   inbox                   List inbox items only
+#   waiting                 List waiting-for items (P4)
+#   help                    Show this help
+
+set cmd $argv[1]
+set rest $argv[2..-1]
+
+switch "$cmd"
+    case list l
+        todoist list $rest
+    case add a
+        todoist add $rest
+    case complete c close
+        todoist close $rest
+    case delete d
+        todoist delete $rest
+    case modify m
+        todoist modify $rest
+    case projects
+        todoist projects
+    case labels contexts
+        todoist labels
+    case sync s
+        todoist sync
+    case inbox
+        todoist list --filter "##Inbox"
+    case waiting
+        todoist list --filter "p4"
+    case help -h --help ''
+        echo "gtd-action - Todoist CLI wrapper for GTD actions/tasks"
+        echo ""
+        echo "Commands:"
+        echo "  list [--filter FILTER]  List tasks (Todoist filter syntax)"
+        echo "  add TEXT                Add a new task"
+        echo "  complete ID             Mark task complete"
+        echo "  delete ID               Delete a task"
+        echo "  modify ID [OPTIONS]     Modify a task"
+        echo "  projects                List all projects"
+        echo "  labels                  List all labels (contexts)"
+        echo "  sync                    Sync with Todoist server"
+        echo "  inbox                   List inbox items only"
+        echo "  waiting                 List waiting-for items (P4)"
+        echo ""
+        echo "Priority conventions:"
+        echo "  P4 = Waiting/blocked"
+        echo "  P3 = Workable (default)"
+        echo "  P1/P2 = Unused"
+        exit 0
+    case '*'
+        echo "Unknown command: $cmd" >&2
+        echo "Run 'gtd-action help' for usage" >&2
+        exit 1
+end

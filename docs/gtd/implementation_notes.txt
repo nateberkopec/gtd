@@ -1,0 +1,325 @@
+## Implementation Notes for Software
+
+### Related Reading
+- [GTD Summary](../GTD_SUMMARY.md)
+- [The Five Phases of GTD Workflow](five_phases.txt)
+- [The Weekly Review](weekly_review.txt)
+
+### Core Data Structures
+
+**Item/Task Entity**:
+- unique_id (UUID)
+- created_timestamp
+- modified_timestamp
+- original_text (as captured)
+- clarified_statement (processed description)
+- item_type (action/project/reference/trash/someday/waiting)
+- actionability (boolean)
+- status (inbox/clarified/organized/active/completed/archived)
+- next_action (for projects: the current next action text)
+- context_tags (array: @home, @computer, @phone, etc.)
+- energy_level (optional: high/medium/low)
+- time_estimate (optional: minutes)
+- due_date (optional: for calendar items)
+- delegate_person (for waiting_for items)
+- date_delegated (for waiting_for items)
+- parent_project_id (foreign key: links actions to projects)
+- area_of_focus (optional: link to area)
+- goal_id (optional: link to goal)
+
+**Project Entity**:
+- unique_id (UUID)
+- title
+- desired_outcome (clear definition of "done")
+- status (active/completed/someday/archived)
+- created_date
+- completed_date
+- associated_next_actions (array of action IDs)
+- area_of_focus
+- goal_id
+- notes/supporting_materials (text or file references)
+
+**Context Entity**:
+- name (@home, @computer, @phone, etc.)
+- description
+- usage_count (for analytics)
+- active (boolean: for archiving unused contexts)
+
+**Area of Focus Entity** (Horizon 2):
+- title
+- description
+- active_projects (array of project IDs)
+- review_frequency (weekly/monthly/quarterly)
+
+**Goal Entity** (Horizon 3):
+- title
+- description
+- timeframe (typically 1-2 years)
+- target_date
+- associated_projects (array)
+- status (active/achieved/abandoned)
+
+**Review Entity** (tracking review history):
+- review_type (daily/weekly/quarterly/annual)
+- review_date
+- duration_minutes
+- items_processed
+- projects_reviewed
+- completed (boolean)
+
+### Critical Workflows to Support
+
+**1. Capture Workflow**:
+- Minimal-friction capture (2-3 clicks maximum)
+- Multiple input methods: text, voice, email-to-inbox, browser clip, photo
+- Immediate capture confirmation (builds trust)
+- Timestamp and source tracking (email vs. voice vs. manual)
+- Offline capture support with sync when connection returns
+- No required fields beyond the text itself
+
+**2. Clarify/Process Workflow**:
+- Sequential one-at-a-time processing (no jumping around)
+- Decision tree prompts:
+  - "Is this actionable?" → Yes/No
+  - If No: "Trash / Reference / Someday-Maybe?"
+  - If Yes: "Multi-step or single-step?" → Project vs. Next Action
+  - "Who should do it?" → Me vs. Delegate
+  - "Can it be done in 2 minutes?" → Do now vs. Defer
+- Quick-add to appropriate lists without leaving processing view
+- Two-minute rule timer (optional: shows elapsed time for immediate actions)
+- Bulk processing: ability to process multiple items in rapid succession
+
+**3. Organize Workflow**:
+- Context tagging during clarification
+- Project-action linking (visual connection both directions)
+- Calendar integration for time-specific items
+- Reference file attachment/linking
+- Someday/Maybe categorization with review dates
+- Waiting For tracking with person/date information
+
+**4. Weekly Review Workflow**:
+- Guided three-phase checklist:
+  - **Get Clear**: Inbox counts, mind sweep prompts, loose items collection
+  - **Get Current**: Projects without actions highlighted, aging waiting items flagged, calendar review
+  - **Get Creative**: Someday/Maybe review interface, goal/vision prompts
+- Progress tracking: show completed items since last review
+- Time tracking: how long review is taking (helps keep under 90 minutes)
+- Review history: streak tracking, consistency metrics
+- Pause/resume: ability to interrupt and continue later
+
+**5. Engagement Workflow (What to do now)**:
+- Four Criteria filtering:
+  - Context filter (show only @current_context actions)
+  - Time filter (show only actions doable in available time)
+  - Energy filter (show only actions matching current energy)
+  - Priority sorting (among remaining actions)
+- Calendar integration: show today's hard landscape first
+- Available time calculation: gaps between calendar items
+- Quick-complete: one-tap completion of actions
+- Next action suggestion: "Based on your context/time/energy, consider these 3 actions"
+
+### UX Considerations from GTD Principles
+
+**1. Frictionless Capture**:
+- Capture must be faster than remembering (under 3 seconds ideally)
+- Never ask for context, priority, or details during capture
+- Support voice input for hands-free capture
+- Email-to-inbox for capturing from external sources
+- Browser extension for clipping web content
+- Mobile quick-add widget (capture without opening app)
+
+**2. Trustworthiness Indicators**:
+- Visual feedback when item successfully captured
+- Sync status indicator (all devices current)
+- Review recency indicator ("Last weekly review: 3 days ago")
+- System health dashboard: inbox count, projects without actions, aging waiting items
+- Backup/export functionality (reduces anxiety about data loss)
+
+**3. Clarity Over Complexity**:
+- Default to simple views (show only essential information)
+- Progressive disclosure (advanced features hidden until needed)
+- Limit contexts to 4-7 with warnings if creating more
+- Avoid feature creep: 80% of users need 20% of features
+- "GTD Essentials" mode: core workflow without advanced features
+
+**4. Review-Centric Design**:
+- Weekly review is THE critical feature (make it prominent)
+- Review reminders (gentle, not annoying)
+- Review scheduling (calendar integration)
+- Review templates (customizable checklists)
+- Review analytics (consistency tracking, completion rates)
+
+**5. Support Single-Task Focus**:
+- "Focus mode" showing only current action
+- Hide other commitments during execution
+- Context switching only when deliberately requested
+- Distraction-free interface options
+- Timer/pomodoro integration for time-bounded work
+
+**6. Project-Action Relationship Clarity**:
+- Visual connection between projects and their actions
+- Orphaned action detection (actions not linked to projects)
+- Project health indicators (has next action? stalled?)
+- Easy navigation: from action to parent project and back
+- Project view: see all actions for a project together
+
+**7. Context-Aware Intelligence**:
+- Location-aware context suggestions (phone knows when you're @home vs. @office)
+- Time-aware filtering (suggest 15-min actions when you have 15 minutes)
+- Energy-aware suggestions (learn when user typically has high/low energy)
+- Calendar integration (understand available windows)
+- Learning: track which contexts user actually uses
+
+**8. Natural Language Processing** (optional enhancement):
+- Parse captured text for dates: "Call John Friday" → auto-extract Friday
+- Identify people: "Email @sarah about budget" → link to contact
+- Suggest contexts: "Buy milk" → suggest @errands
+- Extract projects: "Plan vacation: research flights" → create project + action
+- Present as suggestions during clarification, not assumptions
+
+**9. Inbox Management**:
+- Prominent inbox count (creates healthy pressure to process)
+- Processing mode: show one item at a time with decision prompts
+- Batch processing: rapidly move through many items
+- Stale item warnings (items in inbox >7 days)
+- Archive/bulk delete for old items
+- Separate inboxes by source (email inbox, voice inbox, web clips) with unified processing
+
+**10. Mobile-First Capture, Desktop-First Review**:
+- Mobile: optimized for capture and quick-add
+- Desktop: optimized for processing and weekly review
+- Seamless sync between devices (capture on phone, process on desktop)
+- Platform-appropriate interfaces (don't force desktop paradigms on mobile)
+
+### Database Performance Considerations
+
+**Indexing strategy**:
+- Index on status (for filtering active vs. completed)
+- Index on context_tags (for context filtering)
+- Index on parent_project_id (for project-action relationships)
+- Index on created_timestamp and modified_timestamp (for aging queries)
+- Composite index: (status, context_tags, energy_level) for engagement queries
+
+**Query optimization**:
+- Engagement query (most frequent): filter by status=active, context=current, time_estimate<=available_time, energy<=current_energy, order by priority
+- Weekly review queries: projects_without_actions, aging_waiting_items, stale_inbox_items
+- Pagination for large lists (don't load all 500 projects at once)
+
+**Archival strategy**:
+- Soft delete (status=archived) rather than hard delete
+- Archive completed items after 30-90 days
+- Maintain archive for reference and analytics
+- Separate tables for active vs. archived (improves query performance)
+
+### Analytics and Insights
+
+**Trust indicators**:
+- Capture frequency (daily average)
+- Inbox processing rate (items/day)
+- Review consistency (weekly reviews completed/missed)
+- System staleness (days since last review)
+- Completion rate (actions completed vs. added)
+
+**Pattern recognition**:
+- Most-used contexts (helps optimize context list)
+- Peak productivity times (when most actions completed)
+- Energy patterns (high-energy work at what times?)
+- Project completion rates (how many projects finish vs. stall?)
+- Average time from capture to completion
+
+**Motivational feedback**:
+- Weekly summary: "You completed 47 actions this week!"
+- Review streaks: "15-week review streak!"
+- Inbox zero celebrations: "Inbox clear—great work!"
+- Progress visualization: completed items over time
+
+### Integration Points
+
+**Calendar integration**:
+- Two-way sync with Google Calendar, Outlook, Apple Calendar
+- Show calendar items in daily review
+- Block time for weekly review
+- Create calendar events from time-specific actions
+
+**Email integration**:
+- Email-to-inbox capture
+- Reference attachment from email
+- Action creation from emails
+- Follow-up delegation via email
+
+**Communication tools**:
+- Slack/Teams integration: capture from messages
+- Status updates: "Next action: @computer work"
+- Notifications for review reminders
+
+**File storage**:
+- Link actions/projects to files in Dropbox, Google Drive, etc.
+- Attach reference materials
+- Project support material repositories
+
+### Mobile Considerations
+
+**Capture optimization**:
+- Home screen widget for one-tap capture
+- Voice capture (Siri/Google Assistant integration)
+- Photo/screenshot capture with OCR
+- Share-to-app from other applications
+
+**Review optimization**:
+- Abbreviated weekly review for mobile (30-minute guided version)
+- Swipe gestures for quick processing (swipe right = next action, swipe left = trash)
+- Pull-to-refresh for sync
+- Offline mode with sync when online
+
+### Accessibility and Internationalization
+
+**Accessibility**:
+- Screen reader support for all features
+- Keyboard shortcuts for power users
+- High-contrast modes
+- Adjustable text sizes
+- Voice control for capture and navigation
+
+**Internationalization**:
+- Multi-language support for UI
+- Locale-aware date/time formatting
+- Cultural context awareness (different context structures for different regions)
+- Translation of trigger lists for mind sweeps
+
+### Security and Privacy
+
+**Data protection**:
+- End-to-end encryption for sensitive items
+- Encrypted backups
+- Secure authentication (2FA support)
+- Privacy-respecting analytics (no personal data tracking)
+
+**User control**:
+- Export all data (JSON, CSV formats)
+- Delete account and all data permanently
+- Selective sync (some data local-only)
+- Offline mode (no cloud dependency)
+
+### Success Metrics
+
+**Adoption metrics**:
+- Daily active users
+- Weekly review completion rate (THE critical metric)
+- Inbox processing frequency
+- Capture frequency
+
+**Engagement metrics**:
+- Actions created vs. completed
+- Project completion rate
+- Time from capture to completion
+- Review consistency over time
+
+**Retention metrics**:
+- 30-day retention (do users stick with GTD past initial enthusiasm?)
+- 90-day retention (have users built lasting habit?)
+- Long-term retention (1+ year active users)
+
+**The ultimate success metric**: Weekly review completion rate. If this metric is high, GTD is working. If low, system is failing regardless of other metrics.
+
+---
+

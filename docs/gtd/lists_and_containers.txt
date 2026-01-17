@@ -1,0 +1,214 @@
+## The GTD Lists and Containers
+
+### Related Reading
+- [GTD Summary](../GTD_SUMMARY.md)
+- [Contexts](contexts.txt)
+- [Delegation and Waiting For](delegation.txt)
+
+### Next Actions List
+
+**Purpose**: Store all immediate-term actions ready to be executed the moment you're in the right context with appropriate time and energy.
+
+**Definition**: The next visible physical activity needed to move something forward. A next action is always a single, concrete, executable behavior—not a project, not a goal, not a vague intention.
+
+**Organization Structure**: Next actions should be organized by context—the location, tool, or person needed to execute the action. This context-based organization is fundamental to GTD efficiency because it allows instant filtering to "what can I actually do right now?"
+
+**Common context categories**:
+- @home (requires being at home)
+- @office (requires office environment or resources)
+- @computer (requires computer access)
+- @phone (requires making phone calls)
+- @calls (alternative to @phone)
+- @errands (requires being out running errands)
+- @anywhere (can be done anywhere, anytime)
+- @[person name] (requires specific person's involvement)
+
+**What belongs in Next Actions**:
+- Specific, actionable items stated as physical behaviors
+- Items requiring more than two minutes but completable in a single session
+- Clear actions with explicit objects (what/who)
+- Examples: "Email Sarah draft proposal for review", "Call dentist to schedule appointment", "Buy batteries at hardware store", "Research React 18 concurrent features documentation"
+
+**What doesn't belong**:
+- Projects (outcomes requiring multiple actions)
+- Items under two minutes (do immediately per two-minute rule)
+- Vague tasks without clear next step ("Organize desk" → should be "Buy desk organizer trays")
+- Multiple bundled actions ("Plan and execute vacation" → should be broken into discrete steps)
+
+**Critical next action quality**: Each item should answer "What's the very next thing I need to do?" A common failure mode is writing project names instead of next actions. "Website redesign" is not a next action. "Email John to discuss redesign requirements" is a next action.
+
+**Linking to projects**: Next actions often relate to projects. Maintain this connection through keywords, tags, or explicit links so you can see all actions for a specific project or see which project an action serves.
+
+### Projects List
+
+**Purpose**: Track all multi-step outcomes you're committed to completing within one year.
+
+**Definition**: Any desired outcome requiring more than one action. The boundary between a next action and a project is simple: if the outcome needs two or more sequential steps, it's a project.
+
+**Examples of projects**:
+- Plan Q1 product launch
+- Complete annual performance reviews
+- Remodel bathroom
+- Research and select new project management tool
+- Organize family reunion
+- Write technical documentation for API
+
+**What makes a good project definition**:
+- **Clear outcome**: You'll recognize when it's complete
+- **Specific scope**: Bounded in time and deliverables
+- **Active commitment**: You're working on it now, not someday
+- **Within one year**: Longer outcomes belong at higher horizons
+
+**Relationship to Next Actions**: This is critical. Each project must have at least one associated next action that moves it forward. A project without a next action is stalled—during weekly review, you'll either define the next action or move the project to Someday/Maybe if you're not ready to work on it.
+
+**Common mistake**: Confusing areas of responsibility with projects. "Marketing" is not a project—it's an area of focus. "Launch Q1 marketing campaign for Product X" is a project within marketing.
+
+**Project support materials**: Project definitions are brief (one sentence typically). Supporting materials—notes, research, documents, brainstorming—live in project-specific reference files, not on the projects list itself.
+
+**Typical volume**: Most people maintain 30-100 active projects simultaneously. This seems impossibly high until you realize "projects" includes everything from "Plan vacation" to "Write performance review" to "Fix leaky faucet"—any multi-step outcome across all life domains.
+
+### Calendar
+
+**Purpose**: Define the "hard landscape" of time-specific commitments that must occur on particular dates/times or they won't happen at all.
+
+**GTD Calendar Philosophy**: The calendar is sacred and minimalist. It contains ONLY items that have fixed times or dates. This restraint gives the calendar tremendous signal value—when something is on the calendar, it's non-negotiable.
+
+**What belongs on the calendar**:
+- Appointments and meetings (specific time commitments)
+- Deadlines that are actual constraints (not aspirational targets)
+- Time-specific reminders ("Call John at 2pm")
+- Day-specific actions that must happen on that date
+- Time-blocked work sessions (optional, used selectively)
+
+**What doesn't belong**:
+- Arbitrary task deadlines or target dates (these go on Next Actions with date context)
+- Hopes or intentions without fixed scheduling
+- Projects or goals
+- "Soft" deadlines that could shift
+
+**Why minimalism matters**: If you fill your calendar with tasks and aspirational deadlines, it becomes cluttered and loses its power to show what's truly time-bound. When everything is on the calendar, nothing stands out. The calendar should be sparse enough that you can glance at it and immediately see your actual commitments.
+
+**Daily engagement**: The calendar is the first thing to check each morning during daily review. It defines your "hard landscape"—the non-negotiable structure your day is built around. Everything else (Next Actions) fills the gaps between calendar commitments.
+
+### Waiting For List
+
+**Purpose**: Track all work you've delegated to others or items you're blocked on pending external action.
+
+**What belongs here**:
+- Tasks you've delegated to colleagues, team members, or direct reports
+- Emails you've sent expecting replies
+- Items you've ordered or requested
+- Deliverables from vendors or external parties
+- Approvals or decisions pending from stakeholders
+- Information requests you've made
+- Blocked next actions waiting for someone else's completion
+
+**Required information for each item**:
+- **What**: Specific description of what you're waiting for
+- **Who**: Person or entity responsible
+- **Date initiated**: When you delegated or started waiting (enables aging tracking)
+- **Expected delivery**: Due date or expected completion (if known)
+- **Follow-up trigger**: When/how you'll check on progress
+
+**The key distinction**: Waiting For items are explicitly NOT on your Next Actions list because the next action belongs to someone else. However, they remain in your system so they don't disappear from consciousness and you don't rely on memory to follow up.
+
+**Review frequency**: Weekly minimum during your GTD review. For each item, determine: Have I received this? Is it overdue? Do I need to follow up? Create follow-up actions as needed.
+
+**Aging and escalation**: Track elapsed time since delegation. Items that exceed expected timeframes require follow-up actions. "Call Sarah about overdue report" becomes a next action when waiting has exceeded reasonable time.
+
+**Organization options**:
+- By person (useful for regular one-on-ones)
+- By date (to surface aging items)
+- By priority (urgent vs. standard)
+- By type (internal vs. external delegation)
+
+### Someday/Maybe List
+
+**Purpose**: Capture possibilities and ideas you want to reconsider but aren't ready to commit to actively pursuing right now.
+
+**What belongs here**:
+- Trips you want to take
+- Books you want to read
+- Courses or learning opportunities
+- Creative projects you're considering
+- Things you'd like to learn
+- Items you might want to buy
+- Career changes or transitions you're exploring
+- Any project you find interesting but don't have capacity for right now
+
+**Key qualification**: These are things genuinely interesting to you but not urgent or immediately actionable. They're not trash (you care about them) and not reference (they could become actions), but they're not active commitments.
+
+**The critical success factor**: This list only works with regular review. Without consistent attention (weekly ideal, minimum quarterly), it becomes a forgotten accumulation rather than a living planning tool. David Allen is emphatic: "The value of Someday/Maybe disappears entirely when you don't review and update it regularly."
+
+**Review process**:
+- During weekly review (Get Creative phase) or dedicated quarterly review
+- For each item, ask: "Is this still interesting? Should this become an active project?"
+- Move items that deserve commitment from Someday/Maybe to Projects
+- Delete items that no longer appeal
+- Add notes about why you're deferring (provides context for future reviews)
+
+**Promoting to active**: When circumstances change (more time, money, energy available) or an item "deserves to come to the fore," move it from Someday/Maybe to your Projects list and define the first next action.
+
+**Subcategorization** (optional): Some practitioners separate into "Someday" (more tentative) and "Maybe" (more concrete, might do within 6-12 months).
+
+### Reference Files
+
+**Purpose**: Store non-actionable information that has potential future value or current relevance to projects and life.
+
+**What belongs here**:
+- Articles, documentation, and manuals
+- Recipes and how-to guides
+- Contact information and organizational records
+- Receipts, warranties, and financial documents
+- Medical and legal records
+- Meeting notes and decision logs
+- Inspiration and idea collections
+- Event tickets and confirmations
+- Any information without required action but potential future utility
+
+**Organization Method**: Alphabetical filing is the GTD-recommended approach and simplest to maintain. File everything by topic, author, or company name in A-Z order. This minimizes retrieval difficulty—you don't need to remember a complex filing structure, just the name of what you're looking for.
+
+**Accessibility requirements**:
+- Filing must take under one minute or psychological resistance builds
+- Retrieval should take seconds (quick search/scan)
+- Keep physical files within arm's reach of workspace
+- Digital files should be searchable and cloud-synced
+- Maintain file drawers at three-quarters capacity (leaves room for growth)
+- Stock extra folders to eliminate filing friction
+
+**Project-specific reference**: When defining a project, create dedicated reference folders for materials related to that project. These can exist within your general alphabetical system or in separate project folders.
+
+**Physical vs. Digital**: Most modern practitioners use hybrid approaches—digital for most materials (searchable, accessible anywhere) and physical for documents that exist only on paper or require immediate proximity.
+
+**Annual maintenance**: Purge reference files at least once yearly. Remove outdated, obsolete, or no-longer-useful materials. This prevents the system from feeling like a "black hole" where things disappear forever.
+
+**The key distinction**: Reference is information that might be useful. If information has no conceivable future value, trash it. If it requires action, it's not reference—it goes through the capture-clarify-organize workflow.
+
+### The Tickler File (43 Folders)
+
+**Purpose**: Create a time-based reminder system for items that need attention on specific future dates.
+
+**Structure**: 43 physical folders or digital equivalents:
+- 31 folders numbered 1-31 (for each day of current month)
+- 12 folders labeled with month names
+
+**How it works**:
+1. Items for current month go in numbered day folders (1-31)
+2. Items for future months go in monthly folders
+3. Each day, empty that day's folder and place it at the back
+4. At month start, distribute items from that month's folder into numbered day folders
+
+**What goes in the tickler**:
+- Meeting agendas and preparation materials needed on specific dates
+- Event tickets and travel confirmations
+- Birthday/anniversary reminders filed weeks in advance
+- Recurring forms or checklists needed on specific dates
+- Time-sensitive documents requiring action on particular dates
+- Personal reminders you want to revisit on specific dates
+
+**Modern alternatives**: Digital tickler systems using calendar apps (scheduled reminders), task managers with date triggers, or email snooze features. The principle remains: items surface automatically on the date they become relevant.
+
+**Example workflow**: To avoid missing your sister's August 24 birthday, file a reminder in the July folder to purchase her card. When checking your July folder, buy and mail the card, filing it in the August 24 folder for the specific mailing date.
+
+---
+

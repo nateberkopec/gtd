@@ -1,0 +1,227 @@
+## Delegation and Waiting For
+
+### Related Reading
+- [GTD Summary](../GTD_SUMMARY.md)
+- [The GTD Lists and Containers](lists_and_containers.txt)
+- [The Weekly Review](weekly_review.txt)
+
+### The Waiting For List
+
+**Purpose**: Track all work you've delegated to others or items blocked on pending external action, removing mental burden while maintaining visibility and accountability.
+
+**What belongs here**: Anything where someone else holds the next action needed to close the loop:
+- Tasks delegated to colleagues, team members, or direct reports
+- Emails sent expecting replies
+- Items ordered or requested
+- Deliverables from vendors or external parties
+- Approvals or decisions pending from stakeholders
+- Information requests you've made
+- Blocked next actions waiting for someone else's completion
+
+**The key distinction**: Waiting For items are explicitly NOT on your Next Actions list because the next action belongs to someone else. However, they remain in your system so they don't disappear from consciousness and you don't rely on memory for follow-up.
+
+### Information to Track
+
+For each Waiting For item, track:
+
+**Essential information**:
+1. **What**: Specific description of what you're waiting for
+   - Include sufficient detail to recognize item when it arrives
+   - For products: product name, vendor, SKU
+   - For deliverables: what the deliverable is and what you'll do with it
+
+2. **Who**: Person or entity responsible
+   - Name of person or team
+   - Organization or vendor if external
+   - Contact information (optional but helpful)
+
+3. **Date Initiated**: When you delegated or requested the item
+   - Enables aging tracking ("32 days ago")
+   - Provides specific reference for follow-up: "You said you'd finish within a month, that was 32 days ago"
+
+4. **Expected Delivery**: When you expect completion (if known)
+   - Important for distinguishing overdue items
+   - Helps with timing of follow-up triggers
+
+**Optional supporting information**:
+- Priority level or importance
+- Dependencies (whether other actions depend on receiving this)
+- Follow-up date or next reminder trigger
+- Project association (if this item blocks a larger project)
+- Notes on conversations or updates
+
+### Delegation Workflow
+
+**When delegation happens**: Delegation is a processing decision made when handling next actions. When determining that a task is more appropriate for someone else (due to expertise, capacity, or cost-effectiveness), you delegate.
+
+**Delegation steps**:
+1. **Define outcome clearly**: Specify exactly what "done" looks like
+2. **Record on Waiting For**: Add to your list with all essential information
+3. **Remove from your responsibility**: Don't add to your personal Next Actions
+4. **Maintain visibility**: Review during weekly reviews to monitor progress
+
+**Key principle**: "You can't delegate what you can't define." Before delegating, think through exactly what success looks like. Both delegator and delegate must know unambiguously what they're aiming for without micromanaging execution.
+
+### Effective Delegation Principles
+
+**Clarity precedes delegation**: Define success criteria before assigning work. Both parties must understand:
+- What the desired outcome is
+- What "crossing the finish line" means
+- What authority and resources are available
+- What constraints or boundaries exist
+
+**Accountability with autonomy**: Match the delegatee's accountability with autonomy to execute. For ongoing responsibilities, establish regular check-ins (90-day reviews, annual assessments) rather than micromanaging every step.
+
+**Three-part documentation**: Record delegated items with:
+- Whom you're waiting for
+- What outcome you need
+- When you started waiting (or expected delivery)
+
+**Delegation at different levels**:
+
+- **Next Actions**: Single, specific tasks with clear expected results
+  - Example: "John: Draft Q1 budget proposal by Friday"
+
+- **Projects**: Multi-step outcomes with defined success criteria
+  - Example: "Sarah: Plan and execute team offsite (budget $10K, date by March 15)"
+
+- **Delegated Projects** (for significant work): Maintain separate "Delegated Projects" list showing who owns what. Delegator becomes project sponsor; delegatee becomes project manager.
+
+- **Areas of Focus**: Ongoing responsibilities with established check-in frequencies
+  - Example: "Mike: Owns customer support response time and satisfaction metrics (quarterly reviews)"
+
+### Follow-up and Review
+
+**Weekly Review process**:
+
+During the "Get Current" phase, explicitly review your Waiting For list:
+
+1. **Check list**: Examine all items you're waiting for from others
+
+2. **Evaluate status** for each item:
+   - Have I received this?
+   - Has reasonable time passed?
+   - Do I need to follow up?
+   - Should I renegotiate the deadline?
+   - Is this still relevant or should I drop it?
+
+3. **Remove completed items**: Mark off received items and remove from list
+
+4. **Create follow-up actions**: For items needing follow-up, add new task to Next Actions:
+   - "Follow up with [person] about [item]"
+   - "Call [vendor] to check status of [order]"
+   - "Email [colleague] to ask about [deliverable]"
+
+5. **Add new items**: Capture any newly delegated items during the week
+
+**Follow-up timing**:
+- Minimum: Weekly during GTD review
+- More frequent: Daily for critical items
+- Meeting-based: During standing one-on-ones with team members
+
+**Follow-up approach**:
+- Make follow-ups specific and actionable
+- Reference original request and timeframe
+- Phrase as questions or offers to help rather than demands
+- Example: "I'm still waiting for the Q4 report you said you'd finish within a month. That was 32 days ago. Do you need any help to move this forward?"
+
+### Aging and Escalation
+
+**Identifying aging items**:
+
+Items become "aging" or "stale" when exceeding expected timeframe without resolution. Your dated Waiting For items enable identification:
+- Items past expected delivery date
+- Items sitting longer than initially planned without progress
+- Items from extended periods without status updates
+
+**Handling aging items**:
+
+When identifying overdue item during weekly review, four choices:
+
+1. **I received this** → Mark off and remove from Waiting For
+
+2. **I received this and now have more to do** → Mark off and add new Next Action to process what arrived
+
+3. **I didn't receive this but it's fine to keep waiting** → Keep on list; no action needed this week
+
+4. **This is overdue and I need to change it to an action item** → Add follow-up task to Next Actions
+
+**Escalation strategies when items become overdue**:
+
+**Initial follow-up**: Add follow-up task to Next Actions. Give person nudge to remind them, phrased as question or offer to help.
+
+**If still unresolved**:
+- Escalate within organization if appropriate
+- Renegotiate deadline if original timeframe no longer realistic
+- Consider whether item is truly necessary or should be dropped
+- Assess whether different approach needed (involve manager, find alternative resource)
+
+**Documentation**: Track follow-up attempts and responses. This information helps assess whether delegate is reliable for future delegations and whether escalation is truly necessary.
+
+**Preventing items from aging**:
+- Review Waiting For list frequently (weekly minimum, more often for time-sensitive items)
+- Set specific expected dates at point of delegation
+- For long-duration items, break into checkpoints with intermediate review dates
+- Follow up proactively when approaching expected delivery date rather than waiting until overdue
+- Clarify urgency and dependencies at delegation time so delegate understands priority
+
+### Relationship Between Delegation and Projects
+
+**Projects with delegated components**:
+
+A project may include actions you do and actions you've delegated:
+- Delegate-owned actions go on Waiting For list
+- Your own actions go on Next Actions
+- Overall project remains on Projects list
+
+**Example**: "Launch new product"
+- Your actions: Write marketing copy, Create pricing model
+- Delegated: Designer creates mockups (on Waiting For), Engineer builds feature (on Waiting For)
+- Project: "Launch new product" (on Projects list)
+
+**Fully delegated projects**:
+
+When entire project is delegated:
+- Project still appears on your list (as "Delegated Project" if separate list maintained)
+- Track on Waiting For with appropriate check-in frequency
+- You become "project sponsor"; delegate becomes "project manager"
+- Review frequency depends on project criticality and delegate's reliability
+
+**Managing together during weekly review**:
+1. Review Projects list to identify which have delegated components
+2. Cross-reference with Waiting For list to ensure all delegated components tracked
+3. For delegated projects, assess whether delegation proceeding on track
+4. Determine if any Project-level decisions or unblocking needed from you
+
+### Internal vs. External Delegation
+
+**Internal delegation** (within your organization):
+
+For items delegated to colleagues, team members, other departments:
+- Include person's name and contact/email
+- Consider organizational context (reliability for regular interactions)
+- Integration: Review waiting items during regular one-on-ones or team meetings
+- Follow-up often informal (chat, quick email) but still documented
+- Escalation typically within your reporting structure
+
+**External delegation** (vendors, contractors, partners):
+
+For items delegated to external parties:
+- Include vendor/contractor name, contact person, how to reach them
+- Reference order/ticket numbers or confirmation details
+- Document service level agreements or guaranteed response times
+- Follow-up may be more formal (official inquiries, dispute processes)
+- Escalation follows vendor procedures (escalation contacts, complaints process)
+
+**Organizing Waiting For list**:
+
+Consider organizing by:
+- **Context**: @waiting-internal, @waiting-external (or similar tags)
+- **Person responsible**: Especially useful for reviewing delegations to specific team members
+- **Due date**: To surface items approaching expected delivery
+- **Priority**: Urgent vs. standard
+
+Key principle: All waiting items—internal and external—remain visible and reviewable so nothing falls through cracks due to relying on memory.
+
+---
+

@@ -1,0 +1,70 @@
+#!/usr/bin/env fish
+#
+# gtd-calendar - Calendar CLI wrapper (khal + vdirsyncer)
+#
+# Commands:
+#   list [DAYS]       List events (default: next 7 days)
+#   today             List today's events
+#   tomorrow          List tomorrow's events
+#   add               Add an event interactively
+#   new SUMMARY       Quick add event (prompts for details)
+#   edit              Edit events interactively
+#   delete            Delete an event
+#   sync              Sync calendars with server (vdirsyncer)
+#   interactive       Open interactive calendar (ikhal)
+#   help              Show this help
+
+set cmd $argv[1]
+set rest $argv[2..-1]
+
+# vdirsyncer may be in ~/.local/bin
+set -x PATH $PATH ~/.local/bin
+
+switch "$cmd"
+    case list l
+        if test (count $rest) -gt 0
+            khal list --days $rest[1]
+        else
+            khal list --days 7
+        end
+    case today
+        khal list --days 1
+    case tomorrow
+        khal list --days 2 | tail -n +2
+    case add new
+        if test (count $rest) -gt 0
+            khal new $rest
+        else
+            khal new
+        end
+    case edit e
+        khal edit $rest
+    case delete d
+        khal edit --delete $rest
+    case sync s
+        vdirsyncer sync
+    case interactive i ikhal
+        ikhal $rest
+    case help -h --help ''
+        echo "gtd-calendar - Calendar CLI wrapper (khal + vdirsyncer)"
+        echo ""
+        echo "Commands:"
+        echo "  list [DAYS]       List events (default: next 7 days)"
+        echo "  today             List today's events"
+        echo "  tomorrow          List tomorrow's events"
+        echo "  add               Add an event interactively"
+        echo "  new SUMMARY       Quick add event"
+        echo "  edit              Edit events interactively"
+        echo "  delete            Delete an event"
+        echo "  sync              Sync calendars with server (vdirsyncer)"
+        echo "  interactive       Open interactive calendar (ikhal)"
+        echo ""
+        echo "Configuration:"
+        echo "  khal config: ~/.config/khal/config"
+        echo "  vdirsyncer config: ~/.config/vdirsyncer/config"
+        exit 0
+    case '*'
+        echo "Unknown command: $cmd" >&2
+        echo "Run 'gtd-calendar help' for usage" >&2
+        exit 1
+end

@@ -1,0 +1,382 @@
+## The Five Phases of GTD Workflow
+
+### Related Reading
+- [GTD Summary](../GTD_SUMMARY.md)
+- [The GTD Lists and Containers](lists_and_containers.txt)
+- [The Weekly Review](weekly_review.txt)
+
+### Phase 1: Capture
+
+**Purpose**: Externalize all thoughts, tasks, ideas, and commitments from your mind into trusted collection systems.
+
+**Core Principle**: Your mind is for having ideas, not holding them. The moment something crosses your mind that might require action or attention, capture it immediately in an external system. This principle applies universally—no item is too small or too uncertain to capture.
+
+**The 100% Capture Mandate**: Partial capture systems are functionally worthless. If your system contains only 90% of your commitments, your mind must continue tracking the missing 10%, undermining the entire approach. Success requires comprehensive capture of every incomplete item across all life domains—professional and personal.
+
+#### What to Capture
+
+Capture everything that crosses your mind that is incomplete:
+- Tasks and to-dos (work projects, household chores, errands)
+- Ideas and creative thoughts
+- Learning goals and aspirations
+- Problems needing solving
+- Opportunities and possibilities
+- Events and appointments
+- Someday/Maybe items (things you might pursue in the future)
+- Reference information that might become actionable
+- Anything occupying mental space, regardless of importance or certainty
+
+The decision threshold is simple: "If it's on your mind, it belongs in the inbox." Don't filter or evaluate during capture—uncertain items go in now and get evaluated during the clarification phase.
+
+#### Ubiquitous Capture Principle
+
+Capture tools must be accessible at all times and in all places. Ideas arise unpredictably—while driving, in the shower, during conversations, before sleep. Having tools immediately available prevents idea loss and enables genuine mental freedom.
+
+However, too many capture points creates system fragmentation where items scatter and processing becomes overwhelming. The goal is maintaining as few collection points as practical (typically 2-4) while ensuring accessibility everywhere you spend time.
+
+**Common capture contexts:**
+- **Always on you**: Pocket notebook + pen, or smartphone with quick-capture app
+- **At desk**: Physical in-tray, digital note app, or task management app inbox
+- **While driving**: Voice recording (transcribe later) or capture immediately upon arrival
+- **In meetings**: Notebook or digital note-taking app
+- **In bed**: Bedside notebook for capturing late-night thoughts
+- **During brainstorming**: Whiteboard for group sessions, then transfer to personal inbox
+
+The best capture tool is the one you'll actually use consistently—not the most feature-rich, but the one with lowest friction.
+
+#### Physical vs. Digital Capture
+
+**Physical Tools** (often preferred for immediate capture):
+- No batteries, connectivity, or boot time required
+- Always available without technical barriers
+- Tactile satisfaction and visual permanence
+- Examples: pocket notebooks, index cards, sticky notes, physical in-trays
+
+**Digital Tools** (preferred for integration and searchability):
+- Accessible across multiple devices through sync
+- Searchable and easily organized
+- Supports voice capture, photos, and screenshots
+- Examples: mobile note apps (Drafts, Google Keep), task manager inboxes, voice memos, email-to-self
+
+**Hybrid Approach**: Many practitioners use physical notebooks for immediate capture (lower friction) and digital systems for organization and review. Items captured physically are later transferred during processing.
+
+#### Capture Mechanics and Frequency
+
+**Speed**: Capture should take seconds (typically 2 seconds per item). The faster capture happens, the less it interrupts current focus.
+
+**Non-interruption**: Capturing doesn't mean stopping current work. Jot down the thought and continue your focus. The item is now safely captured and can be processed later.
+
+**No Processing During Capture**: Capture and clarification are separate phases. During capture, you're not deciding what to do with items, just recording them. This separation prevents capture from becoming mentally burdensome.
+
+**Immediate Recording**: Capture ideas the moment they appear in consciousness before they fade. Mental thoughts have brief windows of clarity—waiting "until later" virtually guarantees forgetting.
+
+**Mind Sweeps**: Periodically perform systematic "mind sweeps" by reviewing trigger lists (professional projects, personal responsibilities, health, relationships, finances, creative goals) to surface overlooked items. Perform comprehensive sweeps when initiating GTD and quarterly thereafter.
+
+**Review and Processing Frequency**: Process inbox items at least weekly during your weekly review. Many practitioners process twice daily (morning and afternoon) to prevent accumulation. The critical principle: captured items must not languish—regular processing maintains system trust.
+
+#### The Distinction: Capture ≠ Commitment
+
+A critical understanding: capturing an item does NOT mean you're committing to do it. Recording an idea is simply noting it as an option for later evaluation during the clarification phase. This distinction removes guilt from capturing uncertain items—you're not saying yes, just noting the possibility. This permission to capture freely without commitment enables truly comprehensive capture.
+
+### Phase 2: Clarify
+
+**Purpose**: Transform captured items from vague thoughts into clear statements with defined actionability and outcomes.
+
+**Core Principle**: Process captured items one at a time using a sequential decision tree that routes each item to its appropriate destination. This phase answers four fundamental questions about each item: What is it? Is it actionable? If actionable, what's the next action? Who should do it?
+
+#### The Decision Tree Algorithm
+
+Process each captured item through this sequence:
+
+```
+1. START: Take one item from inbox
+
+2. Q1: "What is it?"
+   → Clarify the item into a clear statement
+
+3. Q2: "Is it actionable?"
+
+   IF NO (non-actionable):
+      → Q3: "Should I keep it?"
+         - No value → TRASH
+         - Future reference → REFERENCE FILES
+         - Potential future action → SOMEDAY/MAYBE LIST
+
+   IF YES (actionable):
+      → Q4: "What's the desired outcome?"
+         → If achievable in one action → Continue to Q5
+         → If requires multiple actions → ADD TO PROJECTS LIST + identify first next action
+
+      → Q5: "What's the very next physical action?"
+         (Identify specific, visible, physical next action)
+
+      → Q6: "Who should do it?"
+         - Someone else → DELEGATE (add to WAITING FOR LIST)
+         - You → Continue to Q7
+
+      → Q7: "Can it be done in <2 minutes?"
+         - Yes → DO IT NOW (Two-Minute Rule)
+         - No → DEFER TO NEXT ACTIONS LIST (with context tag)
+
+4. DONE: Remove from inbox, repeat with next item
+```
+
+#### The Four Questions Explained
+
+**Q1: "What is it?"**
+Many captured items are vague notes that need clarification. "John - Tuesday?" might mean "Call John to confirm Tuesday meeting" or "John owes me response by Tuesday" or "Consider John's Tuesday proposal." Clarification transforms ambiguity into explicit meaning.
+
+**Q2: "Is it actionable?"**
+An item is actionable when you can do something about it AND you want to or should do something about it. Many captured items are informational, aspirational, or already handled. Non-actionable items go to trash, reference, or someday/maybe depending on their nature.
+
+**Q3-Q4: "What's the outcome and next action?"**
+For actionable items, define the desired outcome. If achieving the outcome requires multiple steps, it's a project. Always identify the specific next physical action—not a project name or vague goal, but a concrete visible behavior you can execute.
+
+**Q5-Q7: "Who and when?"**
+Determine if you're the right person to execute the action. If someone else should do it, delegate and track on your Waiting For list. If you should do it and it takes under two minutes, do it immediately. Otherwise, defer it to your Next Actions list.
+
+#### The Two-Minute Rule
+
+**Core Rule**: If a next action can be completed in two minutes or less, do it immediately during processing.
+
+**Rationale**: The overhead of tracking, organizing, and reviewing a small task exceeds the time to complete it. It takes longer to manage the task than to do it.
+
+**Flexibility**: The "two minutes" is a guideline, not a strict boundary. Depending on available time and context, some systems use 2-5 minutes. The principle remains: below a certain threshold, immediate execution is more efficient than deferral.
+
+**Progressive Application**: If completing an action doesn't achieve the desired outcome, identify the next step and reapply the two-minute rule. This prevents small tasks from languishing in your system when they could be completed immediately.
+
+#### Multi-Step Items and Projects
+
+**Project Definition**: Any desired outcome requiring more than one action is a project, regardless of size or complexity. "Write quarterly report" is a project. "Plan vacation" is a project. "Fix garage door" is a project.
+
+**Project Timeline**: Projects are outcomes achievable within one year. Longer-term outcomes belong at higher horizons of focus (goals, vision, purpose).
+
+**Processing Projects**: When clarifying a multi-step item:
+1. Define the desired outcome clearly (what does "done" look like?)
+2. Add the outcome to your Projects list
+3. Identify only the immediate next action at this stage
+4. Add the next action to your Next Actions list
+5. Supporting project details can be stored in project-specific reference files
+
+The Projects list becomes a "parking lot for future actions that are dependent on something else happening first." During your weekly review, you'll revisit each project to ensure it has at least one active next action moving it forward.
+
+#### Reference vs. Trash vs. Someday/Maybe
+
+**Reference Material**: Information with no action required but potential future value. Examples: recipes, articles, technical documentation, contact information, event details, manuals. These go to reference files for retrieval when needed.
+
+**Trash Criteria**:
+- Item requires no action and you have no interest in doing anything about it
+- Item holds no meaning and will never be relevant
+- No point in keeping it—discard immediately
+- Information is easily found elsewhere if needed
+
+**Someday/Maybe**: Potential future actions where the decision is deferred. Examples: travel ideas, possible projects, learning goals, career changes you're considering. These items aren't trash (you're genuinely interested) but aren't actionable right now. They go to the Someday/Maybe list for review during weekly reviews.
+
+#### Delegate vs. Defer Decisions
+
+**Delegate**: If someone else is better suited to execute the action (due to expertise, role, capacity, or cost-effectiveness), delegate it. Add the delegated item to your Waiting For list with:
+- Who is responsible
+- What outcome you're expecting
+- Date you delegated it
+- Expected delivery date (if applicable)
+
+**Defer**: If you're the right person but the action takes more than two minutes, defer it to your Next Actions list. Assign an appropriate context tag (@home, @computer, @calls, etc.) to facilitate later retrieval when you're in the right context to execute it.
+
+#### Processing Methodology
+
+**One Item at a Time**: Process sequentially without prioritizing or cherry-picking. The goal is inbox zero, not selective processing.
+
+**Rapid Clarification**: Each item should be clarified in under one minute. If clarification requires extensive thinking, capture "Decide about X" as a next action and move forward.
+
+**No Skipping**: Don't put items back in the inbox undecided. Make a routing decision for every captured item. If an item is genuinely unclear, create a next action to clarify it rather than leaving it in limbo.
+
+**Sequential Processing**: Work through your inbox top-to-bottom. Random processing order enables procrastination and ensures difficult items never get addressed.
+
+### Phase 3: Organize
+
+**Purpose**: Place clarified items into specific lists and containers that serve as your operational system for daily task management.
+
+**Core Principle**: Each list has a distinct purpose and should contain only items that meet specific criteria. The system works through clear boundaries—projects are not actions, actions are not waiting items, waiting items are not someday possibilities. This clarity enables rapid decision-making during engagement.
+
+#### The Primary GTD Lists
+
+**1. Next Actions**
+**Definition**: The next visible physical activity needed to move something forward.
+
+**What belongs here**:
+- Discrete, actionable items that can be executed immediately
+- Items requiring more than two minutes (shorter items are done immediately)
+- Clear, specific actions (e.g., "Call John about refrigerator specs" not "Fix refrigerator")
+
+**Organization**: By context—the location, tool, or person needed to execute the action. Common contexts: @home, @office, @computer, @phone, @calls, @errands, @anywhere. This context-based organization allows filtering your actions by what's actually possible in your current situation.
+
+**Critical rule**: Each action should be a single physical behavior, not multiple bundled steps. "Plan vacation" is not a next action—it's a project. "Search flights to Denver Dec 1-5" is a next action.
+
+**2. Projects**
+**Definition**: Any outcome requiring more than one action to complete and achievable within one year.
+
+**What belongs here**:
+- Clearly defined desired outcomes (not vague goals)
+- Multi-step initiatives requiring at least two discrete actions
+- Outcomes that can be broken into smaller actionable steps
+
+**Relationship to Next Actions**: Each project should have at least one associated next action. The project is the "container" (the outcome you're working toward); next actions are the executable steps. During weekly review, verify each project has an active next action—if not, either define one or move the project to Someday/Maybe.
+
+**Storage**: Project titles and descriptions live in a Projects list. Supporting materials and details are stored separately in project-specific reference files. Connection between projects and their next actions is maintained through keywords, links, or software features.
+
+**3. Calendar**
+**Definition**: The "hard landscape"—time-specific commitments that must occur on specific dates/times.
+
+**What belongs here**:
+- Fixed appointments (meetings, dentist visits, calls scheduled for specific times)
+- Deadlines that are actual constraints (not arbitrary targets)
+- Future reminders for items to review on specific dates
+- Time-blocked work sessions (optional)
+
+**Critical principle**: The calendar should be as minimal as possible, reserved ONLY for items with fixed dates and times. Overloading it defeats its purpose—if everything is on the calendar, it becomes noise and loses power to highlight true time constraints. Arbitrary task deadlines typically belong on Next Actions lists, not the calendar.
+
+**4. Waiting For**
+**Definition**: Actions you've delegated or that depend on someone else's completion before you can proceed.
+
+**What belongs here**:
+- Items you've delegated to others with explicit deadlines
+- Information you've requested from someone
+- Items awaiting delivery or arrival
+- Feedback or decisions pending from others
+- External blockers to your next actions
+
+**Tracking requirements**:
+- Who you're waiting for
+- What you're waiting for specifically
+- Date you initiated the waiting (to track aging)
+- Expected delivery or due date (if known)
+
+**Review**: Weekly during your review, check each waiting item. For completed items, remove them. For overdue items, create follow-up next actions.
+
+**5. Someday/Maybe**
+**Definition**: Items you're interested in but haven't committed to pursuing right now.
+
+**What belongs here**:
+- Potential trips and travel ideas
+- Courses and learning opportunities
+- Books to read or skills to learn
+- Creative projects not yet committed to
+- Possible purchases or acquisitions
+- Life improvements you're considering
+- Career changes you're exploring
+
+**Critical success factor**: This list only works if reviewed regularly (ideally weekly during full review, minimum quarterly). Without consistent review, it becomes a graveyard of forgotten ideas rather than a useful planning tool.
+
+**Movement rules**: Items move from Someday/Maybe to Projects when you commit to them. They can be removed if they no longer appeal. Regular review assesses whether items now deserve active commitment.
+
+**6. Reference**
+**Definition**: Information and materials that support your projects and life but require no action.
+
+**What belongs here**:
+- Articles, documentation, manuals
+- Recipes and how-to guides
+- Contact lists and organizational information
+- Event tickets, confirmations, receipts
+- Medical, financial, and legal records
+- Ideas and inspiration materials
+- Any non-actionable information with potential future value
+
+**Organization approach**: Alphabetical filing is simplest and most effective. File everything by topic, author, or company name in A-Z order. This minimizes search time and decision-making during filing. For large collections, maintain separate sections (professional reference, personal reference) but alphabetize within each.
+
+**Accessibility principle**: Reference systems must be stowable in under one minute and retrievable in seconds. If filing takes longer, psychological resistance builds and documents accumulate as unmanaged piles.
+
+**Annual maintenance**: Purge reference files at least once yearly to remove outdated materials and prevent the system from feeling like a "black hole."
+
+#### How Lists Relate to Each Other
+
+**The Hierarchy**:
+- Projects decompose into → Next Actions
+- Next Actions are organized by → Contexts
+- All active work lives on: Calendar, Next Actions, Waiting For
+- Someday/Maybe becomes → Projects when committed
+- Reference supports → All lists
+
+**Processing Flow**:
+1. Capture into inbox
+2. Clarify the action/outcome needed
+3. Organize to appropriate list based on type and commitment level
+4. Reflect (weekly review) to maintain accuracy and connections
+5. Engage by executing from appropriate context
+
+**The Weekly Review Maintains Connections**:
+- Ensures each project has at least one active next action
+- Validates that next actions still belong on your lists
+- Checks waiting items haven't stalled
+- Assesses someday/maybe items for possible activation
+- Updates reference materials as needed
+
+Without weekly review, these connections decay and the system becomes untrustworthy.
+
+### Phase 4: Reflect
+
+**Purpose**: Maintain system trust through regular review that keeps all lists current, complete, and aligned with reality.
+
+**Core Principle**: The GTD system is only as good as your trust in it. Trust comes from knowing your system is complete and current. The Weekly Review is the mechanism that maintains that trust—it's the "critical success factor" that David Allen identifies as the difference between GTD success and failure.
+
+(See the dedicated "Weekly Review" section below for comprehensive coverage)
+
+### Phase 5: Engage
+
+**Purpose**: Use your trusted system to make confident decisions about what to do right now.
+
+**Core Principle**: With comprehensive capture, clear organization, and regular review in place, you can confidently engage with work knowing nothing important is being neglected. The engagement decision uses the Four Criteria Model to filter available actions by practical constraints.
+
+#### The Four Criteria Model
+
+When deciding what to do next, apply these four filters in order:
+
+**1. Context**
+Where are you and what tools/people are available? Context eliminates entire categories of actions immediately. If you're at home without your work laptop, all @office actions are impossible right now. Context filtering shows only what's actually doable in your current situation.
+
+**2. Time Available**
+How much uninterrupted time before your next commitment? With 15 minutes before a meeting, you can handle quick emails but not write a complex report. Time filtering matches task complexity to available windows.
+
+**3. Energy Available**
+What's your current mental and physical capacity? High-energy periods suit deep creative work (writing, strategic planning, complex problem-solving). Low-energy periods suit administrative tasks (email, filing, routine data entry). Energy filtering prevents wasted effort attempting demanding work when depleted.
+
+**4. Priority**
+Of the remaining options (those possible given your context, time, and energy), which delivers the most value right now? Priority comes last because it's meaningless to prioritize impossible actions. This ordering creates realistic prioritization grounded in actual capability.
+
+#### Daily Review Process
+
+**What to review** (10-15 minutes each morning):
+1. Check your calendar for all non-negotiable, time-specific commitments
+2. Identify available time blocks between calendar items
+3. Review your Next Actions list, filtering by current context
+4. Check items marked as important or urgent
+5. Prepare mentally to make good in-the-moment decisions throughout the day
+
+**Purpose**: Create clarity about today's hard landscape (calendar) and available discretionary time (gaps), enabling confident moment-to-moment decisions as the day unfolds.
+
+**Not a rigid schedule**: The daily review doesn't create a fixed task schedule. It creates awareness of constraints and options, allowing flexible response to emerging priorities while maintaining accountability to time-specific commitments.
+
+#### Three Types of Engagement
+
+At any moment, you're engaged in one of three activities:
+
+**1. Predefined Work**: Executing tasks from your Next Actions lists. This is the primary mode—working through actions you've previously clarified and organized.
+
+**2. Unplanned Work**: Handling urgent matters that arise unexpectedly. Life brings interruptions; GTD doesn't eliminate them but provides a system to quickly capture them and return to predefined work.
+
+**3. Defining Your Work**: Capturing new items and clarifying/organizing them. This is processing time—moving items from inbox through the clarification and organization phases.
+
+Effective GTD practitioners move fluidly between these modes without losing confidence in what should happen next.
+
+#### Building Trust in Your System
+
+Full trust that your system contains everything important and actionable is essential for confident engagement. Without complete trust, you'll second-guess your choices and experience decision paralysis. Trust develops through:
+- Comprehensive capture of all commitments
+- Regular processing (inbox to zero)
+- Consistent weekly reviews
+- Honoring your calendar as sacred
+- Completing actions you commit to
+
+Once trust is established, your "perfectly informed intuition" emerges—you can trust your gut about what to work on because you've already filtered for practical constraints, and you know nothing important is being forgotten.
+
+---
+

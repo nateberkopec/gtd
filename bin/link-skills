@@ -1,0 +1,47 @@
+#!/usr/bin/env fish
+
+gum style --bold --foreground 212 "Linking GTD skills"
+
+set repo_dir (cd (dirname (status --current-filename))/..; pwd)
+set -l source_skills "$repo_dir/skills"
+if not test -d "$source_skills"
+  gum log --level error "Missing skills directory: $source_skills"
+  exit 1
+end
+
+set -l claude_skills "$HOME/.claude/skills"
+
+set -l opencode_root
+if set -q CODEX_HOME
+  set opencode_root $CODEX_HOME
+else if set -q OPENCODE_HOME
+  set opencode_root $OPENCODE_HOME
+else if set -q XDG_CONFIG_HOME
+  set opencode_root "$XDG_CONFIG_HOME/opencode"
+else
+  set opencode_root "$HOME/.config/opencode"
+end
+set -l opencode_skills "$opencode_root/skills"
+
+for target_dir in $claude_skills $opencode_skills
+  mkdir -p "$target_dir"
+
+  for skill_path in $source_skills/*
+    if not test -d "$skill_path"
+      continue
+    end
+
+    set -l skill_name (basename "$skill_path")
+    set -l link_path "$target_dir/$skill_name"
+
+    if test -e "$link_path"; and not test -L "$link_path"
+      gum log --level warn "Skipping existing path: $link_path"
+      continue
+    end
+
+    ln -sfn "$skill_path" "$link_path"
+    gum log --level info "Linked: $link_path"
+  end
+end
+
+gum log --level info "Skill linking complete"

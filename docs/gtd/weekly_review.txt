@@ -1,0 +1,281 @@
+## The Weekly Review
+
+### Related Reading
+- [GTD Summary](../GTD_SUMMARY.md)
+- [The Five Phases of GTD Workflow](five_phases.txt)
+- [Common Pitfalls and Recovery](common_pitfalls.txt)
+
+### Purpose and Criticality
+
+The Weekly Review is, according to David Allen, the single most critical success factor for GTD. It's the "glue that holds it all together"—the mechanism that maintains system trust and bridges large commitments with daily activities. Without consistent weekly reviews, even the most sophisticated GTD system gradually decays into a graveyard of forgotten commitments and outdated priorities.
+
+The review serves multiple essential functions:
+- Empties your head completely by processing all accumulated inputs
+- Updates your system to reflect current reality and commitments
+- Verifies all projects have active next actions
+- Assesses items waiting for others and creates follow-up actions
+- Reviews possibilities (Someday/Maybe) for potential activation
+- Provides psychological relief through comprehensive overview
+- Enables pattern recognition and strategic adjustments
+- Restores the clarity and control at the heart of GTD
+
+**David Allen's statement**: "Do it, it lives and grows. Don't do it, it dies." The weekly review is non-optional for GTD success.
+
+### Timing and Scheduling
+
+**Frequency and duration**:
+- **Frequency**: Every 7 days (weekly ritual)
+- **Full duration**: 60-90 minutes for comprehensive review covering all three phases
+- **Abbreviated format**: 25-30 minutes focusing on Phases 1-2 (Get Clear and Get Current)
+- **Minimum principle**: Even 30 minutes focused on essential phases vastly exceeds skipping entirely
+
+**Optimal timing**:
+- **Friday afternoon**: David Allen's original recommendation. Surfaces small actions completable before weekend; creates clean slate for following week
+- **Sunday evening**: Allows reflection on past week and preparation for coming week; provides rest before reviewing
+- **The critical factor**: Choose what's realistic for YOUR rhythm and life pattern. Experiment until finding a slot you'll actually protect consistently
+
+**Scheduling discipline**:
+- Schedule as recurring calendar appointment
+- Treat with same seriousness as meeting with your most important client
+- Set up automatic responders and block distractions
+- Choose a comfortable, distraction-free location
+- Gather all materials before starting (calendar, task manager, notebook, reference materials)
+
+### The Three Phases
+
+#### Phase 1: Get Clear
+
+**Purpose**: Empty your head and process all accumulated inputs since the last review.
+
+**Key activities**:
+
+1. **Collect all loose materials**
+   - Gather physical items: papers, business cards, receipts, sticky notes, notebooks
+   - Collect digital items: screenshots, photos, downloads, desktop clutter
+   - Everything goes into your inbox for processing
+
+2. **Process digital inboxes**
+   - Empty email inboxes to zero (applying clarify phase decision tree)
+   - Clear voicemails and voice messages
+   - Process phone notifications and captures
+   - Review downloads folder and desktop
+   - Clear browser tabs and bookmarks to process
+
+3. **Mind sweep**
+   - Capture any uncaptured thoughts, ideas, worries, commitments
+   - Use trigger lists to surface forgotten items:
+     - Professional: reports due, communications pending, meetings to schedule
+     - Personal: health appointments, home maintenance, family coordination
+     - Financial: bills, budgets, investment reviews
+     - Creative: project ideas, learning goals
+   - Write everything down without filtering
+
+4. **Review notes**
+   - Go through notebooks and meeting notes from past week
+   - Identify commitments, action items, ideas that haven't been captured
+   - Extract next actions and projects
+
+**Why this phase matters**: Without clearing your head, you cannot trust your system. Uncaptured items create persistent anxiety. The relief of knowing everything is externalized provides the mental space for effective decision-making.
+
+**Time allocation**: 15-25 minutes typically, though initial setup reviews may take longer.
+
+#### Phase 2: Get Current
+
+**Purpose**: Ensure your system accurately reflects reality and all commitments are up to date.
+
+**Key activities**:
+
+1. **Review and mark completed next actions**
+   - Go through entire Next Actions list across all contexts
+   - Check off completed items
+   - Archive completed actions
+   - Acknowledge progress (psychological boost)
+
+2. **Review all projects**
+   - Scan complete Projects list
+   - Verify each active project has at least one next action
+   - Check for completed projects—close them and archive
+   - Identify stalled projects—either define next action or move to Someday/Maybe
+   - Add any new projects that have emerged
+
+3. **Review Waiting For list**
+   - Check each item you're waiting for from others
+   - Mark received items complete
+   - Identify overdue items requiring follow-up
+   - Create next actions for needed follow-ups
+   - Update expected delivery dates if circumstances changed
+
+4. **Review past calendar**
+   - Examine previous 1-2 weeks' calendar entries
+   - Capture missed action items from meetings
+   - Identify needed follow-ups from events
+   - Extract reference material to file
+
+5. **Review upcoming calendar**
+   - Look ahead 1-4 weeks (minimum next week, ideal next month)
+   - Anticipate scheduling conflicts
+   - Identify preparation needed for upcoming commitments
+   - Note time-blocking opportunities
+   - Create next actions for event preparation
+
+6. **Review relevant checklists**
+   - Role-specific checklists (manager duties, parent responsibilities)
+   - Project-specific checklists
+   - Recurring task checklists (monthly reviews, quarterly reports)
+   - Ensure nothing is slipping through cracks
+
+**Why this phase matters**: This verification ensures your system remains trustworthy. If your lists don't reflect reality, you stop trusting them, and the entire GTD system breaks down. Current information enables confident decision-making.
+
+**Time allocation**: 25-45 minutes typically.
+
+#### Phase 3: Get Creative
+
+**Purpose**: Elevate from tactical execution to strategic thinking—proactive opportunity identification and alignment checking.
+
+**Key activities**:
+
+1. **Review Someday/Maybe list**
+   - Examine all deferred possibilities and ideas
+   - Ask: "Should any of these become active projects now?"
+   - Promote items that deserve commitment to Projects list
+   - Delete items that no longer appeal
+   - Add notes about why you're still deferring others
+
+2. **Review new ideas and inspiration**
+   - Examine ideas captured during week
+   - Consider which might become projects or significant focus areas
+   - Connect inspiration to existing projects or goals
+
+3. **Examine roles and responsibilities**
+   - Review your various life roles (professional roles, personal roles, community roles)
+   - Identify areas needing more attention or resources
+   - Notice imbalances (overcommitted professionally, neglecting health)
+   - Consider whether new projects should address underserved areas
+
+4. **Evaluate goals and long-term vision**
+   - Review 1-2 year goals
+   - Assess whether current projects align with larger goals
+   - Consider whether goals need updating based on changed circumstances
+   - Connect daily work to deeper purpose
+
+5. **Identify proactive opportunities**
+   - Look for ways to exceed expectations
+   - Identify problems to solve preemptively
+   - Consider value creation beyond standard commitments
+   - Strategic thinking about project approaches
+
+**Why this phase matters**: This phase prevents GTD from becoming purely operational. It ensures you're not just executing effectively on the wrong things. It reconnects daily activity to larger purpose and values.
+
+**Time allocation**: 15-30 minutes. Can be done quarterly as a deeper session rather than weekly.
+
+**Note on abbreviated reviews**: Many practitioners find weekly Get Creative unsustainable. It's acceptable to focus Phases 1-2 weekly (30 minutes) and do deeper Get Creative sessions quarterly. Consistency with Get Clear and Get Current matters more than perfect execution of all three phases.
+
+### Common Failures and How to Avoid Them
+
+#### Failure 1: Inconsistency and Skipping Reviews
+
+**The problem**: One missed review might not matter, but skipping becomes habitual. Over 2-3 weeks without review, your system becomes untrustworthy, items pile up, and processing becomes overwhelming—creating a downward spiral.
+
+**How to avoid**:
+- Treat weekly review as non-negotiable calendar appointment
+- Set multiple calendar reminders (24 hours ahead, 1 hour ahead)
+- Have backup plan: if you miss scheduled slot, when EXACTLY will you reschedule?
+- Understand the cost: skipping saves 60 minutes now but costs exponentially in stress and system deterioration
+- Start small: commit to abbreviated 30-minute reviews before expanding to full 90-minute sessions
+
+#### Failure 2: Allowing Distractions
+
+**The problem**: Interruptions (emails, calls, people) turn 60-minute reviews into 3-hour marathons. You lose focus, the process becomes grueling, and you're tempted to skip next week.
+
+**How to avoid**:
+- Close all communication channels before starting
+- Silence phone completely
+- Use email/chat auto-responders: "In weekly review, will respond after [time]"
+- Work in isolation—quiet space away from normal work location if possible
+- Monotask ruthlessly—don't act on items during review, just process them
+- Protect the time like you would protect surgery—no interruptions except emergencies
+
+#### Failure 3: Trying to Do Inbox Zero Simultaneously
+
+**The problem**: Attempting to process all inbox items during weekly review balloons time, causes decision fatigue, and makes reviews feel overwhelming and burdensome.
+
+**How to avoid**:
+- Process inboxes to zero BEFORE weekly review (separate focused time)
+- Set time boundary for Get Clear phase: 20-30 minutes maximum
+- If an email requires significant decision-making, capture "Decide about X" as action—don't fully process during review
+- Remember: review is about overview and system maintenance, not detailed processing
+
+#### Failure 4: Attempting Perfect, Comprehensive Reviews
+
+**The problem**: Trying to maintain 2-hour, 3-phase reviews every week is unsustainable. Perfectionism becomes the enemy of consistency. One overly complex review is skipped, then the next feels like too much work.
+
+**How to avoid**:
+- Start minimal: 30-minute reviews focusing only on Phases 1-2
+- Add Phase 3 quarterly rather than weekly
+- Embrace "good enough": brief focused review infinitely more valuable than skipped ideal review
+- Gradually expand duration as consistency builds and habit strengthens
+- Define "minimum viable review" for extremely busy weeks (15 minutes checking projects and calendar)
+
+#### Failure 5: Reviewing Too Much
+
+**The problem**: Some people review daily or spend excessive time reviewing, leading to fatigue and diminishing returns. They re-examine items repeatedly without taking action.
+
+**How to avoid**:
+- Stick to weekly cadence—resist urge to do full review multiple times per week
+- Daily maintenance is brief: 5-10 minute check of calendar and today's priorities, not full review
+- Focus on action, not analysis: review identifies what to do; doing happens during the week
+- Use time between reviews for execution—GTD value comes from effective action, not endless reviewing
+
+#### Failure 6: Skipping When Life Gets Busiest
+
+**The problem**: People skip weekly review precisely when they most need it—when swamped, stressed, or juggling crises. "I don't have time" becomes self-fulfilling prophecy as missed reviews lead to greater chaos.
+
+**How to avoid**:
+- Understand the paradox: weekly review is MOST critical during chaotic periods
+- Have "minimum viable review": even 15-20 minutes on urgent/due items provides value
+- Make it easier: use pre-built templates, checklists, or tools to reduce mental load
+- Recognize pattern: if perpetually too busy to review, something is fundamentally misaligned in your commitments
+- Remember: 60 minutes of review prevents hours of firefighting and missed commitments
+
+### Implementation Support Features
+
+When building weekly review features in GTD software:
+
+**1. Review Scheduler**
+- Calendar integration for recurring weekly reviews
+- Multiple timing options (Friday afternoon, Sunday evening, custom)
+- Gentle reminders: 24 hours before, 1 hour before
+- Streak tracking: show consecutive weeks with completed reviews
+
+**2. Guided Review Workflow**
+- Step-by-step interface through three phases
+- Phase 1 checklist: capture new items, process inboxes (with inbox count displays)
+- Phase 2 dashboard: completed items, upcoming calendar, projects needing actions, waiting items
+- Phase 3 space: reviewing Someday/Maybe, strategic thinking prompts
+- Option to skip Phase 3 or move to separate quarterly review
+
+**3. Review Checklist Interface**
+- Customizable checklists for each phase
+- Mark items complete within review process
+- Progress indicator showing completion percentage
+- Save progress: ability to pause and resume review
+
+**4. Focus Mode**
+- Minimal distraction interface during reviews
+- Disable notifications and interruptions system-wide
+- Full-screen or distraction-free view
+- Timer showing elapsed review time
+
+**5. Review History and Analytics**
+- Track review completion consistency over time
+- Show statistics: items reviewed, actions created, projects updated
+- Motivational feedback: "5-week review streak!"
+- Pattern identification: what gets reviewed vs. completed
+
+**6. Trust Indicators**
+- Show system health: inbox size, last review date, projects without actions, aging waiting items
+- Visual feedback when system is current and trustworthy
+- Warnings when review is overdue or system shows staleness
+
+---
+

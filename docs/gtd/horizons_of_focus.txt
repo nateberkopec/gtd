@@ -1,0 +1,208 @@
+## Horizons of Focus
+
+### Related Reading
+- [GTD Summary](../GTD_SUMMARY.md)
+- [Project Planning: The Natural Planning Model](natural_planning.txt)
+- [The Weekly Review](weekly_review.txt)
+
+### Overview
+
+The Horizons of Focus is David Allen's six-level framework organizing work from tactical to strategic perspectives. These hierarchical "altitude levels" range from immediate next actions on the ground to your life's ultimate purpose at the highest level. The framework helps maintain alignment between daily tasks and deeper life purpose by ensuring everything you do ultimately serves your core values and long-term vision.
+
+**The essential principle**: Clarity cascades down from higher horizons to lower ones. Clear purpose and vision make choosing projects and actions easier. Conversely, working on projects reveals whether goals and vision are realistic. Regular review across all horizons creates a coherent system where mundane daily work becomes meaningful through conscious connection to what matters most.
+
+### The Six Horizons
+
+#### Ground Level: Calendar & Current Actions
+
+**Altitude**: Immediate (daily/weekly)
+
+**Definition**: The huge volume of immediate actions, calendar items, and information you must manage day-to-day. Includes emails, calls, memos, errands, reading, filing, and things to discuss with people.
+
+**Characteristics**:
+- Typically requires 300-500 hours to clear without new inputs
+- Most visible and demanding level
+- Consumes majority of most people's time and attention
+- Includes all next actions captured in trusted system
+- Requires daily engagement and execution
+
+**Purpose**: Executes the projects and initiatives that drive progress across higher horizons.
+
+**Review frequency**: Daily (morning review of calendar and next actions)
+
+#### Horizon 1: Current Projects (10,000 feet)
+
+**Altitude**: 10,000 feet (weeks to months)
+
+**Definition**: All commitments to complete that require more than one action step. These "open loops" generate the majority of your ground-level actions.
+
+**Characteristics**:
+- Most people maintain 30-100 active projects simultaneously
+- Creates most of your action items
+- Each project has defined outcome requiring multiple sequential actions
+- Fluctuates regularly as projects complete and new ones emerge
+- Forms bridge between daily actions and longer-term areas of responsibility
+
+**Purpose**: Transforms your areas of focus into concrete, achievable outcomes with defined endpoints.
+
+**Review frequency**: Weekly (during weekly review)
+
+**Key questions**: Are all projects captured? Does each have a clear next action? Any new projects emerged? Any completed?
+
+#### Horizon 2: Areas of Focus & Accountability (20,000 feet)
+
+**Altitude**: 20,000 feet (ongoing)
+
+**Definition**: The four to seven major areas of responsibility you are (or will be) held accountable for by yourself or others. These represent your roles and life domains requiring ongoing attention and excellence.
+
+**Characteristics**:
+- Typically 4-7 major areas (not more than 10)
+- Include job functions and personal life domains
+- Represent what you must do well over extended time period
+- Relatively stable compared to projects
+- Generate creation of most projects in Horizon 1
+
+**Examples**:
+- Professional: Team Leadership, Product Development, Client Relations, Financial Management
+- Personal: Health & Fitness, Family, Personal Growth, Home Management
+- Creative: Writing, Learning, Community Service
+
+**Purpose**: Defines ongoing responsibilities and ensures no critical life area falls through cracks. Projects should align with these areas.
+
+**Review frequency**: Weekly overview to ensure adequate attention; deeper quarterly assessment
+
+**Key questions**: Is each area adequately covered by active projects? Are any areas over/under-represented? What needs attention in each area?
+
+#### Horizon 3: Goals (1-2 Years) (30,000 feet)
+
+**Altitude**: 30,000 feet (12-24 months)
+
+**Definition**: Specific objectives and outcomes you aim to accomplish within the next one to two years. Medium-term goals accounting for personal ambitions and organizational or life changes on the horizon.
+
+**Characteristics**:
+- Typically 5-10 goals at any given time
+- More concrete than vision but more abstract than projects
+- Consider organizational or life trajectory changes
+- Influenced by market factors, career advancement, and personal development
+- Help clarify which projects matter most
+- More stable than projects but reviewed periodically
+
+**Examples**:
+- "Launch three new product features by year-end"
+- "Achieve senior engineering role by Q4 2026"
+- "Complete marathon in under 4 hours by next fall"
+- "Establish $50K emergency fund by end of year"
+
+**Purpose**: Guides project selection and prioritization, ensuring effort focuses on outcomes that matter for medium-term future.
+
+**Review frequency**: Quarterly deep dive to assess progress and adjust
+
+**Key questions**: Am I on track? Should this goal remain, be modified, or replaced? What's the next milestone? What projects support this goal?
+
+#### Horizon 4: Vision (3-5 Years) (40,000 feet)
+
+**Altitude**: 40,000 feet (36-60 months)
+
+**Definition**: Your desired future and longer-term strategic direction across multiple life domains. Where do you see yourself in 3-5 years, having achieved your goals?
+
+**Characteristics**:
+- Spans 3-5 years (limit of most people's reasonable planning)
+- Covers career, lifestyle, health, finances, relationships
+- Influenced by company trajectory and larger market forces
+- More aspirational than goal-oriented
+- Requires imagination and clarity about desired outcomes
+- Less detailed but broader in scope than 1-2 year goals
+
+**Examples**:
+- "Leading engineering team of 20+ at successful startup, living in urban walkable neighborhood, financially independent with options"
+- "Established author with published book, recognized expert in field, regular speaking engagements"
+- "Living abroad with family, fluent in second language, remote work enabling travel lifestyle"
+
+**Purpose**: Establishes overarching direction that drives goals and helps navigate major life and career decisions.
+
+**Review frequency**: Quarterly check-in; deeper annual reassessment
+
+**Key questions**: Is this still my desired future? What major changes affect this vision? Should any elements shift?
+
+#### Horizon 5: Purpose & Principles (50,000+ feet)
+
+**Altitude**: 50,000+ feet (lifetime)
+
+**Definition**: The ultimate "big picture" foundation—core values, life purpose, and principles guiding all work. This answers the deepest questions: What is the work you are here to do? What is your authentic self? What matters most?
+
+**Characteristics**:
+- Addresses the "why" behind everything else
+- Includes core values, desired lifestyle, and authenticity
+- Encompasses unique talents and how they serve others
+- Remains relatively stable over lifetime
+- Ultimate reference point for all decisions
+- Provides meaning and fulfillment context
+
+**Examples**:
+- "Create educational content that empowers people to build better software and lead fulfilling careers"
+- "Live authentically, prioritize relationships over status, contribute to community well-being"
+- "Use technical skills to solve meaningful problems, mentor others, maintain work-life harmony"
+
+**Purpose**: Serves as foundation and meaning-maker for all work across other horizons. Without clarity here, you risk being busy doing "off-course things" and wondering why meaningful life is elusive.
+
+**Review frequency**: Annual deep reflection or during life transitions
+
+**Key questions**: Am I operating within my real values? Is this the lifestyle/work I want? Am I being my authentic self? What matters most to me?
+
+### How Horizons Connect
+
+**Top-Down (Strategic) Alignment**:
+
+```
+Purpose and Principles (Why you exist, what matters most)
+        ↓ informs
+Vision (3-5 year desired future)
+        ↓ broken down into
+Goals (1-2 year specific outcomes)
+        ↓ organized across
+Areas of Focus (ongoing responsibilities)
+        ↓ executed through
+Projects (multi-step initiatives)
+        ↓ activated by
+Ground Actions (daily next steps)
+```
+
+**Bottom-Up (Execution) Perspective**:
+
+Your daily actions are meaningful because they serve projects, which advance goals within focus areas, all aligned with vision and core purpose. This connection transforms mundane tasks into purposeful work.
+
+**Key Relationship Principles**:
+
+1. **Clarity cascades down**: Clear purpose and vision simplify choosing projects and actions
+2. **Projects surface needs**: Work on projects reveals whether goals and vision are realistic
+3. **No orphaned work**: Every project should align with at least one area of focus and ideally one goal
+4. **Purpose provides meaning**: Even mundane tasks become meaningful when consciously connected to deeper purpose
+5. **Conflict resolution**: When priorities conflict, higher horizons serve as tie-breakers
+6. **Alignment prevents busy-ness**: Regular cross-horizon review ensures you're not just busy, but moving toward what matters
+
+**Example of connected horizons**:
+
+- **Purpose**: "Use technical skills to create value and mentor others"
+- **Vision**: "Leading respected engineering team at impactful company in 5 years"
+- **Goal**: "Achieve senior engineer promotion by end of year"
+- **Area of Focus**: Technical Leadership, Team Development
+- **Project**: "Complete AWS certification program"
+- **Next Actions**: "@computer: Watch AWS Lambda tutorial module 1", "@computer: Schedule study time for certification exam"
+
+Each next action connects directly to project, which serves goal, which advances vision, which expresses purpose. This alignment creates both efficiency (working on right things) and meaning (knowing why they matter).
+
+### Review Cadence for Each Horizon
+
+| Horizon | Review Frequency | Duration | Key Questions |
+|---------|-----------------|----------|---------------|
+| Ground (Actions) | Daily | 10-15 min | What must happen today? What's my calendar commitment? What's the next action? |
+| H1 (Projects) | Weekly | 30-45 min | Are all projects captured? Does each have next action? Any new/completed? |
+| H2 (Areas) | Weekly/Quarterly | 15-30 min | Is each area adequately covered? Any areas neglected or over-represented? |
+| H3 (Goals) | Quarterly | 45-60 min | Am I on track? Should goals change? What's next milestone? |
+| H4 (Vision) | Quarterly/Annually | 60-90 min | Is this still desired future? What major changes affect vision? |
+| H5 (Purpose) | Annually/Transitions | 2-4 hours | Am I operating within my values? Is this the life I want? What matters most? |
+
+**The key principle**: You don't need to re-evaluate higher horizons frequently, whereas you need weekly engagement with projects and actions. Higher horizons provide stability and direction; lower horizons handle dynamic execution.
+
+---
+

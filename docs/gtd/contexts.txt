@@ -1,0 +1,135 @@
+## Contexts
+
+### Related Reading
+- [GTD Summary](../GTD_SUMMARY.md)
+- [The GTD Lists and Containers](lists_and_containers.txt)
+- [The Five Phases of GTD Workflow](five_phases.txt)
+
+### What Are Contexts?
+
+**Definition**: A context is a tag or classification that defines what you need to be able to carry out an action. Contexts answer the question: "What do I need to do this task?" The answer can be a place, a tool, a person, or an activity mode.
+
+**Fundamental purpose**: Contexts serve as a powerful filtering mechanism that dramatically reduces cognitive load by limiting your available actions to only those you can realistically accomplish in your current situation. Without contexts, you face decision paralysis scanning hundreds of tasks when only a handful are actually possible right now.
+
+**How contexts reduce mental load**:
+- When you're at home, you don't see office-based tasks
+- When at the grocery store, you don't see computer-based tasks
+- When you have phone access, you see only phone-appropriate actions
+- This filtering eliminates recurring decision-making stress about impossible-right-now actions
+
+**The trust factor**: Contexts enable your task system to serve as a trusted reminder device. The system shows only what's actionable, delegating impossible tasks out of view. This builds confidence that consulting your lists will always produce productive options.
+
+### Common Context Categories
+
+#### Location-Based Contexts
+
+Traditional GTD relies heavily on location, though modern remote/hybrid work has reduced its prominence:
+
+- **@home**: Tasks requiring your home environment (household maintenance, personal projects, family coordination)
+- **@office**: Tasks requiring office setup, specific equipment, or office presence
+- **@errands**: Shopping, banking, post office, service appointments, anything requiring being out
+- **@car**: Mobile contexts for handling calls, podcasts, voice notes while commuting
+- **@anywhere**: Portable tasks doable in any location
+
+#### Tool-Based Contexts
+
+Tool availability was historically a major constraint but has diminished with mobile devices:
+
+- **@computer**: Tasks requiring laptop/desktop (complex writing, coding, design, data analysis)
+- **@phone**: Voice calls, text communication, mobile app management
+- **@online**: Tasks requiring internet connectivity (research, streaming, cloud work)
+- **@email**: Email-specific processing and responses
+- **@paper**: Physical paperwork, printing, filing tasks
+
+#### Person-Based Contexts
+
+Used for delegation and conversation tracking:
+
+- Named contexts: **@spouse**, **@manager**, **@john** (individual-specific items)
+- **@agendas**: Notes for regular one-on-one meetings
+- **@delegation**: Items awaiting others' input or completion
+- **@team**: Topics to discuss at team meetings
+
+#### Activity-Based / Mode Contexts
+
+Group similar cognitive and physical activities:
+
+- **@calls**: Phone-based communication requiring voice interaction
+- **@meetings**: Structured group discussions and agenda items
+- **@admin**: Administrative and clerical work
+- **@review**: System and project review work
+- **@planning**: Strategic thinking and planning sessions
+- **@writing**: Extended writing and composition work
+- **@reading**: Articles, documents, research materials to review
+
+### Modern Evolution: Energy and Time-Based Contexts
+
+**The fundamental shift**: Traditional GTD emerged when access to information and tools was location-dependent. Today, with smartphones and universal connectivity, tool availability is rarely constraining. Modern knowledge workers can access nearly everything from anywhere, making traditional contexts less useful.
+
+**The new constraint**: For digital workers, the binding constraints are no longer "Do I have a computer?" but rather "Do I have focused energy?" and "How much time is available?" This has driven evolution in how practitioners use contexts.
+
+#### Energy-Based Context Examples
+
+Many modern practitioners organize by energy level required:
+
+- **"Full Focus"** (1+ hours, high creative energy): Deep work like coding, writing, strategic planning, complex problem-solving
+- **"Short Dashes"** (5-30 minutes, moderate focus): Tactical tasks, email responses, quick research, planning sessions
+- **"Hanging Around"** (flexible time, moderate attention): Reading, brainstorming, learning, research
+- **"Brain Dead"** (minimal focus, mechanical): Data entry, organizing, filing, routine admin, list processing
+
+**Why energy matters**: Mental and physical capacity fluctuates throughout the day. Attempting demanding cognitive work during depleted periods yields poor results and frustration. Matching task difficulty to available energy increases both productivity and satisfaction.
+
+#### Time-Based Contexts
+
+Temporal constraints often matter more than location:
+
+- **@today**: Must be decided or done before day ends
+- **@thisweek**: Window closing this week
+- **@q1/@q2/@q3/@q4**: Quarterly deadline contexts
+- **@standing**: Recurring tasks (weekly check-ins, monthly reports, yearly reviews)
+- **@15min**: Tasks completable in 15 minutes or less
+- **@30min**: Tasks requiring 30 minutes
+- **@1hour**: Tasks needing hour-long blocks
+
+### Context Granularity and Best Practices
+
+**The granularity challenge**: Finding the right level of context detail is critical. Too granular creates excessive overhead and decision fatigue. Too broad loses filtering value.
+
+**Optimal range**: Research and practitioner experience suggest 4-7 contexts provide optimal benefit. Fewer than 4 provides insufficient filtering; more than 7 creates management complexity that outweighs value.
+
+**When to split contexts**:
+- A context contains 50+ items (unwieldy to scan)
+- Activities require distinctly different energy levels
+- The context represents fundamentally different workflows
+- You frequently reference the same subset
+
+**When to combine contexts**:
+- Management overhead exceeds filtering benefit
+- Contexts are rarely accessed or nearly empty
+- Your environment blends contexts (remote work makes @home/@office distinction meaningless)
+- 80% of tasks fall in one category (context isn't effectively filtering)
+
+**Multi-tagging approach**: Modern systems support multiple tags per task, creating flexible filtering without excessive base contexts. A task can be: **@computer + @focus + @30min + @urgent**. This creates precise filtering ("show me urgent, focused computer work I can do in 30 minutes") without requiring dozens of predefined contexts.
+
+### Context Best Practices
+
+**Do's**:
+- Assign contexts during clarification phase, not during capture (capture is too reactive)
+- Use objective criteria ("I need a phone" is objective; "I prefer doing this at home" is subjective preference)
+- Review contexts quarterly—eliminate unused ones, consolidate sparse ones
+- Combine contexts with other criteria (energy, time, priority) for final task selection
+- Test a context system for 2-3 weeks before deciding it doesn't work (setup period required)
+- Base contexts on YOUR actual workflow, not someone else's system
+
+**Don'ts**:
+- Don't create contexts for rare situations (travel-specific contexts usually belong in projects)
+- Don't use contexts as priorities (@high, @medium, @low should be a priority field, not contexts)
+- Don't confuse contexts with projects or areas of responsibility
+- Don't skip context assignment because "everything requires a computer"—add energy/time dimensions
+- Don't over-maintain contexts (excessive time on context hygiene indicates over-complexity)
+- Don't ignore energy fluctuations in context design
+
+**The guiding principle**: A context should meaningfully reduce your available next actions when filtered. If applying a context filter doesn't substantially narrow your list, that context isn't serving its purpose.
+
+---
+

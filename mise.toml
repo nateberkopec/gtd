@@ -1,6 +1,3 @@
-[tools]
-ruby = "latest"
-
 [env]
- _.path = ["./bin"]
+ _.path = ["./tools"]
 _.file = '.env'

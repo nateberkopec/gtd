@@ -1,0 +1,298 @@
+## Common Pitfalls and Recovery
+
+### Related Reading
+- [GTD Summary](../GTD_SUMMARY.md)
+- [The Weekly Review](weekly_review.txt)
+- [The Five Phases of GTD Workflow](five_phases.txt)
+
+### System Collapse & Trust Erosion
+
+**The pattern**: This is the most common cause of GTD failure. Trust erosion typically begins when users skip weekly reviews or stop capturing everything reliably. When your system contains outdated information or you lose confidence in it, you stop using it entirely—creating a downward spiral that undermines the entire approach.
+
+**What causes it**:
+- Skipping or neglecting Weekly Review (the single most critical habit)
+- Failing to keep inbox at zero through regular processing
+- Allowing captured items to become stale or outdated
+- Creating a "black hole" where items disappear without processing
+- Inconsistent system maintenance leading to doubt about completeness
+
+**Warning signs**:
+- You stop capturing everything and rely on memory again
+- You hesitate to consult lists because they may be out of date
+- You feel anxiety rather than clarity when looking at your system
+- You're uncertain whether captured items are still relevant
+- You stop performing weekly reviews or reviews become sporadic
+- Your mind starts tracking commitments again (defeating GTD's purpose)
+
+**Why it matters**: Trust is THE critical currency of GTD. Once trust erodes, people abandon the system entirely rather than fix it. This is not a technical problem—it's behavioral.
+
+**Recovery**:
+- Commit to one week of daily inbox processing (twice daily ideal)
+- Schedule dedicated weekly review time (Friday afternoon or Sunday evening)
+- Process items sequentially rather than jumping around
+- Accept that some backlogs may need archival to start fresh
+- Rebuild trust gradually through consistent small actions
+
+### Over-Engineering & Complexity Trap
+
+**The pattern**: Creating overly elaborate systems with too many contexts, tags, categories, or features—adding complexity that increases friction and prevents regular use.
+
+**What causes it**:
+- Creating too many contexts, tags, or categories (>7 categories creates decision fatigue)
+- Customizing system by removing "difficult" parts that make GTD work
+- Treating tool selection as more important than building habits
+- Elaborating system before establishing core capture and review habits
+- Trying to achieve consistency across multiple tools simultaneously
+
+**Why it matters**: Excessive complexity increases decision latency and creates friction preventing regular use. Over-engineered systems are abandoned when they become burdensome.
+
+**Prevention**:
+- Use maximum 4-7 contexts; more increases processing time
+- Start with core GTD workflow (Capture → Clarify → Organize → Review → Engage)
+- Choose ONE trusted tool and stick with it; switching breaks momentum
+- Remember: simple systems used consistently beat perfect systems abandoned
+- Defer customization until using basic system for 3+ months
+
+**Recovery**:
+- Simplify contexts to 4-5 core categories
+- Remove features/categories not used in past month
+- Choose one tool as primary; archive or delete others
+- Return to basic GTD for 30 days before adding complexity
+
+### Review Neglect
+
+**The pattern**: Treating weekly review as optional rather than essential, leading to system staleness within 2-3 weeks.
+
+**What causes it**:
+- Treating weekly review as "optional" rather than essential
+- Scheduling reviews but canceling for "urgent" matters
+- Allowing reviews to extend beyond 90 minutes (becomes marathon)
+- Not having consistent time/place for weekly reviews
+- Assuming processing inbox daily makes weekly review unnecessary
+
+**What happens**:
+- System becomes stale and untrustworthy within 2-3 weeks
+- Projects list becomes outdated; important initiatives forgotten
+- Mind starts keeping track of things again (defeats GTD purpose)
+- New items pile up in inbox, creating overwhelming backlogs
+- You lose confidence that calendar reflects actual commitments
+
+**Prevention**:
+- Schedule weekly reviews like important meeting (1-1.5 hours, fixed time)
+- Treat as non-negotiable—not nice-to-have, it's GTD backbone
+- Use consistent checklist: empty inboxes → review calendar → review projects → review someday/maybe → think creatively
+- If reviews consistently exceed 90 minutes, not clarifying items quickly enough during daily processing
+- Have "minimum viable review" for extremely busy weeks (15-20 minutes on urgent/due items)
+
+**Recovery**:
+- Schedule next weekly review RIGHT NOW
+- Commit to abbreviated 30-minute review to rebuild habit
+- Set multiple calendar reminders (24 hours before, 1 hour before)
+- Process inbox to zero before review to separate concerns
+- Focus on Phases 1-2 (Get Clear and Get Current); defer Phase 3 if needed
+
+### List Bloat & Stale Projects
+
+**The pattern**: Projects and actions accumulate without completion or removal, creating overwhelming lists that you dread consulting.
+
+**What causes it**:
+- Capturing new items without removing or completing old ones
+- Not reviewing projects regularly (weekly minimum)
+- Keeping items on someday/maybe indefinitely without regular review
+- Not archiving completed projects (makes active projects list unclear)
+- Vague project definitions that can't be marked complete ("Get Healthy" vs. "Research gym options and schedule first class")
+
+**Warning signs**:
+- Projects list has 50+ items and you can't remember most
+- Items on next actions list for months unchanged
+- You're not sure if projects are still relevant or abandoned
+- You dread looking at task lists because they're overwhelming
+- Someday/maybe list is graveyard of forgotten aspirations
+
+**Prevention**:
+- Review projects weekly during GTD weekly review
+- Archive completed projects monthly
+- Limit active projects to manageable number (typically 15-30)
+- Review someday/maybe list quarterly (seasonal reviews)
+- Keep projects clear and specific; if takes more than sentence to define, break into areas + specific projects
+- Remove items that no longer matter—GTD only works if system reflects actual commitments
+
+**Recovery**:
+- Perform "project purge": ruthlessly remove abandoned/irrelevant projects
+- Archive completed projects (don't delete—keep for reference)
+- For remaining projects, verify each has clear outcome and next action
+- Move uncertain projects to Someday/Maybe for quarterly review
+- Limit active projects to 20-30 maximum for 30 days
+
+### Unclear Next Actions (Procrastination Enabler)
+
+**The pattern**: Writing vague actions that lack clarity about the specific physical behavior required, leading to procrastination and avoidance.
+
+**What causes it**:
+- Writing vague actions like "File Taxes," "Organize Desk," "Plan Trip"
+- Confusing projects with next actions (next action is specific physical behavior)
+- Failing to identify the VERY next action (often requires 2-3 steps before outcome)
+- Not specifying who/what/where needed for action
+- Writing actions as outcomes rather than behaviors
+
+**Why it matters**: Unclear next actions are #1 reason people procrastinate. Brain resists vague commitments and creates decision paralysis. You can't execute "Plan vacation"—you can execute "Research flights to Denver Dec 1-5."
+
+**Examples of vague → clear**:
+- "File Taxes" → "Call accountant to discuss April deadline"
+- "Plan Trip" → "Research flights to Denver for Dec 1-5"
+- "Organize Desk" → "Buy filing cabinet and set up incoming paper system"
+- "Update Resume" → "Email Sarah and ask for feedback on background summary"
+- "Fix Website" → "Call John to discuss website load time issues"
+
+**Prevention**:
+- Use action verbs: Call, Email, Discuss, Buy, Research, Write, Review, Analyze
+- Include object of action when relevant
+- Ask: "What is the very next physical action I can take?"
+- If next action isn't clear, item probably belongs in project, not next actions
+- Test clarity: Could someone else execute this action with zero additional questions?
+
+**Recovery**:
+- Review all Next Actions for vague wording
+- Rewrite each as specific physical behavior
+- Move multi-step vague actions to Projects list
+- Practice "What's the very next thing I need to do?" for every project
+
+### Context Confusion
+
+**The pattern**: Ineffective context systems that don't meaningfully reduce available actions or that conflate contexts with other dimensions (priority, area of responsibility).
+
+**What causes it**:
+- Creating contexts based on preference rather than necessity (what you want vs. what you must have)
+- Confusing areas of responsibility with contexts ("Marketing," "Finance" are areas, not contexts)
+- Using generic contexts that don't reduce actionable list ("Computer" when everything is computer-based)
+- Creating too many contexts initially (>7-10)
+- Assigning contexts during capture instead of clarification
+
+**Prevention**:
+- Remember: context is what you NEED to complete action (place, tool, person)
+- Keep context list short (4-6 typically)
+- Use objective criteria, not subjective preference
+- Common effective contexts: Computer, Phone, In-Person, Errands, Home, Office, Waiting-For
+- Assign contexts during clarification phase, not capture
+- If context doesn't meaningfully reduce available next actions, eliminate it
+
+**Recovery**:
+- Review all contexts; eliminate unused ones
+- Consolidate sparse contexts (fewer than 5 items each)
+- Rename confusing contexts to be more specific
+- For digital workers: consider energy-based contexts instead of tool-based
+
+### Incomplete Capture & Inbox Avoidance
+
+**The pattern**: Not capturing everything or avoiding processing inboxes, leaving items in your head or scattered across unchecked locations.
+
+**What causes it**:
+- Trusting memory instead of external systems
+- Creating too many capture points without processing them
+- Anxiety about inbox volume preventing regular processing
+- Fearing processing step ("What if I decide wrong?")
+- Not having convenient capture methods in all contexts
+
+**Why it matters**: Incomplete capture is one of top three GTD failure modes. Open loops in your head consume energy and prevent clarity. You can't experience "mind like water" if 20% of commitments aren't captured.
+
+**Prevention**:
+- Establish 1-2 trusted capture points (paper, phone note app, email)
+- Capture EVERYTHING at first—even seemingly trivial items
+- Process inboxes twice daily (morning + afternoon) to prevent backlogs
+- Remember: capture is not organization; don't try to organize while capturing
+- Process items sequentially to avoid overwhelm and procrastination
+- Acceptable to delete/archive bulk items if no longer relevant
+
+**Recovery**:
+- Perform comprehensive mind sweep using trigger lists
+- Gather all scattered capture points into one inbox
+- Process inbox to zero (may require multiple sessions)
+- Commit to capturing everything for 2 weeks to rebuild habit
+- Reduce capture points to 2-3 maximum
+
+### Perfectionism & Inbox-Zero Obsession
+
+**The pattern**: Believing you must clear inboxes perfectly every day and maintain flawless system implementation, leading to stress and eventual abandonment.
+
+**What causes it**:
+- Assuming must clear inboxes every single day
+- Trying to perfect processing in one sitting
+- Responding to everything in inbox rather than making disposition decisions
+- Expecting flawless system implementation on day one
+- Trying to process backlog during daily inbox processing (confusing roles)
+
+**The trap**: Perfectionism is common GTD failure mode because people feel they've "failed" if they don't maintain perfect habits, leading to system abandonment.
+
+**Prevention**:
+- Inbox zero means PROCESSING everything, not responding to everything
+- Process at pace that works for your life; some do daily, some every other day
+- Accept that starting fresh beats clearing massive backlog
+- Focus on forward momentum, not catching up on past items
+- Bulk-delete old items without guilt—probably no longer relevant
+- Remember: "Fresh start beats perfect completion of backlog"
+
+**Recovery**:
+- Give yourself permission to archive old inbox items (>30 days) without processing
+- Focus on processing new items going forward
+- Commit to "good enough" rather than perfect
+- Reduce processing frequency expectations if needed (every other day vs. daily)
+
+### Recovery Strategies
+
+**How to restart a broken GTD system**:
+
+**1. Acknowledge the challenge**: Most people don't successfully implement GTD on first try. "Train wreck of old and new systems" is normal and not a failure.
+
+**2. Adopt gradual piece-by-piece approach**:
+- Clear desk/home base (set up infrastructure)
+- Tackle project management (get existing projects documented)
+- Process reference files (digitize and organize important documents)
+- Add calendaring (time-blocking for time-specific commitments)
+- Refactor system (adjust based on what you're learning)
+
+**3. Allow subconscious adaptation**: Your conscious mind commits while subconscious observes. Change takes time; don't force perfection. Regular small actions gradually build trust.
+
+**4. Embrace practical inconsistency**: Use what works without obsessing over consistency across all tools. Messy but functional system beats abandoned perfect system.
+
+**Key recovery steps**:
+- Do mind sweep (capture everything in your head)
+- Get current on all loose papers, notes, and email
+- Process inbox to zero (may require multiple sessions)
+- Schedule your first weekly review
+- Commit to processing inboxes daily for 2 weeks
+- Don't expect trust to rebuild immediately—takes consistent use over time
+
+**Prevention: How to maintain healthy system**:
+
+**1. Establish non-negotiable habits**:
+- Weekly review (1-1.5 hours, fixed time, every week)
+- Daily inbox processing (2x daily ideal, minimum once daily)
+- Quarterly someday/maybe list review
+- Annual system audit and reset
+
+**2. Build trust deliberately**:
+- Capture everything for 2 weeks without judgment
+- Clarify and organize items fully
+- Review system when you have discretionary time
+- Check items off next-action lists consistently
+- Honor calendar—treat as sacred
+- Process thoroughly so you can trust previous decisions
+
+**3. Keep system simple**:
+- Limit contexts to 4-6 maximum
+- Use 4-5 basic categories during processing
+- Avoid tool-switching; pick one, stick for 90+ days
+- Start with paper if digital feels overwhelming
+- Remember: simple and consistent beats complex and abandoned
+
+**4. Monitor trust indicators**:
+- Are you still capturing everything?
+- Do you consult lists before making commitments?
+- Can you rely on your calendar?
+- Do you remember most projects without checking?
+- Are you sleeping better (indication of reduced cognitive load)?
+
+If these indicators decline, it's time for system reset or restart.
+
+---
+

@@ -1,0 +1,264 @@
+#!/usr/bin/env fish
+
+set repo_dir (cd (dirname (status --current-filename))/..; pwd)
+set auto_yes false
+
+for arg in $argv
+    switch "$arg"
+        case --yes -y
+            set auto_yes true
+    end
+end
+
+if not type -q brew
+    echo "Homebrew is required. Install it from https://brew.sh/ and re-run."
+    exit 1
+end
+
+if not type -q gum
+    echo "Installing gum with Homebrew..."
+    brew install gum
+end
+
+gum style --border normal --padding "1" "GTD setup"
+
+function read_value --argument-names path regex
+    if test -f "$path"
+        set -l matches (string match -r --groups-only "$regex" (cat "$path"))
+        if test (count $matches) -gt 0
+            echo $matches[1]
+        end
+    end
+end
+
+function prompt_secret --argument-names label existing
+    set -l mask "*******"
+    if test -n "$existing"
+        set -l response (gum input --password --prompt "$label" --value "$mask")
+        if test -z "$response" -o "$response" = "$mask"
+            echo "$existing"
+        else
+            echo "$response"
+        end
+    else
+        gum input --password --prompt "$label"
+    end
+end
+
+function prompt_value --argument-names label existing fallback
+    if test -n "$existing"
+        gum input --prompt "$label" --value "$existing"
+    else if test -n "$fallback"
+        gum input --prompt "$label" --value "$fallback"
+    else
+        gum input --prompt "$label"
+    end
+end
+
+set existing_todoist_token (read_value "$HOME/.config/todoist/config.json" '"token"\s*:\s*"([^"]+)"')
+set existing_fastmail_email (read_value "$HOME/.config/himalaya/config.toml" 'email\s*=\s*"([^"]+)"')
+if test -z "$existing_fastmail_email"
+    set existing_fastmail_email (read_value "$HOME/.config/vdirsyncer/config" 'username\s*=\s*"([^"]+)"')
+end
+
+set existing_fastmail_password (read_value "$HOME/.config/himalaya/config.toml" 'backend\.auth\.cmd\s*=\s*"echo\s+([^"]+)"')
+if test -z "$existing_fastmail_password"
+    set existing_fastmail_password (read_value "$HOME/.config/himalaya/config.toml" 'backend\.auth\.raw\s*=\s*"([^"]+)"')
+end
+if test -z "$existing_fastmail_password"
+    set existing_fastmail_password (read_value "$HOME/.config/himalaya/config.toml" 'passwd\.cmd\s*=\s*"echo\s+([^"]+)"')
+end
+if test -z "$existing_fastmail_password"
+    set existing_fastmail_password (read_value "$HOME/.config/vdirsyncer/config" 'password\s*=\s*"([^"]+)"')
+end
+
+set existing_caldav_url (read_value "$HOME/.config/vdirsyncer/config" 'url\s*=\s*"([^"]+)"')
+set existing_imap_host (read_value "$HOME/.config/himalaya/config.toml" 'backend\.host\s*=\s*"([^"]+)"')
+if test -z "$existing_imap_host"
+    set existing_imap_host (read_value "$HOME/.config/himalaya/config.toml" 'host\s*=\s*"([^"]+)"')
+end
+set existing_imap_port (read_value "$HOME/.config/himalaya/config.toml" 'backend\.port\s*=\s*([0-9]+)')
+if test -z "$existing_imap_port"
+    set existing_imap_port (read_value "$HOME/.config/himalaya/config.toml" 'port\s*=\s*([0-9]+)')
+end
+
+set todoist_token (prompt_secret "Todoist API token: " "$existing_todoist_token")
+set fastmail_email (prompt_value "Fastmail email: " "$existing_fastmail_email" "")
+set fastmail_app_password (prompt_secret "Fastmail app password: " "$existing_fastmail_password")
+
+if test -z "$todoist_token" -o -z "$fastmail_email" -o -z "$fastmail_app_password"
+    gum style --foreground 1 "All secrets are required."
+    exit 1
+end
+
+set caldav_url (prompt_value "CalDAV URL: " "$existing_caldav_url" "https://caldav.fastmail.com/")
+set imap_host (prompt_value "IMAP host: " "$existing_imap_host" "imap.fastmail.com")
+set imap_port (prompt_value "IMAP port: " "$existing_imap_port" "993")
+
+gum spin --title "Installing Homebrew dependencies..." -- brew bundle --file "$repo_dir/Brewfile"
+
+if not type -q pipx
+    gum spin --title "Installing pipx..." -- brew install pipx
+end
+
+if pipx list | string match -q "*macnotesapp*"
+    gum style --foreground 2 "macnotesapp already installed."
+else
+    gum spin --title "Installing macnotesapp (pipx)..." -- pipx install macnotesapp
+end
+
+mkdir -p "$HOME/.config/todoist" "$HOME/.config/vdirsyncer" "$HOME/.config/khal" "$HOME/.config/himalaya"
+mkdir -p "$HOME/.local/share/vdirsyncer/status" "$HOME/.local/share/calendars" "$HOME/.local/share/khal"
+
+function preview_and_write --argument-names path
+    set -l content $argv[2..-1]
+    set -l temp_file (mktemp)
+    printf "%s\n" $content > "$temp_file"
+
+    if test -f "$path"
+        if cmp -s "$path" "$temp_file"
+            gum style --foreground 2 "✓ $path already up to date."
+            rm -f "$temp_file"
+            return 0
+        end
+    end
+
+    gum style --border normal --padding "1" "Preview: $path"
+    cat "$temp_file"
+    if test "$auto_yes" = true
+        mkdir -p (command dirname "$path")
+        cp "$temp_file" "$path"
+        gum style --foreground 2 "Wrote $path."
+    else if gum confirm "Write $path?"
+        mkdir -p (command dirname "$path")
+        cp "$temp_file" "$path"
+        gum style --foreground 2 "Wrote $path."
+    else
+        rm -f "$temp_file"
+        gum style --foreground 1 "Aborted. Run setup again to restart."
+        exit 1
+    end
+    rm -f "$temp_file"
+end
+
+set -l todoist_config \
+    "{" \
+    "  \"token\": \"$todoist_token\"," \
+    "  \"color\": \"true\"" \
+    "}"
+
+set -l vdirsyncer_config \
+    "[general]" \
+    "status_path = \"~/.local/share/vdirsyncer/status/\"" \
+    "" \
+    "[pair fastmail_calendar]" \
+    "a = \"fastmail_local\"" \
+    "b = \"fastmail_remote\"" \
+    "collections = [\"from b\"]" \
+    "" \
+    "[storage fastmail_local]" \
+    "type = \"filesystem\"" \
+    "path = \"~/.local/share/calendars/\"" \
+    "fileext = \".ics\"" \
+    "" \
+    "[storage fastmail_remote]" \
+    "type = \"caldav\"" \
+    "url = \"$caldav_url\"" \
+    "username = \"$fastmail_email\"" \
+    "password = \"$fastmail_app_password\""
+
+set -l himalaya_config \
+    "[accounts.fastmail]" \
+    "default = true" \
+    "email = \"$fastmail_email\"" \
+    "" \
+    "backend.type = \"imap\"" \
+    "backend.host = \"$imap_host\"" \
+    "backend.port = $imap_port" \
+    "backend.login = \"$fastmail_email\"" \
+    "backend.auth.type = \"password\"" \
+    "backend.auth.cmd = \"echo $fastmail_app_password\""
+
+preview_and_write "$HOME/.config/todoist/config.json" $todoist_config
+preview_and_write "$HOME/.config/himalaya/config.toml" $himalaya_config
+preview_and_write "$HOME/.config/vdirsyncer/config" $vdirsyncer_config
+
+set -l discover_file (mktemp)
+gum style --border normal --padding "1" "Discovering calendars"
+vdirsyncer discover 2>&1 | tee "$discover_file"
+set -l discover_status $pipestatus[1]
+if test $discover_status -ne 0
+    rm -f "$discover_file"
+    gum style --foreground 1 "vdirsyncer discover failed."
+    exit 1
+end
+
+set -l calendar_ids
+set -l calendar_names
+for line in (cat "$discover_file")
+    set -l matches (string match -r --groups-only '^\s*-\s*"([^"]+)"\s*\("([^"]+)"\)' -- "$line")
+    if test (count $matches) -eq 2
+        set -l calendar_id $matches[1]
+        set -l calendar_name $matches[2]
+        if test "$calendar_name" = "DEFAULT_TASK_CALENDAR_NAME"
+            continue
+        end
+        set calendar_ids $calendar_ids $calendar_id
+        set calendar_names $calendar_names $calendar_name
+    end
+end
+rm -f "$discover_file"
+
+if test (count $calendar_names) -eq 0
+    gum style --foreground 1 "No calendars discovered. Check vdirsyncer config."
+    exit 1
+end
+
+gum style --border normal --padding "1" "Default calendar"
+set -l default_calendar (gum choose --header "Select default calendar" -- $calendar_names)
+if test $status -ne 0 -o -z "$default_calendar"
+    gum style --foreground 1 "No default calendar selected."
+    exit 1
+end
+
+set -l khal_config "[calendars]"
+for idx in (seq (count $calendar_names))
+    set -l calendar_name $calendar_names[$idx]
+    set -l calendar_id $calendar_ids[$idx]
+    set -a khal_config "[[$calendar_name]]"
+    set -a khal_config "path = ~/.local/share/calendars/$calendar_id"
+    if test "$calendar_name" = "lillianrusing@gmail.com"
+        set -a khal_config "readonly = True"
+    end
+    set -a khal_config ""
+end
+set -a khal_config "[default]"
+set -a khal_config "default_calendar = $default_calendar"
+
+preview_and_write "$HOME/.config/khal/config" $khal_config
+
+set -l link_note ""
+set -l link_script "$repo_dir/bin/link-skills"
+if test -x "$link_script"
+    gum spin --title "Linking skills..." -- "$link_script"
+    set -l link_status $status
+    if test $link_status -ne 0
+        gum log --level warn 'Skill linking failed. Re-run `bin/link-skills`.'
+        set link_note '- Run `bin/link-skills` to link skills'
+    end
+else
+    gum log --level warn 'Missing bin/link-skills. Pull latest and retry.'
+    set link_note '- Run `bin/link-skills` to link skills'
+end
+
+gum style --border normal --padding "1" "Next steps"
+set -l next_steps \
+    '- Run `todoist sync`' \
+    '- Run `vdirsyncer sync`'
+if test -n "$link_note"
+    set next_steps $next_steps "$link_note"
+end
+set next_steps $next_steps \
+    '- Ensure `./tools` is on your `PATH` (via `mise` or shell config)' \
+    '- Grant Reminders access in macOS settings'
+printf "%s\n" $next_steps | gum format

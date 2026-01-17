@@ -13,11 +13,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: "3.4"
-          bundler-cache: true
+      - name: Install fish
+        run: sudo apt-get update && sudo apt-get install -y fish
 
-      - name: Run tests and linter
-        run: bundle exec rake
+      - name: Check bin script lengths
+        run: fish test/check-bin-lengths.fish

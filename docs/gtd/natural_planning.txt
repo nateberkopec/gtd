@@ -1,0 +1,182 @@
+## Project Planning: The Natural Planning Model
+
+### Related Reading
+- [GTD Summary](../GTD_SUMMARY.md)
+- [The GTD Lists and Containers](lists_and_containers.txt)
+- [Horizons of Focus](horizons_of_focus.txt)
+
+### What Is a Project in GTD?
+
+**Definition**: In GTD methodology, a project is any multistep outcome that requires more than one action to complete and can be finished within a year.
+
+**Key characteristics**:
+- Has clearly defined outcome you'll recognize when complete
+- Requires at least two or more sequential actions
+- Must be achievable within 12-month timeframe
+- Can range from simple ("Cook Thanksgiving dinner") to complex ("Launch new product line")
+
+**Critical distinction**: A project is an outcome (the result you want), not the actions themselves. "Website redesign" is a project outcome; "Email John for requirements" and "Review competitor sites" are next actions within that project.
+
+**Examples across life domains**:
+- Professional: Complete annual performance reviews, Launch Q1 marketing campaign, Implement new CRM system
+- Personal: Plan summer vacation, Remodel bathroom, Organize home office
+- Learning: Complete AWS certification, Learn Spanish basics, Master bread baking
+- Health: Establish exercise routine, Complete dental work, Research nutrition plan
+
+**Volume expectations**: Most people maintain 30-100 active projects simultaneously across all life domains. This initially seems impossibly high until recognizing that any multi-step outcome—from "Fix leaky faucet" to "Plan conference"—qualifies as a project.
+
+### The Natural Planning Model
+
+**Core insight**: The most experienced planner in the world is your brain. When approaching any endeavor naturally, your mind follows a specific sequence. The Natural Planning Model formalizes this innate process, making it conscious and repeatable.
+
+**When to use it**: The elegance of this model lies in its flexibility. Most projects (approximately 80%) require only mental execution of these steps—you think through them in seconds or minutes without external documentation. About 15% benefit from some notes and collaboration. Only 5% need formal, deliberate execution of all five phases using planning tools.
+
+#### The Five Phases
+
+**Phase 1: Purpose and Principles**
+
+**The question**: "Why are we doing this?"
+
+**Key activities**:
+- Clarify the specific purpose or goal driving the project
+- Define underlying principles, values, and standards
+- Set boundaries and constraints
+- Establish criteria for success
+- Anticipate resources needed
+- Uncover different approach options
+
+**Why it matters**: Purpose creates clarity and focus. It defines what success means and provides a decision-making framework throughout the project. When decisions become difficult later, returning to purpose resolves ambiguity. Without clear purpose, projects drift and decision-making becomes arbitrary.
+
+**Examples**:
+- Purpose of vacation: "Reconnect as family and recharge from work stress"
+- Purpose of website redesign: "Increase lead generation by 40% through improved UX"
+- Purpose of certification: "Gain credibility and skills for senior role promotion"
+
+**Phase 2: Outcome Visioning**
+
+**The question**: "What would total success look like?"
+
+**Key activities**:
+- Create detailed mental picture of desired end state
+- Describe what you'll see, hear, and experience when it's complete
+- Consider all stakeholder perspectives
+- Visualize tangible results and deliverables
+- Paint specific, vivid picture of success
+
+**Why it matters**: Vision provides the blueprint. When you clearly envision success, your brain activates resources—both conscious and unconscious—to move toward that outcome. This clarity awakens creativity and helps identify what's truly important. Vision answers "how will I know when this is done?"
+
+**Examples**:
+- Vacation vision: "We're laughing together over dinner, tan and relaxed, with photos of amazing experiences and no work stress lingering"
+- Website vision: "Visitors immediately understand our value proposition, navigation is intuitive, lead form submissions increased 40%, bounce rate decreased 30%"
+- Certification vision: "I hold the certificate, confidently discuss advanced concepts in interviews, feel qualified for senior positions"
+
+**Phase 3: Brainstorming**
+
+**The question**: "How might we achieve it?"
+
+**Key activities**:
+- Brain dump all possible approaches, ideas, and steps
+- Don't evaluate or criticize ideas during this phase
+- Capture everything that comes to mind
+- Use mind-mapping or other techniques for complex projects
+- Let ideas flow before organizing them
+- Defer critical evaluation until later
+
+**Why it matters**: Brainstorming separates creative thinking from critical evaluation. This separation allows maximum idea generation and prevents premature judgment from blocking innovative approaches. Attempting to evaluate and generate simultaneously constrains creativity.
+
+**Techniques**:
+- Free-form lists
+- Mind maps (central outcome with branching ideas)
+- Sticky notes (one idea per note, then cluster)
+- Voice recording stream-of-consciousness
+- Collaborative whiteboard sessions
+
+**Phase 4: Organizing**
+
+**The question**: "What's the structure?"
+
+**Key activities**:
+- Identify project components and sub-components
+- Determine sequences and dependencies between actions
+- Establish priorities
+- Group related ideas together
+- Create logical flow of activities
+- Identify critical path and parallel workstreams
+
+**Why it matters**: Organization transforms a collection of ideas into an actionable plan. It reveals what depends on what, what can happen in parallel, and what priorities matter most. Structure enables execution by showing clear sequence and relationships.
+
+**Common structures**:
+- Sequential: Step A must complete before Step B begins
+- Parallel: Multiple independent workstreams advancing simultaneously
+- Hierarchical: Main components broken into sub-components
+- Milestone-based: Key checkpoints organizing phases
+
+**Phase 5: Next Actions**
+
+**The question**: "What's the very next step?"
+
+**Key activities**:
+- Identify the immediate next action(s) for each component
+- Assign responsibility (even if to yourself)
+- Make actions concrete and physically doable
+- Focus on just the next action needed, not all subsequent actions
+- Define actions as specific physical behaviors
+
+**Why it matters**: Next actions break paralysis and create momentum. You can't do a "project"—you can only do the next action. This phase connects planning to execution. Projects without next actions remain intentions; next actions transform intentions into reality.
+
+**Quality criteria for next actions**:
+- Physical: Describes visible behavior ("Call", "Email", "Buy", "Research")
+- Specific: Includes object and context ("Call John re: budget approval")
+- Executable: Can be done in a single session without further planning
+
+### Natural vs. Reactive Planning
+
+**Natural Planning** (Proactive):
+- Starts with purpose and principles
+- Moves through outcome visioning
+- Follows logical five-phase sequence
+- Reduces stress and enables creativity
+- Produces clarity and confidence
+- Feels natural and energizing
+
+**Reactive Planning** (Backwards):
+- Starts with urgent calls to action: "We need to do something NOW!"
+- Jumps to attempting organization without clarity
+- Progresses to brainstorming without understanding purpose
+- Eventually (too late) asks foundational questions about purpose and vision
+- Creates stress and typically produces poor results
+- Requires rework when fundamental questions finally get addressed
+
+**David Allen's observation**: "Whether the natural planning model will be done is not a matter of choice—just when, and at what cost." Projects will eventually force you to address purpose, vision, and organization. Doing so upfront proactively costs less and produces better results than doing so reactively under crisis.
+
+### The 80-15-5 Rule
+
+**80% of projects**: Go through five steps quickly in your head. Define next actions and move forward. No external documentation needed. Planning happens mentally in seconds or minutes.
+
+**Example**: "Install new kitchen faucet"
+- Purpose: Fix leak and improve appearance
+- Vision: New faucet installed, no leaks, looks great
+- Brainstorm: YouTube tutorial, buy faucet at hardware store, gather tools, install
+- Organize: Buy faucet first (Saturday), then install (Sunday morning)
+- Next action: Research faucet models on Wirecutter
+
+**15% of projects**: Require some external collaboration and notes. Includes brainstorming with others, capturing ideas in writing, creating simple outlines.
+
+**Example**: "Plan team offsite"
+- Requires discussing purpose with leadership, capturing team input on activities, documenting logistics
+- 2-3 planning meetings with notes
+- Shared document outlining plan
+
+**5% of projects**: Need formal, deliberate execution of all five phases using project planning tools. Typically complex, high-stakes, or novel projects benefiting from detailed documentation and structured planning.
+
+**Example**: "Launch new product line"
+- Formal purpose and principles documentation
+- Detailed vision with success metrics
+- Extensive brainstorming with cross-functional teams
+- Comprehensive organization with Gantt charts and dependencies
+- Project management software tracking all next actions and assignments
+
+**Guidance**: Plan to the point where you stop worrying about it. Don't over-plan. Sufficient planning means you have enough clarity to move forward confidently. The Natural Planning Model scales appropriately to project complexity.
+
+---
+

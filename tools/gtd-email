@@ -1,0 +1,59 @@
+#!/usr/bin/env fish
+#
+# gtd-email - Email CLI wrapper (himalaya)
+#
+# Commands:
+#   list [--folder FOLDER]  List emails (default: INBOX)
+#   read ID                 Read email content
+#   archive ID              Archive email (move to Archive)
+#   delete ID               Delete email
+#   move ID FOLDER          Move email to folder
+#   folders                 List available folders
+#   search QUERY            Search emails
+#   help                    Show this help
+
+set cmd $argv[1]
+set rest $argv[2..-1]
+
+switch "$cmd"
+    case list l
+        himalaya envelope list $rest
+    case read r
+        himalaya message read $rest
+    case archive a
+        himalaya envelope move --folder Archive $rest
+    case delete d
+        himalaya envelope delete $rest
+    case move m
+        if test (count $rest) -lt 2
+            echo "Usage: gtd-email move ID FOLDER" >&2
+            exit 1
+        end
+        set id $rest[1]
+        set folder $rest[2]
+        himalaya envelope move --folder $folder $id
+    case folders
+        himalaya folder list
+    case search s
+        himalaya envelope list --query $rest
+    case help -h --help ''
+        echo "gtd-email - Email CLI wrapper (himalaya)"
+        echo ""
+        echo "Commands:"
+        echo "  list [--folder FOLDER]  List emails (default: INBOX)"
+        echo "  read ID                 Read email content"
+        echo "  archive ID              Archive email (move to Archive)"
+        echo "  delete ID               Delete email"
+        echo "  move ID FOLDER          Move email to folder"
+        echo "  folders                 List available folders"
+        echo "  search QUERY            Search emails"
+        echo ""
+        echo "Configuration:"
+        echo "  Run 'himalaya' for interactive setup"
+        echo "  Config: ~/.config/himalaya/config.toml"
+        exit 0
+    case '*'
+        echo "Unknown command: $cmd" >&2
+        echo "Run 'gtd-email help' for usage" >&2
+        exit 1
+end
