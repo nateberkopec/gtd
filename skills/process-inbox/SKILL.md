@@ -36,9 +36,8 @@ Process just the next item from any inbox when the user explicitly requests a si
 For each inbox:
 
 1. **List all items** in the inbox up front
-2. **Suggest groupings** for related items (same stem/subject/sender)
-3. **Confirm grouping** with the user (adjust if needed)
-4. **Process each group/item**:
+2. **Group related items** internally (same stem/subject/sender)
+3. **Process each group/item**:
    - Present the group label and included items
    - Apply clarify-item skill to determine what it is
    - If actionable: apply assign-context and check-delegatability
@@ -53,12 +52,25 @@ For each inbox:
 gtd-action inbox
 ```
 
-List all items, then propose groupings (shared prefix or project keyword).
+List all items, then group related ones internally (shared prefix or project keyword).
 For each group/item:
 1. Present: "Next group: '[GROUP]'" and list included items
 2. Clarify: Use clarify-item skill
 3. If it stays as a task, assign context and check delegatability
 4. Move to appropriate project or mark complete
+
+#### Whisper Items (Todoist)
+
+Whisper items are transcribed voice notes, typically prefixed with `[Whisper]`.
+When a group contains Whisper items:
+
+1. Process **one item at a time** (do not summarize the group)
+2. Show the **full transcription** for each item
+   - If the transcription isn’t fully visible in the task title, open the task details and expand the notes/description
+   - If it’s only available via a link, open the link and display the full transcription text
+3. Ask: “Would you like me to play the original voice file?”
+4. If yes, locate the audio URL (often in the task details or linked page) and play it via CLI
+   - On macOS: `afplay <audio-file-or-url>` (download to `/tmp` if needed)
 
 ### Email Inbox
 
@@ -66,7 +78,7 @@ For each group/item:
 gtd-email list
 ```
 
-List all emails, then propose groupings (same subject/thread or sender).
+List all emails, then group related ones internally (same subject/thread or sender).
 For each group/email:
 1. Present the group label with subjects and senders
 2. Read if needed: `gtd-email read ID`
@@ -88,9 +100,9 @@ Prompt the user:
 > "Do you have anything in your physical inbox? Papers, notes, objects that need processing?"
 
 If yes:
-> "Please list all physical items so we can group related ones."
+> "Please list all physical items so I can group related ones."
 
-Then propose groupings, confirm with the user, and apply clarify-item to each group/item.
+Then group internally and apply clarify-item to each group/item.
 
 ### Filesystem Inbox
 
@@ -98,7 +110,7 @@ Then propose groupings, confirm with the user, and apply clarify-item to each gr
 ls ~/Documents/Inbox
 ```
 
-List all files, then propose groupings (shared filename stem/prefix).
+List all files, then group related ones internally (shared filename stem/prefix).
 For each group/file:
 1. Read or describe the group/items
 2. Decide what to do with it
@@ -146,7 +158,7 @@ Celebrate the clear inbox feeling.
 - Filesystem inbox: 2 files
 - Physical inbox: (unknown)
 
-Starting with Todoist inbox. Items: 'Call about insurance', 'Insurance claim number', 'Pay rent'. The first two look related — group them?"
+Starting with Todoist inbox. Items: 'Call about insurance', 'Insurance claim number', 'Pay rent'. Grouped the first two together."
 
 *[Agent applies clarify-item skill]*
 

@@ -36,7 +36,30 @@ switch "$cmd"
     case projects
         todoist projects
     case project-add project-create
-        set payload (todoist_name_payload (string join " " $rest))
+        set parent_id ""
+        set name_parts
+        set i 1
+        while test $i -le (count $rest)
+            switch $rest[$i]
+                case --parent-id
+                    set i (math $i + 1)
+                    if test $i -le (count $rest)
+                        set parent_id $rest[$i]
+                    end
+                case '*'
+                    set name_parts $name_parts $rest[$i]
+            end
+            set i (math $i + 1)
+        end
+        set name (string join " " $name_parts)
+        if test -z "$name"
+            echo "Project name required" >&2
+            exit 1
+        end
+        set payload (todoist_name_payload "$name")
+        if test -n "$parent_id"
+            set payload (string replace -r '\\}$' ",\"parent_id\":$parent_id}" -- $payload)
+        end
         todoist_rest POST "projects" "$payload"; todoist sync
     case project-update project-rename
         set id $rest[1]
@@ -64,7 +87,8 @@ switch "$cmd"
     case waiting
         todoist list --filter "p4"
     case help -h --help ''
-        printf "%s\n" "gtd-action - Todoist CLI wrapper for GTD actions/tasks\n\nCommands:\n  list [--filter FILTER]  List tasks (Todoist filter syntax)\n  add TEXT                Add a new task\n  complete ID             Mark task complete\n  delete ID               Delete a task\n  modify ID [OPTIONS]     Modify a task\n  projects                List all projects\n  project-add NAME        Create a project\n  project-update ID NAME  Update a project name\n  project-delete ID       Delete a project\n  labels                  List all labels (contexts)\n  label-add NAME          Create a label\n  label-update ID NAME    Update a label name\n  label-delete ID         Delete a label\n  sync                    Sync with Todoist server\n  inbox                   List inbox items only\n  waiting                 List waiting-for items (P4)\n\nPriority conventions:\n  P4 = Waiting/blocked\n  P3 = Workable (default)\n  P1/P2 = Unused"
+        printf "%s\n" "gtd-action - Todoist CLI wrapper for GTD actions/tasks\n\nCommands:\n  list [--filter FILTER]  List tasks (Todoist filter syntax)\n  add TEXT                Add a new task\n  complete ID             Mark task complete\n  delete ID               Delete a task\n  modify ID [OPTIONS]     Modify a task\n  projects                List all projects\n    project-add NAME        Create a project (use --parent-id to nest)
+\n  project-update ID NAME  Update a project name\n  project-delete ID       Delete a project\n  labels                  List all labels (contexts)\n  label-add NAME          Create a label\n  label-update ID NAME    Update a label name\n  label-delete ID         Delete a label\n  sync                    Sync with Todoist server\n  inbox                   List inbox items only\n  waiting                 List waiting-for items (P4)\n\nPriority conventions:\n  P4 = Waiting/blocked\n  P3 = Workable (default)\n  P1/P2 = Unused"
         exit 0
     case '*'
         echo "Unknown command: $cmd" >&2
