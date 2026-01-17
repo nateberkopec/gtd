@@ -8,13 +8,22 @@ else if set -q MAX_BIN_LINES
 end
 
 set pattern "tools/gtd-*"
+set files tools/gtd-*
 if set -q TOOLS_GLOB
     set pattern $TOOLS_GLOB
+    set files $TOOLS_GLOB
 else if set -q BIN_GLOB
     set pattern $BIN_GLOB
+    set files $BIN_GLOB
 end
 
-set files (ls -1 $pattern 2>/dev/null)
+set existing_files
+for file in $files
+    if test -e "$file"
+        set -a existing_files $file
+    end
+end
+set files $existing_files
 if test (count $files) -eq 0
     echo "No files matched $pattern"
     exit 1
