@@ -1,0 +1,158 @@
+#!/usr/bin/env fish
+#
+# gtd-reminders - Reminders.app CLI wrapper (remindctl) - Tickler File
+#
+# Commands:
+#   list [LIST]           List reminders (default: all lists)
+#   add TEXT              Create a reminder
+#   add TEXT --due DATE   Create reminder with due date
+#   edit ID [OPTIONS]     Edit a reminder
+#   complete ID           Mark reminder complete
+#   delete ID             Delete a reminder
+#   lists                 Show available reminder lists
+#   due                   Show reminders due today
+#   overdue               Show overdue reminders
+#   help                  Show this help
+#
+# This is used as a "tickler file" - reminders that surface on specific dates.
+
+set cmd $argv[1]
+set rest $argv[2..-1]
+
+function _gtd_reminders_due_value
+    set -l args $argv
+    for index in (seq (count $args))
+        switch $args[$index]
+            case --due -d
+                set -l value_index (math $index + 1)
+                if test $value_index -le (count $args)
+                    echo $args[$value_index]
+                    return 0
+                end
+        end
+    end
+    return 1
+end
+
+function _gtd_reminders_is_date_only
+    if test (count $argv) -lt 1
+        return 1
+    end
+    string match -qr '^\d{4}-\d{2}-\d{2}$' -- $argv[1]
+end
+
+function _gtd_reminders_output_format
+    set -l args $argv
+    if contains -- --json $args
+        echo json
+        return 0
+    end
+    if contains -- --plain $args
+        echo plain
+        return 0
+    end
+    if contains -- --quiet $args
+        echo quiet
+        return 0
+    end
+    echo standard
+end
+
+function _gtd_reminders_strip_output_flags
+    set -l result
+    for arg in $argv
+        switch $arg
+            case --json --plain --quiet
+                continue
+            case '*'
+                set result $result $arg
+        end
+    end
+    printf '%s\n' $result
+end
+
+function _gtd_reminders_set_date_only_due --argument-names reminder_id due_value
+    set -l script_dir (dirname (status filename))
+    /usr/bin/swift "$script_dir/set-date-only-due.swift" $reminder_id $due_value
+end
+
+function _gtd_reminders_add_date_only --argument-names due_value
+    set -l args $argv[2..-1]
+    set -l output_format (_gtd_reminders_output_format $args)
+
+    switch $output_format
+        case standard
+            set -l add_args (_gtd_reminders_strip_output_flags $args)
+            set -l raw_output (remindctl add --plain $add_args | string collect)
+            set -l fields (string split \t $raw_output)
+            set -l reminder_id $fields[1]
+            _gtd_reminders_set_date_only_due $reminder_id $due_value
+            set -l list_name $fields[2]
+            set -l title (string join \t $fields[6..-1])
+            echo "✓ $title [$list_name] — $due_value"
+        case plain
+            set -l raw_output (remindctl add $args | string collect)
+            set -l fields (string split \t $raw_output)
+            set -l reminder_id $fields[1]
+            _gtd_reminders_set_date_only_due $reminder_id $due_value
+            printf '%s\n' $raw_output
+        case json
+            set -l raw_output (remindctl add $args | string collect)
+            set -l reminder_id (printf '%s' $raw_output | jq -r '.id')
+            _gtd_reminders_set_date_only_due $reminder_id $due_value
+            printf '%s\n' $raw_output
+        case quiet
+            set -l add_args (_gtd_reminders_strip_output_flags $args)
+            set -l raw_output (remindctl add --plain $add_args | string collect)
+            set -l fields (string split \t $raw_output)
+            set -l reminder_id $fields[1]
+            _gtd_reminders_set_date_only_due $reminder_id $due_value
+    end
+end
+
+switch "$cmd"
+    case list l
+        remindctl list $rest
+    case add new
+        set -l due_value (_gtd_reminders_due_value $rest)
+        if test -n "$due_value"; and _gtd_reminders_is_date_only $due_value
+            _gtd_reminders_add_date_only $due_value $rest
+        else
+            remindctl add $rest
+        end
+    case edit update
+        remindctl edit $rest
+    case complete c done
+        remindctl complete $rest
+    case delete d remove
+        remindctl delete $rest
+    case lists
+        remindctl list
+    case due today
+        remindctl show today
+    case overdue
+        remindctl show overdue
+    case help -h --help ''
+        echo "gtd-reminders - Reminders.app CLI wrapper (remindctl)"
+        echo ""
+        echo "This tool functions as a 'tickler file' - reminders that surface on specific dates."
+        echo ""
+        echo "Commands:"
+        echo "  list [LIST]           List reminders (default: all lists)"
+        echo "  add TEXT              Create a reminder"
+        echo "  add TEXT --due DATE   Create reminder with due date"
+        echo "  edit ID [OPTIONS]     Edit a reminder"
+        echo "  complete ID           Mark reminder complete"
+        echo "  delete ID             Delete a reminder"
+        echo "  lists                 Show available reminder lists"
+        echo "  due                   Show reminders due today"
+        echo "  overdue               Show overdue reminders"
+        echo ""
+        echo "Note: Requires Reminders access permission"
+        echo "  System Settings > Privacy & Security > Reminders"
+        exit 0
+    case '*'
+        echo "Unknown command: $cmd" >&2
+        echo "Run 'gtd-reminders help' for usage" >&2
+        exit 1
+end
