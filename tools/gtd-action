@@ -2,21 +2,25 @@
 #
 # gtd-action - Todoist CLI wrapper for GTD actions/tasks
 #
-# Commands:
-#   list [--filter FILTER]  List tasks (Todoist filter syntax)
-#   add TEXT                Add a new task
-#   complete ID             Mark task complete
-#   delete ID               Delete a task
-#   modify ID [OPTIONS]     Modify a task
-#   projects                List all projects
-#   labels                  List all labels (contexts)
-#   sync                    Sync with Todoist server
-#   inbox                   List inbox items only
-#   waiting                 List waiting-for items (P4)
-#   help                    Show this help
+# Commands: list/add/complete/delete/modify/projects/labels/sync/inbox/waiting
 
 set cmd $argv[1]
 set rest $argv[2..-1]
+
+function todoist_rest --argument-names method path payload
+    set token (string match -r --groups-only '"token"\s*:\s*"([^"]+)"' (cat "$HOME/.config/todoist/config.json"))
+    set url "https://api.todoist.com/rest/v2/$path"
+    if test -n "$payload"
+        curl --silent --show-error --fail -X "$method" -H "Authorization: Bearer $token" -H "Content-Type: application/json" -d "$payload" "$url"
+    else
+        curl --silent --show-error --fail -X "$method" -H "Authorization: Bearer $token" "$url"
+    end
+end
+
+function todoist_name_payload --argument-names name
+    set name (string replace -a '\\' '\\\\' -- (string replace -a '"' '\\"' -- $name))
+    printf '{"name":"%s"}' $name
+end
 
 switch "$cmd"
     case list l
@@ -31,8 +35,28 @@ switch "$cmd"
         todoist modify $rest
     case projects
         todoist projects
+    case project-add project-create
+        set payload (todoist_name_payload (string join " " $rest))
+        todoist_rest POST "projects" "$payload"; todoist sync
+    case project-update project-rename
+        set id $rest[1]
+        set payload (todoist_name_payload (string join " " $rest[2..-1]))
+        todoist_rest POST "projects/$id" "$payload"; todoist sync
+    case project-delete project-remove
+        todoist_rest DELETE "projects/$rest[1]"; todoist sync
     case labels contexts
         todoist labels
+    case label-add label-create
+        set name (string trim --left --chars "@" -- (string join " " $rest))
+        set payload (todoist_name_payload "$name")
+        todoist_rest POST "labels" "$payload"; todoist sync
+    case label-update label-rename
+        set id $rest[1]
+        set name (string trim --left --chars "@" -- (string join " " $rest[2..-1]))
+        set payload (todoist_name_payload "$name")
+        todoist_rest POST "labels/$id" "$payload"; todoist sync
+    case label-delete label-remove
+        todoist_rest DELETE "labels/$rest[1]"; todoist sync
     case sync s
         todoist sync
     case inbox
@@ -40,24 +64,7 @@ switch "$cmd"
     case waiting
         todoist list --filter "p4"
     case help -h --help ''
-        echo "gtd-action - Todoist CLI wrapper for GTD actions/tasks"
-        echo ""
-        echo "Commands:"
-        echo "  list [--filter FILTER]  List tasks (Todoist filter syntax)"
-        echo "  add TEXT                Add a new task"
-        echo "  complete ID             Mark task complete"
-        echo "  delete ID               Delete a task"
-        echo "  modify ID [OPTIONS]     Modify a task"
-        echo "  projects                List all projects"
-        echo "  labels                  List all labels (contexts)"
-        echo "  sync                    Sync with Todoist server"
-        echo "  inbox                   List inbox items only"
-        echo "  waiting                 List waiting-for items (P4)"
-        echo ""
-        echo "Priority conventions:"
-        echo "  P4 = Waiting/blocked"
-        echo "  P3 = Workable (default)"
-        echo "  P1/P2 = Unused"
+        printf "%s\n" "gtd-action - Todoist CLI wrapper for GTD actions/tasks\n\nCommands:\n  list [--filter FILTER]  List tasks (Todoist filter syntax)\n  add TEXT                Add a new task\n  complete ID             Mark task complete\n  delete ID               Delete a task\n  modify ID [OPTIONS]     Modify a task\n  projects                List all projects\n  project-add NAME        Create a project\n  project-update ID NAME  Update a project name\n  project-delete ID       Delete a project\n  labels                  List all labels (contexts)\n  label-add NAME          Create a label\n  label-update ID NAME    Update a label name\n  label-delete ID         Delete a label\n  sync                    Sync with Todoist server\n  inbox                   List inbox items only\n  waiting                 List waiting-for items (P4)\n\nPriority conventions:\n  P4 = Waiting/blocked\n  P3 = Workable (default)\n  P1/P2 = Unused"
         exit 0
     case '*'
         echo "Unknown command: $cmd" >&2

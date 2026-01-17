@@ -7,6 +7,8 @@
 #   cat NOTE                Read note content
 #   add TEXT                Create a new note
 #   add --edit              Create note in editor
+#   edit NOTE               Edit note content
+#   delete NOTE             Delete a note
 #   search QUERY            Search notes
 #   accounts                Show configured accounts
 #   someday                 List someday/maybe notes (#somedaymaybe)
@@ -26,6 +28,23 @@ switch "$cmd"
         notes cat $rest
     case add new
         notes add $rest
+    case edit update
+        set note_name (string join " " $rest)
+        set temp (mktemp)
+        notes cat --plaintext "$note_name" > $temp
+        $EDITOR $temp
+        set content (cat $temp)
+        set lines (string split "\n" -- $content)
+        set title $lines[1]
+        set body_text (string join "\n" $lines[2..-1])
+        set body_html (string replace -a "\n" "</div>\n<div>" -- $body_text)
+        set body_html "<div>$body_html</div>"
+        set html "<div><h1>$title</h1></div>\n$body_html"
+        osascript -e 'on run argv; set noteName to item 1 of argv; set newTitle to item 2 of argv; set newBody to item 3 of argv; tell application "Notes" to set theNote to first note whose name is noteName; tell application "Notes" to set name of theNote to newTitle; tell application "Notes" to set body of theNote to newBody; end run' "$note_name" "$title" "$html"
+        trash $temp
+    case delete remove
+        set note_name (string join " " $rest)
+        osascript -e 'on run argv; set noteName to item 1 of argv; tell application "Notes" to delete (first note whose name is noteName); end run' "$note_name"
     case search s
         notes list $rest
     case accounts
@@ -52,6 +71,8 @@ switch "$cmd"
         echo "  cat NOTE                Read note content"
         echo "  add TEXT                Create a new note"
         echo "  add --edit              Create note in editor"
+        echo "  edit NOTE               Edit note content"
+        echo "  delete NOTE             Delete a note"
         echo "  search QUERY            Search notes"
         echo "  accounts                Show configured accounts"
         echo "  someday                 List someday/maybe notes (#somedaymaybe)"
