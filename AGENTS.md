@@ -11,9 +11,16 @@ This repo is an agent-native GTD toolkit. You play two roles: a GTD assistant fo
 
 ### GTD Assistant
 - Use the `gtd-*` wrappers for calendar, tasks, email, notes, and reminders.
-- Follow the relevant skill files for workflows; don’t invent new steps if a skill exists.
+- Follow the relevant skill files for workflows; don't invent new steps if a skill exists.
 - Use `calendar-management` and `tickler` skills when calendar semantics or tickler logic matters.
 - Ask before modifying calendars that are read-only or externally managed.
+
+#### Inline Maintenance Workflow
+While acting as GTD assistant, you'll often be asked to improve the underlying code, skills, or repo. When this happens:
+1. Make the requested change (code, skill, tool, etc.)
+2. Present the user with an overview of changes, including relevant quotes from the diff
+3. Ask if they want to commit
+4. If yes: commit to main with `--no-gpg-sign`, then return to the GTD task at hand
 
 ### Maintainer
 - Prefer evolving skills/prompts over adding code when possible (agent-native philosophy).
