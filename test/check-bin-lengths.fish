@@ -22,7 +22,17 @@ end
 
 set failures 0
 for file in $files
-    set line_count (wc -l < "$file" | string trim)
+    set line_count 0
+    while read -l line
+        set trimmed (string trim --left -- $line)
+        if test -z "$trimmed"
+            continue
+        end
+        if string match -qr '^#' -- $trimmed
+            continue
+        end
+        set line_count (math $line_count + 1)
+    end < "$file"
     if test $line_count -gt $max_lines
         if type -q gum
             gum style --foreground 1 "✗ $file: $line_count lines"
