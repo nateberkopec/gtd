@@ -33,14 +33,17 @@ Process just the next item from any inbox when the user explicitly requests a si
 
 ## The Processing Loop
 
-For each inbox, for each item:
+For each inbox:
 
-1. **Present the item** to the user
-2. **Apply clarify-item skill** to determine what it is
-3. **If actionable:** Apply assign-context and check-delegatability
-4. **Route** to appropriate destination
-5. **Remove from inbox** (mark done, delete, archive)
-6. **Move to next item**
+1. **List all items** in the inbox up front
+2. **Suggest groupings** for related items (same stem/subject/sender)
+3. **Confirm grouping** with the user (adjust if needed)
+4. **Process each group/item**:
+   - Present the group label and included items
+   - Apply clarify-item skill to determine what it is
+   - If actionable: apply assign-context and check-delegatability
+   - Route to appropriate destination
+   - Remove from inbox (mark done, delete, archive)
 
 ## Processing Each Inbox
 
@@ -50,8 +53,9 @@ For each inbox, for each item:
 gtd-action inbox
 ```
 
-For each item:
-1. Present: "Next item: '[TITLE]'"
+List all items, then propose groupings (shared prefix or project keyword).
+For each group/item:
+1. Present: "Next group: '[GROUP]'" and list included items
 2. Clarify: Use clarify-item skill
 3. If it stays as a task, assign context and check delegatability
 4. Move to appropriate project or mark complete
@@ -62,8 +66,9 @@ For each item:
 gtd-email list
 ```
 
-For each email:
-1. Present subject and sender
+List all emails, then propose groupings (same subject/thread or sender).
+For each group/email:
+1. Present the group label with subjects and senders
 2. Read if needed: `gtd-email read ID`
 3. Decide:
    - **Actionable:** Create task, then archive email
@@ -83,9 +88,9 @@ Prompt the user:
 > "Do you have anything in your physical inbox? Papers, notes, objects that need processing?"
 
 If yes:
-> "Pick up the first item. What is it?"
+> "Please list all physical items so we can group related ones."
 
-Then apply clarify-item skill.
+Then propose groupings, confirm with the user, and apply clarify-item to each group/item.
 
 ### Filesystem Inbox
 
@@ -93,8 +98,9 @@ Then apply clarify-item skill.
 ls ~/Documents/Inbox
 ```
 
-For each file:
-1. Read or describe the file
+List all files, then propose groupings (shared filename stem/prefix).
+For each group/file:
+1. Read or describe the group/items
 2. Decide what to do with it
 3. Move to appropriate location or delete
 
@@ -140,11 +146,11 @@ Celebrate the clear inbox feeling.
 - Filesystem inbox: 2 files
 - Physical inbox: (unknown)
 
-Starting with Todoist inbox. First item: 'Call about insurance'"
+Starting with Todoist inbox. Items: 'Call about insurance', 'Insurance claim number', 'Pay rent'. The first two look related — group them?"
 
 *[Agent applies clarify-item skill]*
 
-**Agent:** "Is there a physical action needed for 'Call about insurance'?"
+**Agent:** "Is there a physical action needed for the insurance group?"
 
 **User:** "Yes, I need to call them about my claim"
 
@@ -166,7 +172,7 @@ gtd-action add "Call State Farm at 555-1234 about claim #12345" --label @phone
 gtd-action complete [original item]
 ```
 
-"Done. 2 items remaining in Todoist inbox. Next item: '[item]'..."
+"Done. 2 items remaining in Todoist inbox. Next group: '[group]'..."
 
 ## Skills Used
 
