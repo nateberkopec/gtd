@@ -1,0 +1,37 @@
+#!/usr/bin/env fish
+#
+# gtd-read-review - Save URLs to read-later service (Matter)
+#
+# Commands: add URL - Save a URL to Matter for later reading
+
+set cmd $argv[1]
+set rest $argv[2..-1]
+
+function url_encode --argument-names url
+    string escape --style=url -- $url
+end
+
+switch "$cmd"
+    case add a save s
+        if test -z "$rest[1]"
+            echo "Usage: gtd-read-review add URL" >&2
+            exit 1
+        end
+        set encoded (url_encode $rest[1])
+        open "https://web.getmatter.com/save?url=$encoded"
+        echo "Saved to Matter: $rest[1]"
+    case help -h --help ''
+        printf "%s\n" "gtd-read-review - Save URLs to read-later service (Matter)
+
+Commands:
+  add URL    Save a URL to Matter for later reading
+
+Examples:
+  gtd-read-review add https://example.com/article
+  gtd-read-review add \"https://arxiv.org/abs/2512.24601\""
+        exit 0
+    case '*'
+        echo "Unknown command: $cmd" >&2
+        echo "Run 'gtd-read-review help' for usage" >&2
+        exit 1
+end
