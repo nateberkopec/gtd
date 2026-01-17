@@ -59,18 +59,19 @@ For each group/item:
 3. If it stays as a task, assign context and check delegatability
 4. Move to appropriate project or mark complete
 
+**Priority convention:** When creating new tasks or moving items out of the inbox, always set priority to p3 (workable) unless the user specifies otherwise. Use `todoist modify -p 2 <ID>` or `-p 2` flag on add (Todoist API uses inverted priority: p3 = priority value 2).
+
 #### Whisper Items (Todoist)
 
 Whisper items are transcribed voice notes, typically prefixed with `[Whisper]`.
 When a group contains Whisper items:
 
 1. Process **one item at a time** (do not summarize the group)
-2. Show the **full transcription** for each item
-   - If the transcription isn’t fully visible in the task title, open the task details and expand the notes/description
-   - If it’s only available via a link, open the link and display the full transcription text
-3. Ask: “Would you like me to play the original voice file?”
-4. If yes, locate the audio URL (often in the task details or linked page) and play it via CLI
-   - On macOS: `afplay <audio-file-or-url>` (download to `/tmp` if needed)
+2. Show the **full transcription** for each item:
+   - Fetch the task via Todoist API to check for comments with attachments
+   - If there's an HTML attachment, download it and extract the transcription text from the `<p>` tag
+   - The HTML also contains a "Share this memo" link - extract and display this URL so the user can view the original Whisper memo in their browser if needed
+3. Present the transcription and the Whisper URL, then proceed with clarification
 
 ### Email Inbox
 
