@@ -23,16 +23,13 @@ This skill implements the GTD inbox processing workflow across all capture point
 
 ## Processing Modes
 
-### Mode 1: Process All
+### Mode 1: Process All (Default)
 
-Walk through every inbox, every item.
+Walk through every inbox, every item. This is the default unless the user explicitly asks otherwise.
 
-### Mode 2: Process One Item
+### Mode 2: Process One Item (Only if user asks)
 
-Process just the next item from any inbox.
-
-Ask:
-> "Would you like to process all inboxes to zero, or just tackle one item?"
+Process just the next item from any inbox when the user explicitly requests a single item.
 
 ## The Processing Loop
 
@@ -143,11 +140,7 @@ Celebrate the clear inbox feeling.
 - Filesystem inbox: 2 files
 - Physical inbox: (unknown)
 
-Would you like to process everything, or just one item?"
-
-**User:** "Let's do everything"
-
-**Agent:** "Starting with Todoist inbox. First item: 'Call about insurance'"
+Starting with Todoist inbox. First item: 'Call about insurance'"
 
 *[Agent applies clarify-item skill]*
 
