@@ -90,6 +90,8 @@ end
 
 parse_flags $rest
 
+todoist sync
+
 switch "$cmd"
     case list l
         set args
@@ -282,8 +284,10 @@ switch "$cmd"
     case sync s
         todoist sync
     case inbox
+        todoist sync
         todoist list --filter "##Inbox"
     case waiting
+        todoist sync
         todoist list --filter "p4"
     case help -h --help ''
         echo "gtd-action - Todoist CLI wrapper for GTD actions/tasks
