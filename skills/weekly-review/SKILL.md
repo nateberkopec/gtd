@@ -34,7 +34,20 @@ Goal: Empty your head and process all accumulated inputs.
 
 If yes, help them capture each item to the inbox.
 
-### 1.2 Process Digital Inboxes
+### 1.2 Mind Sweep
+
+Run the mind sweep BEFORE processing inboxes (it captures items into inboxes).
+
+Tell the user:
+> "Run this in a separate terminal to trigger your mind sweep:"
+> `/Users/nateberkopec/Documents/Code.nosync/personal/gtd/tools/gtd-mindsweep/gtd-mindsweep`
+
+The script displays triggers one at a time (every 0.5 seconds). User should capture anything that comes to mind via Whisper, notes, or typing into Todoist inbox.
+
+When done:
+> "Mind sweep complete? Tell me what you captured, or say 'done' if you captured everything directly."
+
+### 1.3 Process Digital Inboxes
 
 Use the `process-inbox` skill to empty:
 - Todoist inbox
@@ -48,20 +61,6 @@ ls ~/Documents/Inbox
 ```
 
 > "Let's process your digital inboxes to zero."
-
-### 1.3 Mind Sweep
-
-> "Now let's empty your head. What's on your mind that isn't captured yet? Don't filter - just tell me anything that has your attention."
-
-Use trigger prompts if needed:
-- "Any projects at work that need attention?"
-- "Personal commitments you've made?"
-- "Things you're waiting for from others?"
-- "Upcoming events needing preparation?"
-- "Health, financial, or home matters?"
-- "Creative ideas or things you want to learn?"
-
-Capture everything to inbox, then process.
 
 ### 1.4 Review Recent Notes
 
@@ -82,10 +81,9 @@ gtd-action list
 
 > "Let's scan your next actions. For each one, is it still relevant? Have you done any of these?"
 
-For each list/context:
-- Mark completed items done
-- Remove irrelevant items
-- Update wording if needed
+In this stage, we only want to review next actions in the Other Next Action list in Todoist.
+
+For each item, use the clarify-item skill.
 
 ### 2.2 Review Projects
 
@@ -95,12 +93,18 @@ gtd-action projects
 
 > "Let's review your projects. For each one: Is it still active? Does it have a next action?"
 
+This is where we go through each other list in Todoist with items in it, one by one.
+
+We do _not_ review any projects inside Speedshop, only in the Life category.
+
 For each project:
 - **Active with next action:** Good, move on
 - **Active without next action:** Define next action now
 - **Completed:** Celebrate and archive
 - **Stalled:** Either define next action or move to someday/maybe
 - **No longer relevant:** Archive or delete
+
+Then, run clarify-item on all items in the project.
 
 ### 2.3 Review Waiting For
 
@@ -110,15 +114,12 @@ gtd-action waiting
 
 > "Let's check what you're waiting for from others."
 
-For each waiting-for item:
-- Has it been received? Mark complete
-- Is it overdue? Create follow-up action
-- Still pending? Update expected date if needed
+Clarify-item with each.
 
 ### 2.4 Review Past Calendar
 
 ```
-gtd-calendar list 14  # past 2 weeks
+gtd-calendar list 7  # past week
 ```
 
 Apply the calendar meanings from the `calendar-management` skill.
@@ -133,7 +134,7 @@ Look for:
 ### 2.5 Review Upcoming Calendar
 
 ```
-gtd-calendar list 28  # next 4 weeks
+gtd-calendar list 7  # next 7 days
 ```
 
 > "Let's look ahead. What's coming up that needs preparation?"
