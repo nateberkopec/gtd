@@ -1,0 +1,27 @@
+#!/usr/bin/env fish
+#
+# gtd-mindsweep - Display mind sweep triggers one at a time
+#
+# Run this script and watch the triggers scroll by.
+# When something catches your attention, jot it down or speak it to capture.
+
+set script_dir (dirname (status filename))
+set triggers_file "$script_dir/sweep_triggers.txt"
+
+if not test -f "$triggers_file"
+    echo "Error: Triggers file not found at $triggers_file" >&2
+    exit 1
+end
+
+echo "=== Mind Sweep ==="
+echo "Watch the triggers scroll by. Capture anything that has your attention."
+echo
+sleep 1
+
+while read -l line
+    echo "$line"
+    sleep 0.5
+end < "$triggers_file"
+
+echo
+echo "=== Mind Sweep Complete ==="
