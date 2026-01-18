@@ -198,13 +198,6 @@ At the end, summarize:
 - Projects reviewed: [N]
 - Waiting-for items checked: [N]
 
-## Abbreviated Review Option
-
-For busy weeks, offer abbreviated version:
-> "We can do a full review (60-90 min) or abbreviated (25-30 min) focusing on Get Clear and Get Current. Which would you prefer?"
-
-Abbreviated skips Phase 3 (Get Creative).
-
 ## Tools Used
 
 - `gtd-action inbox/list/waiting/projects` - Todoist operations
