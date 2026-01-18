@@ -102,24 +102,35 @@ switch "$cmd"
             echo "Error: --text required for add command" >&2
             exit 1
         end
-        set args "$_flag_text"
+        # Build JSON payload for REST API (todoist CLI add is buggy with flags)
+        set text_escaped (string replace -a '\\' '\\\\' -- (string replace -a '"' '\\"' -- $_flag_text))
+        set payload "{\"content\":\"$text_escaped\""
         if test -n "$_flag_priority"
-            set -a args --priority "$_flag_priority"
+            set payload "$payload,\"priority\":$_flag_priority"
         end
         if test -n "$_flag_date"
-            set -a args --date "$_flag_date"
+            set date_escaped (string replace -a '\\' '\\\\' -- (string replace -a '"' '\\"' -- $_flag_date))
+            set payload "$payload,\"due_string\":\"$date_escaped\""
         end
         if test -n "$_flag_project"
-            set -a args --project-name "$_flag_project"
+            # Look up project ID by name
+            set proj_escaped (string replace -a '\\' '\\\\' -- (string replace -a '"' '\\"' -- $_flag_project))
+            set proj_id (todoist_rest GET "projects" | jq -r ".[] | select(.name == \"$proj_escaped\") | .id")
+            if test -n "$proj_id"
+                set payload "$payload,\"project_id\":\"$proj_id\""
+            end
         end
         if test -n "$_flag_labels"
-            set -a args --label-names "$_flag_labels"
+            # Convert comma-separated labels to JSON array
+            set labels_json (string split "," $_flag_labels | string trim | xargs -I{} printf '"%s",' {} | string trim --right --chars=,)
+            set payload "$payload,\"labels\":[$labels_json]"
         end
-        set output (todoist add $args $_passthrough)
-        echo $output
-        # Extract task ID from output (format: "ID TaskContent")
-        set task_id (string split " " $output)[1]
+        set payload "$payload}"
+        set response (todoist_rest POST "tasks" "$payload")
+        todoist sync
+        set task_id (echo $response | jq -r '.id')
         if test -n "$task_id"
+            echo $task_id $_flag_text
             task_url $task_id
         end
     case complete c close
