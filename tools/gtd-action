@@ -4,9 +4,6 @@
 #
 # Commands: list/add/complete/delete/modify/projects/labels/sync/inbox/waiting
 
-set cmd $argv[1]
-set rest $argv[2..-1]
-
 function todoist_rest --argument-names method path payload
     set token (string match -r --groups-only '"token"\s*:\s*"([^"]+)"' (cat "$HOME/.config/todoist/config.json"))
     set url "https://api.todoist.com/rest/v2/$path"
@@ -22,17 +19,140 @@ function todoist_name_payload --argument-names name
     printf '{"name":"%s"}' $name
 end
 
+function task_url --argument-names id
+    echo "https://todoist.com/showTask?id=$id"
+end
+
+function project_url --argument-names id
+    echo "https://todoist.com/showProject?id=$id"
+end
+
+# Parse command (first positional argument)
+set cmd ""
+set rest
+for arg in $argv
+    if test -z "$cmd"; and not string match -q -- '-*' $arg
+        set cmd $arg
+    else
+        set -a rest $arg
+    end
+end
+
+# Parse flags from rest
+function parse_flags
+    set -g _flag_filter ""
+    set -g _flag_text ""
+    set -g _flag_id ""
+    set -g _flag_name ""
+    set -g _flag_parent_id ""
+    set -g _flag_priority ""
+    set -g _flag_date ""
+    set -g _flag_project ""
+    set -g _flag_labels ""
+    set -g _passthrough
+
+    set i 1
+    while test $i -le (count $argv)
+        switch $argv[$i]
+            case --filter -f
+                set i (math $i + 1)
+                test $i -le (count $argv); and set _flag_filter $argv[$i]
+            case --text -t
+                set i (math $i + 1)
+                test $i -le (count $argv); and set _flag_text $argv[$i]
+            case --id -i
+                set i (math $i + 1)
+                test $i -le (count $argv); and set _flag_id $argv[$i]
+            case --name -n
+                set i (math $i + 1)
+                test $i -le (count $argv); and set _flag_name $argv[$i]
+            case --parent-id
+                set i (math $i + 1)
+                test $i -le (count $argv); and set _flag_parent_id $argv[$i]
+            case --priority -p
+                set i (math $i + 1)
+                test $i -le (count $argv); and set _flag_priority $argv[$i]
+            case --date -d
+                set i (math $i + 1)
+                test $i -le (count $argv); and set _flag_date $argv[$i]
+            case --project -P
+                set i (math $i + 1)
+                test $i -le (count $argv); and set _flag_project $argv[$i]
+            case --labels -l
+                set i (math $i + 1)
+                test $i -le (count $argv); and set _flag_labels $argv[$i]
+            case '*'
+                set -a _passthrough $argv[$i]
+        end
+        set i (math $i + 1)
+    end
+end
+
+parse_flags $rest
+
 switch "$cmd"
     case list l
-        todoist list $rest
+        set args
+        if test -n "$_flag_filter"
+            set -a args --filter "$_flag_filter"
+        end
+        todoist list $args $_passthrough
     case add a
-        todoist add $rest
+        if test -z "$_flag_text"
+            echo "Error: --text required for add command" >&2
+            exit 1
+        end
+        set args "$_flag_text"
+        if test -n "$_flag_priority"
+            set -a args --priority "$_flag_priority"
+        end
+        if test -n "$_flag_date"
+            set -a args --date "$_flag_date"
+        end
+        if test -n "$_flag_project"
+            set -a args --project-name "$_flag_project"
+        end
+        if test -n "$_flag_labels"
+            set -a args --label-names "$_flag_labels"
+        end
+        set output (todoist add $args $_passthrough)
+        echo $output
+        # Extract task ID from output (format: "ID TaskContent")
+        set task_id (string split " " $output)[1]
+        if test -n "$task_id"
+            task_url $task_id
+        end
     case complete c close
-        todoist close $rest
+        if test -z "$_flag_id"
+            echo "Error: --id required for complete command" >&2
+            exit 1
+        end
+        todoist close $_flag_id $_passthrough
+        task_url $_flag_id
     case delete d
-        todoist delete $rest
+        if test -z "$_flag_id"
+            echo "Error: --id required for delete command" >&2
+            exit 1
+        end
+        todoist delete $_flag_id $_passthrough
+        task_url $_flag_id
     case modify m
-        todoist modify $rest
+        if test -z "$_flag_id"
+            echo "Error: --id required for modify command" >&2
+            exit 1
+        end
+        set args $_flag_id
+        if test -n "$_flag_text"
+            set -a args --content "$_flag_text"
+        end
+        if test -n "$_flag_priority"
+            set -a args --priority "$_flag_priority"
+        end
+        if test -n "$_flag_date"
+            set -a args --date "$_flag_date"
+        end
+        todoist modify $args $_passthrough
+        task_url $_flag_id
     case projects
         # Display projects hierarchically with indentation
         set token (string match -r --groups-only '"token"\s*:\s*"([^"]+)"' (cat "$HOME/.config/todoist/config.json"))
@@ -52,50 +172,78 @@ switch "$cmd"
         _print_project_tree null 0 $tmpfile
         rm -f $tmpfile
     case project-add project-create
-        set parent_id ""
-        set name_parts
-        set i 1
-        while test $i -le (count $rest)
-            switch $rest[$i]
-                case --parent-id
-                    set i (math $i + 1)
-                    if test $i -le (count $rest)
-                        set parent_id $rest[$i]
-                    end
-                case '*'
-                    set name_parts $name_parts $rest[$i]
-            end
-            set i (math $i + 1)
-        end
-        set name (string join " " $name_parts)
-        if test -z "$name"
-            echo "Project name required" >&2
+        if test -z "$_flag_name"
+            echo "Error: --name required for project-add command" >&2
             exit 1
         end
-        set payload (todoist_name_payload "$name")
-        if test -n "$parent_id"
-            set payload (string replace -r '\\}$' ",\"parent_id\":$parent_id}" -- $payload)
+        set payload (todoist_name_payload "$_flag_name")
+        if test -n "$_flag_parent_id"
+            set payload (string replace -r '\\}$' ",\"parent_id\":$_flag_parent_id}" -- $payload)
         end
-        todoist_rest POST "projects" "$payload"; todoist sync
+        set response (todoist_rest POST "projects" "$payload")
+        todoist sync
+        set proj_id (echo $response | jq -r '.id')
+        if test -n "$proj_id"
+            project_url $proj_id
+        end
     case project-update project-rename
-        set id $rest[1]
-        set payload (todoist_name_payload (string join " " $rest[2..-1]))
-        todoist_rest POST "projects/$id" "$payload"; todoist sync
+        if test -z "$_flag_id"
+            echo "Error: --id required for project-update command" >&2
+            exit 1
+        end
+        if test -z "$_flag_name"
+            echo "Error: --name required for project-update command" >&2
+            exit 1
+        end
+        set payload (todoist_name_payload "$_flag_name")
+        todoist_rest POST "projects/$_flag_id" "$payload"
+        todoist sync
+        project_url $_flag_id
     case project-delete project-remove
-        todoist_rest DELETE "projects/$rest[1]"; todoist sync
+        if test -z "$_flag_id"
+            echo "Error: --id required for project-delete command" >&2
+            exit 1
+        end
+        set deleted_id $_flag_id
+        todoist_rest DELETE "projects/$_flag_id"
+        todoist sync
+        echo "Deleted project: $deleted_id"
     case labels contexts
         todoist labels
     case label-add label-create
-        set name (string trim --left --chars "@" -- (string join " " $rest))
+        if test -z "$_flag_name"
+            echo "Error: --name required for label-add command" >&2
+            exit 1
+        end
+        set name (string trim --left --chars "@" -- $_flag_name)
         set payload (todoist_name_payload "$name")
-        todoist_rest POST "labels" "$payload"; todoist sync
+        set response (todoist_rest POST "labels" "$payload")
+        todoist sync
+        set label_id (echo $response | jq -r '.id')
+        echo "Created label: $label_id @$name"
     case label-update label-rename
-        set id $rest[1]
-        set name (string trim --left --chars "@" -- (string join " " $rest[2..-1]))
+        if test -z "$_flag_id"
+            echo "Error: --id required for label-update command" >&2
+            exit 1
+        end
+        if test -z "$_flag_name"
+            echo "Error: --name required for label-update command" >&2
+            exit 1
+        end
+        set name (string trim --left --chars "@" -- $_flag_name)
         set payload (todoist_name_payload "$name")
-        todoist_rest POST "labels/$id" "$payload"; todoist sync
+        todoist_rest POST "labels/$_flag_id" "$payload"
+        todoist sync
+        echo "Updated label: $_flag_id @$name"
     case label-delete label-remove
-        todoist_rest DELETE "labels/$rest[1]"; todoist sync
+        if test -z "$_flag_id"
+            echo "Error: --id required for label-delete command" >&2
+            exit 1
+        end
+        set deleted_id $_flag_id
+        todoist_rest DELETE "labels/$_flag_id"
+        todoist sync
+        echo "Deleted label: $deleted_id"
     case sync s
         todoist sync
     case inbox
@@ -103,8 +251,64 @@ switch "$cmd"
     case waiting
         todoist list --filter "p4"
     case help -h --help ''
-        printf "%s\n" "gtd-action - Todoist CLI wrapper for GTD actions/tasks\n\nCommands:\n  list [--filter FILTER]  List tasks (Todoist filter syntax)\n  add TEXT                Add a new task\n  complete ID             Mark task complete\n  delete ID               Delete a task\n  modify ID [OPTIONS]     Modify a task\n  projects                List all projects\n    project-add NAME        Create a project (use --parent-id to nest)
-\n  project-update ID NAME  Update a project name\n  project-delete ID       Delete a project\n  labels                  List all labels (contexts)\n  label-add NAME          Create a label\n  label-update ID NAME    Update a label name\n  label-delete ID         Delete a label\n  sync                    Sync with Todoist server\n  inbox                   List inbox items only\n  waiting                 List waiting-for items (P4)\n\nPriority conventions:\n  P4 = Waiting/blocked\n  P3 = Workable (default)\n  P1/P2 = Unused"
+        echo "gtd-action - Todoist CLI wrapper for GTD actions/tasks
+
+Commands:
+  list                    List tasks
+    --filter, -f FILTER     Todoist filter syntax
+
+  add                     Add a new task
+    --text, -t TEXT         Task text (required)
+    --priority, -p NUM      Priority (1-4)
+    --date, -d DATE         Due date
+    --project, -P NAME      Project name
+    --labels, -l LABELS     Label names (comma-separated)
+
+  complete                Mark task complete
+    --id, -i ID             Task ID (required)
+
+  delete                  Delete a task
+    --id, -i ID             Task ID (required)
+
+  modify                  Modify a task
+    --id, -i ID             Task ID (required)
+    --text, -t TEXT         New task text
+    --priority, -p NUM      New priority
+    --date, -d DATE         New due date
+
+  projects                List all projects
+
+  project-add             Create a project
+    --name, -n NAME         Project name (required)
+    --parent-id ID          Parent project ID
+
+  project-update          Update a project name
+    --id, -i ID             Project ID (required)
+    --name, -n NAME         New name (required)
+
+  project-delete          Delete a project
+    --id, -i ID             Project ID (required)
+
+  labels                  List all labels (contexts)
+
+  label-add               Create a label
+    --name, -n NAME         Label name (required)
+
+  label-update            Update a label name
+    --id, -i ID             Label ID (required)
+    --name, -n NAME         New name (required)
+
+  label-delete            Delete a label
+    --id, -i ID             Label ID (required)
+
+  sync                    Sync with Todoist server
+  inbox                   List inbox items only
+  waiting                 List waiting-for items (P4)
+
+Priority conventions:
+  P4 = Waiting/blocked
+  P3 = Workable (default)
+  P1/P2 = Unused"
         exit 0
     case '*'
         echo "Unknown command: $cmd" >&2
