@@ -77,6 +77,13 @@ Good examples (specific and physical):
 - **Deadline:** Add due date to task (`gtd-action add --due DATE`)
 - **No time constraint:** Add as next action (`gtd-action add`)
 
+#### The Two-Minute Rule
+
+During processing, if an action would take less than 2 minutes:
+> "This would take less than 2 minutes. Do you want to do it now?"
+
+If yes, do it and mark complete. Don't add to lists.
+
 ## Output
 
 After clarifying, the item should be routed to one of:

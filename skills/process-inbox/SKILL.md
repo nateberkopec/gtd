@@ -21,45 +21,31 @@ This skill implements the GTD inbox processing workflow across all capture point
 3. **Physical Inbox** - Paper, objects, notes (user prompt)
 4. **Filesystem Inbox** - ~/Documents/Inbox (agent reads directly)
 
-## Processing Modes
-
-### Mode 1: Process All (Default)
-
-Walk through every inbox, every item. This is the default unless the user explicitly asks otherwise.
-
-### Mode 2: Process One Item (Only if user asks)
-
-Process just the next item from any inbox when the user explicitly requests a single item.
-
 ## The Processing Loop
 
 For each inbox:
 
 1. **List all items** in the inbox up front
 2. **Group related items** internally (same stem/subject/sender)
-3. **Process each group/item**:
-   - Present the group label and included items
-   - Apply clarify-item skill to determine what it is
-   - If actionable: apply assign-context and check-delegatability
-   - Route to appropriate destination
-   - Remove from inbox (mark done, delete, archive)
+3. **Process each group/item**: Run the clarify-item skill.
 
 ## Processing Each Inbox
 
 ### Todoist Inbox
+
+Use the following tool:
 
 ```
 gtd-action inbox
 ```
 
 List all items, then group related ones internally (shared prefix or project keyword).
+
+If you have to fall back on something where the tool isn't working, use `todoist` CLI directly, don't use curl.
+
 For each group/item:
 1. Present: "Next group: '[GROUP]'" and list included items
-2. Clarify: Use clarify-item skill
-3. If it stays as a task, assign context and check delegatability
-4. Move to appropriate project or mark complete
-
-**Priority convention:** When creating new tasks or moving items out of the inbox, always set priority to p3 (workable) unless the user specifies otherwise. Use `todoist modify -p 2 <ID>` or `-p 2` flag on add (Todoist API uses inverted priority: p3 = priority value 2).
+2. Run the clarify-item skill against the item.
 
 #### Whisper Items (Todoist)
 
@@ -68,10 +54,10 @@ When a group contains Whisper items:
 
 1. Process **one item at a time** (do not summarize the group)
 2. Show the **full transcription** for each item:
-   - Fetch the task via Todoist API to check for comments with attachments
+   - Fetch the task via `$ todoist` to check for comments with attachments
    - If there's an HTML attachment, download it and extract the transcription text from the `<p>` tag
    - The HTML also contains a "Share this memo" link - extract and display this URL so the user can view the original Whisper memo in their browser if needed
-3. Present the transcription and the Whisper URL, then proceed with clarification
+3. Present the transcription and the Whisper URL, then proceed with Run the clarify-item skill against the item.
 
 ### Email Inbox
 
@@ -83,11 +69,7 @@ List all emails, then group related ones internally (same subject/thread or send
 For each group/email:
 1. Present the group label with subjects and senders
 2. Read if needed: `gtd-email read ID`
-3. Decide:
-   - **Actionable:** Create task, then archive email
-   - **Reference:** Save info to notes, archive email
-   - **Trash:** Delete email
-   - **Respond now:** If < 2 minutes, do it
+3. Run the clarify-item skill against the item.
 
 ```
 gtd-email archive ID
@@ -103,7 +85,7 @@ Prompt the user:
 If yes:
 > "Please list all physical items so I can group related ones."
 
-Then group internally and apply clarify-item to each group/item.
+Then group internally and apply the clarify-item skill against the item.
 
 ### Filesystem Inbox
 
@@ -112,28 +94,16 @@ ls ~/Documents/Inbox
 ```
 
 List all files, then group related ones internally (shared filename stem/prefix).
-For each group/file:
-1. Read or describe the group/items
-2. Decide what to do with it
-3. Move to appropriate location or delete
+
+Run the clarify-item skill against the item.
 
 ## Processing Order
 
 Recommended order:
 1. **Filesystem inbox** - Quick to scan
 2. **Physical inbox** - Gets it out of the way
-3. **Todoist inbox** - Core task capture
-4. **Email inbox** - Often the largest
-
-Or let user choose:
-> "Which inbox would you like to start with?"
-
-## The Two-Minute Rule
-
-During processing, if an action would take less than 2 minutes:
-> "This would take less than 2 minutes. Do you want to do it now?"
-
-If yes, do it and mark complete. Don't add to lists.
+3. **Email inbox** - Often the largest
+4. **Todoist inbox** - Core task capture
 
 ## Progress Tracking
 
@@ -149,51 +119,9 @@ When all inboxes are at zero:
 
 Celebrate the clear inbox feeling.
 
-## Example Session
-
-**User:** "Help me process my inbox"
-
-**Agent:** "Let's get your inboxes to zero. You have:
-- Todoist inbox: 3 items
-- Email inbox: 7 items
-- Filesystem inbox: 2 files
-- Physical inbox: (unknown)
-
-Starting with Todoist inbox. Items: 'Call about insurance', 'Insurance claim number', 'Pay rent'. Grouped the first two together."
-
-*[Agent applies clarify-item skill]*
-
-**Agent:** "Is there a physical action needed for the insurance group?"
-
-**User:** "Yes, I need to call them about my claim"
-
-**Agent:** "What's the specific next action?"
-
-**User:** "Call State Farm at 555-1234 about claim #12345"
-
-**Agent:** "I'll add that as a next action. What context? I see you have @phone, @computer, @home, @office, @errands"
-
-**User:** "@phone"
-
-**Agent:** "Could someone else make this call?"
-
-**User:** "No, it's my policy"
-
-**Agent:**
-```
-gtd-action add "Call State Farm at 555-1234 about claim #12345" --label @phone
-gtd-action complete [original item]
-```
-
-"Done. 2 items remaining in Todoist inbox. Next group: '[group]'..."
-
 ## Skills Used
 
 - `clarify-item` - For each item
-- `assign-context` - For actionable items
-- `check-delegatability` - For actionable items
-- `convert-to-project` - When item needs multiple actions
-- `refine-next-action` - When user rejects suggestions
 
 ## Tools Used
 
