@@ -1,0 +1,4 @@
+#!/usr/bin/env fish
+
+set -l script_dir (dirname (status filename))
+exec "$script_dir/_gtd-reminders/gtd-reminders" $argv

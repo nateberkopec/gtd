@@ -14,12 +14,13 @@ This skill implements the GTD inbox processing workflow across all capture point
 - When inbox count is high
 - Regular daily/frequent processing
 
-## The Four Inboxes
+## The Five Inboxes
 
 1. **Todoist Inbox** - Digital task captures (`gtd-action inbox`)
 2. **Email Inbox** - Unprocessed emails (`gtd-email list`)
-3. **Physical Inbox** - Paper, objects, notes (user prompt)
-4. **Filesystem Inbox** - ~/Documents/Inbox (agent reads directly)
+3. **Reminders Inbox (Due)** - Due/overdue Reminders.app items (`gtd-reminders due`, `gtd-reminders overdue`)
+4. **Physical Inbox** - Paper, objects, notes (user prompt)
+5. **Filesystem Inbox** - ~/Documents/Inbox (agent reads directly)
 
 ## The Processing Loop
 
@@ -77,6 +78,29 @@ gtd-email archive ID
 gtd-email delete ID
 ```
 
+### Reminders Inbox (Due)
+
+```
+gtd-reminders due
+gtd-reminders overdue
+```
+
+List all reminders that are due today or overdue, then group related ones internally.
+For each reminder/group:
+1. Present the reminder text and ID
+2. Run the clarify-item skill against the item
+3. Route the outcome by either completing/editing the reminder or creating the appropriate task/calendar entry
+
+Common actions:
+
+```
+gtd-reminders complete ID
+# or
+gtd-reminders edit ID ...
+# or
+gtd-reminders delete ID
+```
+
 ### Physical Inbox
 
 Prompt the user:
@@ -103,13 +127,15 @@ Recommended order:
 1. **Filesystem inbox** - Quick to scan
 2. **Physical inbox** - Gets it out of the way
 3. **Email inbox** - Often the largest
-4. **Todoist inbox** - Core task capture
+4. **Reminders inbox (due/overdue)** - Time-triggered items that surfaced today
+5. **Todoist inbox** - Core task capture
 
 ## Progress Tracking
 
 Keep user informed:
 - "Todoist inbox: 5 items remaining"
 - "Email inbox: 12 items remaining"
+- "Reminders inbox (due): 3 items remaining"
 - "Processed 8 items so far"
 
 ## Completion
@@ -128,5 +154,6 @@ Celebrate the clear inbox feeling.
 - `gtd-action inbox` - List Todoist inbox
 - `gtd-action add/complete/delete` - Manage tasks
 - `gtd-email list/read/archive/delete` - Process email
+- `gtd-reminders due/overdue/complete/edit/delete` - Process Reminders.app due items
 - `gtd-notes add` - Save reference/someday-maybe
 - Direct filesystem access for ~/Documents/Inbox
