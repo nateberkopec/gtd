@@ -47,6 +47,7 @@ function parse_flags
     set -g _flag_parent_id ""
     set -g _flag_priority ""
     set -g _flag_date ""
+    set -g _flag_clear_date false
     set -g _flag_project ""
     set -g _flag_labels ""
     set -g _passthrough
@@ -75,6 +76,8 @@ function parse_flags
             case --date -d
                 set i (math $i + 1)
                 test $i -le (count $argv); and set _flag_date $argv[$i]
+            case --clear-date
+                set _flag_clear_date true
             case --project -P
                 set i (math $i + 1)
                 test $i -le (count $argv); and set _flag_project $argv[$i]
@@ -175,6 +178,12 @@ switch "$cmd"
             end
             set date_escaped (string replace -a '\\' '\\\\' -- (string replace -a '"' '\\"' -- $_flag_date))
             set payload "$payload\"due_string\":\"$date_escaped\""
+            set has_field true
+        else if test "$_flag_clear_date" = true
+            if $has_field
+                set payload "$payload,"
+            end
+            set payload "$payload\"due_string\":\"no date\""
             set has_field true
         end
         if test -n "$_flag_labels"
@@ -314,6 +323,7 @@ Commands:
     --text, -t TEXT         New task text
     --priority, -p NUM      New priority
     --date, -d DATE         New due date
+    --clear-date            Remove due date
 
   projects                List all projects
 

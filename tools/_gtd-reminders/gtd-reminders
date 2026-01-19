@@ -129,9 +129,9 @@ switch "$cmd"
     case lists
         remindctl list
     case due today
-        remindctl show today
+        remindctl show today $rest
     case overdue
-        remindctl show overdue
+        remindctl show overdue $rest
     case help -h --help ''
         echo "gtd-reminders - Reminders.app CLI wrapper (remindctl)"
         echo ""

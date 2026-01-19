@@ -21,9 +21,9 @@ switch "$cmd"
     case read r
         himalaya message read $rest
     case archive a
-        himalaya envelope move --folder Archive $rest
+        himalaya message move Archive $rest
     case delete d
-        himalaya envelope delete $rest
+        himalaya message delete $rest
     case move m
         if test (count $rest) -lt 2
             echo "Usage: gtd-email move ID FOLDER" >&2
@@ -31,7 +31,7 @@ switch "$cmd"
         end
         set id $rest[1]
         set folder $rest[2]
-        himalaya envelope move --folder $folder $id
+        himalaya message move $folder $id
     case folders
         himalaya folder list
     case search s

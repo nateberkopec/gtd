@@ -81,11 +81,12 @@ gtd-email delete ID
 ### Reminders Inbox (Due)
 
 ```
-gtd-reminders due
-gtd-reminders overdue
+gtd-reminders due --plain
+gtd-reminders overdue --plain
 ```
 
 List all reminders that are due today or overdue, then group related ones internally.
+In `--plain` output, the first column is the reminder ID to use for `complete/edit/delete`.
 For each reminder/group:
 1. Present the reminder text and ID
 2. Run the clarify-item skill against the item
