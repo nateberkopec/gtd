@@ -27,6 +27,23 @@ function project_url --argument-names id
     echo "https://todoist.com/showProject?id=$id"
 end
 
+function lookup_section_id --argument-names project_name section_name
+    set proj_escaped (string replace -a '\\' '\\\\' -- (string replace -a '"' '\\"' -- $project_name))
+    set sect_escaped (string replace -a '\\' '\\\\' -- (string replace -a '"' '\\"' -- $section_name))
+    set proj_id (todoist_rest GET "projects" | jq -r ".[] | select(.name == \"$proj_escaped\") | .id")
+    if test -z "$proj_id"
+        echo ""
+        return 1
+    end
+    set section_id (todoist_rest GET "sections?project_id=$proj_id" | jq -r ".[] | select(.name == \"$sect_escaped\") | .id")
+    if test -n "$section_id"
+        echo $section_id
+    else
+        echo ""
+        return 1
+    end
+end
+
 # Parse command (first positional argument)
 set cmd ""
 set rest
@@ -45,10 +62,11 @@ function parse_flags
     set -g _flag_id ""
     set -g _flag_name ""
     set -g _flag_parent_id ""
-    set -g _flag_priority ""
+    set -g _flag_priority "2"
     set -g _flag_date ""
     set -g _flag_clear_date false
     set -g _flag_project ""
+    set -g _flag_section ""
     set -g _flag_labels ""
     set -g _passthrough
 
@@ -81,6 +99,9 @@ function parse_flags
             case --project -P
                 set i (math $i + 1)
                 test $i -le (count $argv); and set _flag_project $argv[$i]
+            case --section -S
+                set i (math $i + 1)
+                test $i -le (count $argv); and set _flag_section $argv[$i]
             case --labels -l
                 set i (math $i + 1)
                 test $i -le (count $argv); and set _flag_labels $argv[$i]
@@ -107,7 +128,12 @@ switch "$cmd"
             echo "Error: --text required for add command" >&2
             exit 1
         end
-        # Build JSON payload for REST API (todoist CLI add is buggy with flags)
+        # If section provided, --project is required (section is project-scoped)
+        if test -n "$_flag_section"; and test -z "$_flag_project"
+            echo "Error: --section requires --project" >&2
+            exit 1
+        end
+        # Build JSON payload for REST API
         set text_escaped (string replace -a '\\' '\\\\' -- (string replace -a '"' '\\"' -- $_flag_text))
         set payload "{\"content\":\"$text_escaped\""
         if test -n "$_flag_priority"
@@ -123,10 +149,23 @@ switch "$cmd"
             set proj_id (todoist_rest GET "projects" | jq -r ".[] | select(.name == \"$proj_escaped\") | .id")
             if test -n "$proj_id"
                 set payload "$payload,\"project_id\":\"$proj_id\""
+                # If section also provided, look up section ID within this project
+                if test -n "$_flag_section"
+                    set sect_escaped (string replace -a '\\' '\\\\' -- (string replace -a '"' '\\"' -- $_flag_section))
+                    set section_id (todoist_rest GET "sections?project_id=$proj_id" | jq -r ".[] | select(.name == \"$sect_escaped\") | .id")
+                    if test -n "$section_id"
+                        set payload "$payload,\"section_id\":\"$section_id\""
+                    else
+                        echo "Error: section '$_flag_section' not found in project '$_flag_project'" >&2
+                        exit 1
+                    end
+                end
+            else
+                echo "Error: project '$_flag_project' not found" >&2
+                exit 1
             end
         end
         if test -n "$_flag_labels"
-            # Convert comma-separated labels to JSON array
             set labels_json (string split "," $_flag_labels | string trim | xargs -I{} printf '"%s",' {} | string trim --right --chars=,)
             set payload "$payload,\"labels\":[$labels_json]"
         end
@@ -290,6 +329,83 @@ switch "$cmd"
         todoist_rest DELETE "labels/$_flag_id"
         todoist sync
         echo "Deleted label: $deleted_id"
+    case section-list
+        if test -z "$_flag_project"
+            echo "Error: --project required for section-list command" >&2
+            exit 1
+        end
+        set proj_escaped (string replace -a '\\' '\\\\' -- (string replace -a '"' '\\"' -- $_flag_project))
+        set proj_id (todoist_rest GET "projects" | jq -r ".[] | select(.name == \"$proj_escaped\") | .id")
+        if test -z "$proj_id"
+            echo "Error: project '$_flag_project' not found" >&2
+            exit 1
+        end
+        todoist_rest GET "sections?project_id=$proj_id" | jq -r '.[] | "  \(.id) \(.name)"' | while read section
+            echo "$section"
+        end
+    case section-add section-create
+        if test -z "$_flag_name"
+            echo "Error: --name required for section-add command" >&2
+            exit 1
+        end
+        if test -z "$_flag_project"
+            echo "Error: --project required for section-add command" >&2
+            exit 1
+        end
+        set proj_escaped (string replace -a '\\' '\\\\' -- (string replace -a '"' '\\"' -- $_flag_project))
+        set proj_id (todoist_rest GET "projects" | jq -r ".[] | select(.name == \"$proj_escaped\") | .id")
+        if test -z "$proj_id"
+            echo "Error: project '$_flag_project' not found" >&2
+            exit 1
+        end
+        set payload "{\"name\":\"$_flag_name\",\"project_id\":\"$proj_id\"}"
+        set response (todoist_rest POST "sections" "$payload")
+        todoist sync
+        set section_id (echo $response | jq -r '.id')
+        if test -n "$section_id"
+            echo "Created section: $section_id #$_flag_name in #$_flag_project"
+        end
+    case section-move
+        if test -z "$_flag_id"
+            echo "Error: --id required for section-move command (task ID)" >&2
+            exit 1
+        end
+        if test -z "$_flag_project"
+            echo "Error: --project required for section-move command" >&2
+            exit 1
+        end
+        if test -z "$_flag_section"
+            echo "Error: --section required for section-move command" >&2
+            exit 1
+        end
+        set section_id (lookup_section_id "$_flag_project" "$_flag_section")
+        if test -z "$section_id"
+            echo "Error: Could not find section '$_flag_section' in project '$_flag_project'" >&2
+            exit 1
+        end
+        # Use sync API which supports moving sections better
+        set uuid (uuidgen | tr -d '-')
+        set cmd_json "{\"type\":\"item_move\",\"uuid\":\"$uuid\",\"args\":{\"id\":$_flag_id,\"section_id\":$section_id}}"
+        set token (string match -r --groups-only '"token"\s*:\s*"([^"]+)"' (cat "$HOME/.config/todoist/config.json"))
+        set response (curl --silent --show-error --fail -H "Authorization: Bearer $token" "https://api.todoist.com/sync/v9/sync" --data-urlencode "commands=[$cmd_json]")
+        if echo $response | jq -e '.sync_status | all(. == "ok")' > /dev/null
+            todoist sync
+            echo "Task $_flag_id moved to section: #$_flag_section"
+        else
+            echo "Error: Failed to move task" >&2
+            echo $response | jq . >&2
+            exit 1
+        end
+        task_url $_flag_id
+    case section-delete
+        if test -z "$_flag_id"
+            echo "Error: --id required for section-delete command" >&2
+            exit 1
+        end
+        set deleted_id $_flag_id
+        todoist_rest DELETE "sections/$_flag_id"
+        todoist sync
+        echo "Deleted section: $deleted_id"
     case sync s
         todoist sync
     case inbox
@@ -310,6 +426,7 @@ Commands:
     --priority, -p NUM      Priority (1-4)
     --date, -d DATE         Due date
     --project, -P NAME      Project name
+    --section, -S NAME      Section name (requires --project)
     --labels, -l LABELS     Label names (comma-separated)
 
   complete                Mark task complete
@@ -338,6 +455,21 @@ Commands:
   project-delete          Delete a project
     --id, -i ID             Project ID (required)
 
+  section-list            List sections in a project
+    --project, -P NAME      Project name (required)
+
+  section-add             Create a section in a project
+    --name, -n NAME         Section name (required)
+    --project, -P NAME      Project name (required)
+
+  section-move            Move a task to a section
+    --id, -i ID             Task ID (required)
+    --project, -P NAME      Project name (required)
+    --section, -S NAME      Target section name (required)
+
+  section-delete          Delete a section (moves tasks to project inbox)
+    --id, -i ID             Section ID (required)
+
   labels                  List all labels (contexts)
 
   label-add               Create a label
@@ -356,8 +488,8 @@ Commands:
 
 Priority conventions:
   P4 = Waiting/blocked
-  P3 = Workable (default)
-  P1/P2 = Unused"
+  P2 = Workable (default)
+  P1/P3 = Unused"
         exit 0
     case '*'
         echo "Unknown command: $cmd" >&2
