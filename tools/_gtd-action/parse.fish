@@ -10,6 +10,7 @@ function parse_flags
     set -g _flag_project ""
     set -g _flag_section ""
     set -g _flag_labels ""
+    set -g _flag_force false
     set -g _passthrough
 
     set i 1
@@ -47,6 +48,8 @@ function parse_flags
             case --labels -l
                 set i (math $i + 1)
                 test $i -le (count $argv); and set _flag_labels $argv[$i]
+            case --force
+                set _flag_force true
             case '*'
                 set -a _passthrough $argv[$i]
         end

@@ -74,8 +74,8 @@ Good examples (specific and physical):
 > "Does this need to happen at a specific time or by a specific date?"
 
 - **Specific time:** Add to calendar (`gtd-calendar add`)
-- **Deadline:** Add due date to task (`gtd-action add --due DATE`)
-- **No time constraint:** Add as next action (`gtd-action add`)
+- **Deadline:** Add due date to task (`gtd-action add --due DATE --label @context`)
+- **No time constraint:** Add as next action (`gtd-action add --label @context`)
 
 #### The Two-Minute Rule
 
@@ -83,6 +83,22 @@ During processing, if an action would take less than 2 minutes:
 > "This would take less than 2 minutes. Do you want to do it now?"
 
 If yes, do it and mark complete. Don't add to lists.
+
+### Step 7: Assign Context Labels
+
+Before adding the next action, fetch available context labels from Todoist:
+
+```
+gtd-action labels
+```
+
+Use the assign-context skill to guide the user to select appropriate context(s) for the action. The assign-context skill will fetch available contexts from Todoist labels and help determine which contexts apply.
+
+Add the action with the selected context:
+
+```
+gtd-action add "Action description" --label @CONTEXT
+```
 
 ## Output
 
@@ -93,7 +109,7 @@ After clarifying, the item should be routed to one of:
 3. **Someday/Maybe** - Added to Apple Notes with `#somedaymaybe`
 4. **Project** - Handed off to `convert-to-project` skill
 5. **Calendar** - Time-specific action added via `gtd-calendar`
-6. **Next Action** - Task added via `gtd-action add`
+6. **Next Action** - Task added via `gtd-action add` with context labels
 
 ## Example Session
 
@@ -119,10 +135,16 @@ After clarifying, the item should be routed to one of:
 
 **User:** "Early bird ends Friday"
 
-**Agent:** "I'll add this with a Friday due date."
+**Agent:** "I'll add this with a Friday due date. Now let me determine the appropriate context using the assign-context skill..."
 
 ```
-gtd-action add "Go to reactsummit.com and complete registration form" --due friday
+gtd-action labels
+```
+
+**Agent:** "This task requires a computer to access the website. I'll tag it as @computer."
+
+```
+gtd-action add "Go to reactsummit.com and complete registration form" --due friday --label @computer
 ```
 
 ## Tools Used

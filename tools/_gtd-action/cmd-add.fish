@@ -3,6 +3,10 @@ function gtd_action_add
         echo "Error: --text required for add command" >&2
         return 1
     end
+    if test -z "$_flag_labels"; and test $_flag_force = false
+        echo "Did you want to add any context labels? Use 'gtd-action labels' to see available contexts, or use the assign-context skill. If no labels needed, use --force" >&2
+        return 1
+    end
     if test -n "$_flag_section"; and test -z "$_flag_project"
         echo "Error: --section requires --project" >&2
         return 1

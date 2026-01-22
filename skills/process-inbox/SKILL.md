@@ -146,6 +146,35 @@ When all inboxes are at zero:
 
 Celebrate the clear inbox feeling.
 
+## Final Check
+
+Before finishing the session, check for any new items that may have arrived during processing:
+
+1. Sync Todoist:
+```fish
+todoist sync
+gtd-action inbox
+```
+
+2. Refresh email list:
+```fish
+gtd-email list
+```
+
+3. Check reminders again:
+```fish
+gtd-reminders due --plain
+gtd-reminders overdue --plain
+```
+
+4. Check filesystem inbox again:
+```fish
+ls ~/Documents/Inbox
+```
+
+If any new items appeared, process them. When truly empty:
+> "All inboxes confirmed at zero with final check. Done!"
+
 ## Skills Used
 
 - `clarify-item` - For each item
