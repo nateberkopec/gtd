@@ -120,6 +120,8 @@ ls ~/Documents/Inbox
 
 List all files, then group related ones internally (shared filename stem/prefix).
 
+**For image files:** Use `open` to display the image to the user before processing, so they can see what it contains.
+
 Run the clarify-item skill against the item.
 
 ## Processing Order

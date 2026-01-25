@@ -21,6 +21,8 @@ First, ensure you understand what the item is. If the item description is vague,
 
 > "Can you tell me more about '[ITEM]'? What is this about?"
 
+**For image files:** Use `open` to display the image to the user before proceeding, so they can see what it contains.
+
 ### Step 2: Is It Actionable?
 
 Ask yourself (or confirm with user):
