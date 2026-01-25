@@ -1,94 +1,25 @@
-#!/usr/bin/env fish
-#
-# gtd-action - Todoist CLI wrapper for GTD actions/tasks
-#
-# Commands: list/add/complete/delete/modify/projects/labels/sync/inbox/waiting
+#!/usr/bin/env ruby
 
-set script_dir (dirname (status filename))
-source $script_dir/_gtd-action/lib.fish
-source $script_dir/_gtd-action/parse.fish
-source $script_dir/_gtd-action/cmd-add.fish
-source $script_dir/_gtd-action/cmd-modify.fish
-source $script_dir/_gtd-action/cmd-projects.fish
-source $script_dir/_gtd-action/cmd-labels.fish
-source $script_dir/_gtd-action/cmd-sections.fish
-source $script_dir/_gtd-action/help.fish
+require_relative '../lib/gtd/action/cli'
 
-set cmd ""
-set rest
-for arg in $argv
-    if test -z "$cmd"; and not string match -q -- '-*' $arg
-        set cmd $arg
-    else
-        set -a rest $arg
-    end
-end
-
-parse_flags $rest
-todoist sync
-
-switch "$cmd"
-    case list l
-        set args
-        if test -n "$_flag_filter"
-            set -a args --filter "$_flag_filter"
-        end
-        todoist list $args $_passthrough
-    case add a
-        gtd_action_add
-    case complete c close
-        if test -z "$_flag_id"
-            echo "Error: --id required for complete command" >&2
-            exit 1
-        end
-        todoist close $_flag_id $_passthrough
-        task_url $_flag_id
-    case delete d
-        if test -z "$_flag_id"
-            echo "Error: --id required for delete command" >&2
-            exit 1
-        end
-        todoist delete $_flag_id $_passthrough
-        task_url $_flag_id
-    case modify m
-        gtd_action_modify
-    case projects
-        gtd_action_projects
-    case project-add project-create
-        gtd_action_project_add
-    case project-update project-rename
-        gtd_action_project_update
-    case project-delete project-remove
-        gtd_action_project_delete
-    case labels contexts
-        gtd_action_labels
-    case label-add label-create
-        gtd_action_label_add
-    case label-update label-rename
-        gtd_action_label_update
-    case label-delete label-remove
-        gtd_action_label_delete
-    case section-list
-        gtd_action_section_list
-    case section-add section-create
-        gtd_action_section_add
-    case section-move
-        gtd_action_section_move
-    case section-delete
-        gtd_action_section_delete
-    case sync s
-        todoist sync
-    case inbox
-        todoist sync
-        todoist list --filter "##Inbox"
-    case waiting
-        todoist sync
-        todoist list --filter "p4"
-    case help -h --help ''
-        gtd_action_help
-        exit 0
-    case '*'
-        echo "Unknown command: $cmd" >&2
-        echo "Run 'gtd-action help' for usage" >&2
-        exit 1
+begin
+  cli = GTD::Action::CLI.new(ARGV)
+  exit_code = cli.run
+  exit exit_code
+rescue GTD::Action::UnknownCommand => e
+  $stderr.puts "Unknown command: #{e.message}"
+  $stderr.puts "Run 'gtd-action help' for usage"
+  exit 1
+rescue GTD::Action::ApiClient::ApiError => e
+  $stderr.puts "API error: #{e.message}"
+  exit 1
+rescue ArgumentError => e
+  $stderr.puts "Error: #{e.message}"
+  exit 1
+rescue GTD::Action::Error => e
+  $stderr.puts "Error: #{e.message}"
+  exit 1
+rescue Interrupt
+  $stderr.puts "\nInterrupted"
+  exit 130
 end

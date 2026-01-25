@@ -1,0 +1,36 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    ansi (1.5.0)
+    builder (3.3.0)
+    minitest (5.27.0)
+    minitest-reporters (1.7.1)
+      ansi
+      builder
+      minitest (>= 5.0)
+      ruby-progressbar
+    rake (13.3.1)
+    ruby-progressbar (1.13.0)
+
+PLATFORMS
+  arm64-darwin-24
+  ruby
+
+DEPENDENCIES
+  minitest (~> 5.20)
+  minitest-reporters (~> 1.6)
+  rake (~> 13.0)
+
+CHECKSUMS
+  ansi (1.5.0) sha256=5408253274e33d9d27d4a98c46d2998266fd51cba58a7eb9d08f50e57ed23592
+  builder (3.3.0) sha256=497918d2f9dca528fdca4b88d84e4ef4387256d984b8154e9d5d3fe5a9c8835f
+  minitest (5.27.0) sha256=2d3b17f8a36fe7801c1adcffdbc38233b938eb0b4966e97a6739055a45fa77d5
+  minitest-reporters (1.7.1) sha256=5060413a0c95b8c32fe73e0606f3631c173a884d7900e50013e15094eb50562c
+  rake (13.3.1) sha256=8c9e89d09f66a26a01264e7e3480ec0607f0c497a861ef16063604b1b08eb19c
+  ruby-progressbar (1.13.0) sha256=80fc9c47a9b640d6834e0dc7b3c94c9df37f08cb072b7761e4a71e22cff29b33
+
+RUBY VERSION
+  ruby 4.0.1
+
+BUNDLED WITH
+  4.0.3

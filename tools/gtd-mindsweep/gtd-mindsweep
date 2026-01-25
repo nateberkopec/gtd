@@ -1,27 +1,16 @@
-#!/usr/bin/env fish
-#
-# gtd-mindsweep - Display mind sweep triggers one at a time
-#
-# Run this script and watch the triggers scroll by.
-# When something catches your attention, jot it down or speak it to capture.
+#!/usr/bin/env ruby
 
-set script_dir (dirname (status filename))
-set triggers_file "$script_dir/sweep_triggers.txt"
+$LOAD_PATH.unshift File.expand_path('../../lib', __dir__)
+require 'gtd/mindsweep/cli'
 
-if not test -f "$triggers_file"
-    echo "Error: Triggers file not found at $triggers_file" >&2
-    exit 1
+begin
+  exit_code = GTD::Mindsweep::CLI.new(ARGV).run
+  exit(exit_code || 0)
+rescue GTD::Mindsweep::MissingTriggersFile
+  script_dir = File.dirname(__FILE__)
+  warn "Error: Triggers file not found at #{File.join(script_dir, 'sweep_triggers.txt')}"
+  exit 1
+rescue GTD::Mindsweep::Error => e
+  warn "Error: #{e.message}"
+  exit 1
 end
-
-echo "=== Mind Sweep ==="
-echo "Watch the triggers scroll by. Capture anything that has your attention."
-echo
-sleep 1
-
-while read -l line
-    echo "$line"
-    sleep 0.5
-end < "$triggers_file"
-
-echo
-echo "=== Mind Sweep Complete ==="

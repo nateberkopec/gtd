@@ -89,7 +89,9 @@ Run `bin/setup` to install dependencies and generate configs (prompts for secret
 
 ## Repo Layout
 
-- `tools/`: fish wrappers for `gtd-*` tools.
+- `tools/`: Ruby CLI wrappers for `gtd-*` tools.
+- `lib/gtd/`: Ruby implementation of each tool's CLI.
+- `test/`: Unit and integration tests (minitest).
 - `bin/`: setup and maintenance scripts.
 - `skills/`: Agent Skills spec directories.
 - `docs/*`: agent-native reference, gtd notes.
@@ -100,7 +102,9 @@ Run `bin/setup` to install dependencies and generate configs (prompts for secret
 ## Contributing
 
 - Use `skills-ref validate` when you change skills.
-- The scripts in `bin/` and `tools/` are written in fish.
+- The CLI tools are written in Ruby with comprehensive test coverage.
+- Keep files under ~100 lines; split into modules as needed.
+- Run `bundle exec rake test` to run all tests.
 
 ## Design Decisions
 

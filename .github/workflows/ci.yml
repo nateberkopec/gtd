@@ -13,6 +13,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version-file: .ruby-version
+          bundler-cache: true
+
+      - name: Run Ruby tests
+        run: bundle exec rake test
+
       - name: Install fish
         run: sudo apt-get update && sudo apt-get install -y fish
 

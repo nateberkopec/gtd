@@ -1,4 +1,20 @@
-#!/usr/bin/env fish
+#!/usr/bin/env ruby
 
-set -l script_dir (dirname (status filename))
-exec "$script_dir/_gtd-reminders/gtd-reminders" $argv
+require 'shellwords'
+require_relative '../lib/gtd/reminders/cli'
+
+begin
+  cli = GTD::Reminders::CLI.new(ARGV)
+  exit_code = cli.run
+  exit exit_code
+rescue GTD::Reminders::UnknownCommand => e
+  $stderr.puts "Unknown command: #{e.message}"
+  $stderr.puts "Run 'gtd-reminders help' for usage"
+  exit 1
+rescue GTD::Reminders::Error => e
+  $stderr.puts "Error: #{e.message}"
+  exit 1
+rescue Interrupt
+  $stderr.puts "\nInterrupted"
+  exit 130
+end
