@@ -28,15 +28,11 @@ Ask:
 
 Goal: Empty your head and process all accumulated inputs.
 
-### 1.1 Collect Loose Materials
+### 1.1 Process Digital Inboxes
 
-> "First, let's gather any loose materials. Do you have any papers, sticky notes, business cards, or other physical items that need capturing?"
-
-If yes, help them capture each item to the inbox.
+Run the `process-inbox` skill to zero everything out.
 
 ### 1.2 Mind Sweep
-
-Run the mind sweep BEFORE processing inboxes (it captures items into inboxes).
 
 Tell the user:
 > "Run this in a separate terminal to trigger your mind sweep:"
@@ -47,22 +43,7 @@ The script displays triggers one at a time (every 0.5 seconds). User should capt
 When done:
 > "Mind sweep complete? Tell me what you captured, or say 'done' if you captured everything directly."
 
-### 1.3 Process Digital Inboxes
-
-Use the `process-inbox` skill to empty:
-- Todoist inbox
-- Email inbox
-- ~/Documents/Inbox
-
-```
-gtd-action inbox
-gtd-email list
-ls ~/Documents/Inbox
-```
-
-> "Let's process your digital inboxes to zero."
-
-### 1.4 Review Recent Notes
+### 1.3 Review Recent Notes
 
 > "Look through any notes you've taken this week. Anything that needs capturing or acting on?"
 
