@@ -31,8 +31,8 @@ module GTD
             --labels, -l LABELS     Label names (comma-separated)
             --force                 Skip label validation
 
-          complete                Mark task complete
-            --id, -i ID             Task ID (required)
+          complete [ID]           Mark task complete
+            --id, -i ID             Task ID (can also be provided as positional arg)
 
           delete                  Delete a task
             --id, -i ID             Task ID (required)
@@ -102,6 +102,7 @@ module GTD
         @command = nil
         @options = {}
         @passthrough = []
+        @positional_args = []
 
         parse_args(argv)
       end
@@ -207,7 +208,7 @@ module GTD
               @passthrough << arg
             end
           else
-            @passthrough << arg
+            @positional_args << arg
           end
 
           i += 1
@@ -221,10 +222,12 @@ module GTD
       end
 
       def complete_task
-        raise ArgumentError, '--id required for complete command' unless @options[:id]
+        # Use positional arg if provided, otherwise fall back to --id flag
+        task_id = @positional_args[0] || @options[:id]
+        raise ArgumentError, 'task ID required for complete command' unless task_id
 
-        result = system('todoist', 'close', @options[:id], *@passthrough)
-        puts @api.task_url(@options[:id])
+        result = system('todoist', 'close', task_id, *@passthrough)
+        puts @api.task_url(task_id)
         result ? 0 : 1
       end
 

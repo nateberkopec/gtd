@@ -63,8 +63,46 @@ class GTD::Action::CLITest < Minitest::Test
     cli = GTD::Action::CLI.new(['complete'])
     cli.stub :sync_todoist, true do
       error = assert_raises(ArgumentError) { cli.run }
-      assert_match /--id required/, error.message
+      assert_match /task ID required/, error.message
     end
+  end
+
+  def test_complete_accepts_positional_id
+    cli = GTD::Action::CLI.new(['complete', '12345'])
+
+    api_mock = Minitest::Mock.new
+    api_mock.expect :task_url, 'https://todoist.com/showTask?id=12345', ['12345']
+
+    cli.stub :sync_todoist, true do
+      cli.stub :system, true do
+        GTD::Action::ApiClient.stub :new, api_mock do
+          cli = GTD::Action::CLI.new(['complete', '12345'])
+          output = capture_io { cli.run }.first
+          assert_match /12345/, output
+        end
+      end
+    end
+
+    api_mock.verify
+  end
+
+  def test_complete_accepts_flag_id
+    cli = GTD::Action::CLI.new(['complete', '--id', '12345'])
+
+    api_mock = Minitest::Mock.new
+    api_mock.expect :task_url, 'https://todoist.com/showTask?id=12345', ['12345']
+
+    cli.stub :sync_todoist, true do
+      cli.stub :system, true do
+        GTD::Action::ApiClient.stub :new, api_mock do
+          cli = GTD::Action::CLI.new(['complete', '--id', '12345'])
+          output = capture_io { cli.run }.first
+          assert_match /12345/, output
+        end
+      end
+    end
+
+    api_mock.verify
   end
 
   def test_delete_requires_id
