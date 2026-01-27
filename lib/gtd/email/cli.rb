@@ -54,25 +54,25 @@ module GTD
       private
 
       def list_emails
-        system('himalaya', 'envelope', 'list', *@args)
+        system('himalaya', 'envelope', 'list', *@args, err: File::NULL)
         $?.success? ? 0 : 1
       end
 
       def read_email
         raise MissingArgument, 'read requires an email ID' if @args.empty?
-        system('himalaya', 'message', 'read', *@args)
+        system('himalaya', 'message', 'read', *@args, err: File::NULL)
         $?.success? ? 0 : 1
       end
 
       def archive_email
         raise MissingArgument, 'archive requires an email ID' if @args.empty?
-        system('himalaya', 'message', 'move', 'Archive', *@args)
+        system('himalaya', 'message', 'move', 'Archive', *@args, err: File::NULL)
         $?.success? ? 0 : 1
       end
 
       def delete_email
         raise MissingArgument, 'delete requires an email ID' if @args.empty?
-        system('himalaya', 'message', 'delete', *@args)
+        system('himalaya', 'message', 'delete', *@args, err: File::NULL)
         $?.success? ? 0 : 1
       end
 
@@ -80,18 +80,18 @@ module GTD
         raise MissingArgument, 'move requires ID and FOLDER' if @args.size < 2
         id = @args[0]
         folder = @args[1]
-        system('himalaya', 'message', 'move', folder, id)
+        system('himalaya', 'message', 'move', folder, id, err: File::NULL)
         $?.success? ? 0 : 1
       end
 
       def list_folders
-        system('himalaya', 'folder', 'list')
+        system('himalaya', 'folder', 'list', err: File::NULL)
         $?.success? ? 0 : 1
       end
 
       def search_emails
         raise MissingArgument, 'search requires a query' if @args.empty?
-        system('himalaya', 'envelope', 'list', '--query', @args.join(' '))
+        system('himalaya', 'envelope', 'list', '--query', @args.join(' '), err: File::NULL)
         $?.success? ? 0 : 1
       end
     end
